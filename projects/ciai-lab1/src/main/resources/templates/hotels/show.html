@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Hotels</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Hotel</h1>
+	<ul>
+	<li>
+	<p th:text="'id: ' + ${hotel.id}" />
+    <p th:text="'name: ' + ${hotel.name}" />
+    </li>
+	</ul>
+    <a href="/hotels/new">Add a new hotel</a>
+    <a href="/hotels">List all hotels</a>
+</body>
+</html>
+
