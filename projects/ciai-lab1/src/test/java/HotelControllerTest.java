@@ -1,12 +1,22 @@
 
+import hello.Application;
+import hello.Hotel;
 import hello.HotelController;
+import hello.HotelRepository;
 
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.repository.core.support.RepositoryFactorySupport;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 
 /**
@@ -16,13 +26,21 @@ import org.junit.Test;
  * @author CIAI team
  *
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
 public class HotelControllerTest {
 	
 	private MockMvc mvcApp;
-	
+
+	@Autowired
+	HotelRepository hotels;
+		
 	@Before
 	public void setUp() throws Exception {
 		mvcApp = MockMvcBuilders.standaloneSetup(new HotelController()).build();
+		hotels.save(new Hotel(1,"Estoril Sol"));
+		hotels.save(new Hotel(2,"Villa Italia"));		
 	}
 
 	@Test
@@ -38,6 +56,5 @@ public class HotelControllerTest {
 			andExpect(MockMvcResultMatchers.view().name("hotels/show")).
 			andExpect(MockMvcResultMatchers.model().attributeExists("hotel"));
 	} 
-
 }
 

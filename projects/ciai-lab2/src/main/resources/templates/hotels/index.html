@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>All Hotels</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>All Hotels</h1>
+    <table> 
+    	<tr th:each="hotel : ${hotels}">
+  	   		<td th:text="${hotel.name}"></td>
+  		</tr>
+	</table>
+	<a href="/hotels/new">Add another hotel</a>
+</body>
+</html>
+
