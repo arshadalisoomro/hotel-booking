@@ -3,11 +3,16 @@
 <head> 
     <title>Hotels</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
 </head>
 <body>
-	<h1>Hotel <span th:text="${hotel.name}" /></h1>
-    <a href="/hotels/new">Add a new hotel</a>
-    <a href="/hotels">List all hotels</a>
+	<div class="container">
+		<h1>Hotel <span th:text="${hotel.name}" /></h1>
+	
+	    <p><a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a></p>
+	    <p><a href="/hotels/new">Add a new hotel</a></p>
+    	<p><a href="/hotels">List all hotels</a></p>
+    </div>
 </body>
 </html>
 

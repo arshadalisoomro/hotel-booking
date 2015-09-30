@@ -3,15 +3,16 @@
 <head> 
     <title>Hotel List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
 </head>
 <body>
+    <div class="container">
 	<h1>Hotel List</h1>
-    <table> 
-    	<tr th:each="hotel : ${hotels}">
-  	   		<td th:text="${hotel.name}"></td>
-  		</tr>
-	</table>
+    <ul th:each="hotel : ${hotels}">
+  	   	<li> <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"/></li>
+	</ul>
 	<p>	<a href="/hotels/new">new hotel</a></p>
+	</div>
 </body>
 </html>
 
