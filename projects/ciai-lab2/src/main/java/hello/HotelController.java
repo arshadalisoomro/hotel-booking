@@ -44,7 +44,7 @@ public class HotelController {
     public String saveIt(@ModelAttribute Hotel hotel, Model model) {
     	hotels.save(hotel);
     	model.addAttribute("hotel", hotel);
-    	return "hotels/show";
+    	return "redirect:/hotels";
     }
     
     // GET  /hotels/{id} 		- the hotel with identifier {id}
@@ -65,7 +65,7 @@ public class HotelController {
     @RequestMapping(value="{id}", method=RequestMethod.POST)
     public String editSave(@PathVariable("id") long id, Hotel hotel, Model model) {
     	hotels.save(hotel);
-    	return "redirect:";
+    	return "redirect:/";
     }
 }
 

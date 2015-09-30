@@ -3,6 +3,7 @@ package hotel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.containsString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.mock.web.MockServletContext;
@@ -20,6 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
 
 import hello.Application;
 import hello.Hotel;
@@ -52,8 +55,23 @@ public class HotelControllerTest {
 	@Test
 	public void testAddHotel() throws Exception {
 		String hotelName = "new hotel 1"; 
-		mvc.perform(post("/hotels", new Hotel(1, hotelName)))
-				.andExpect(status().isOk())
-				.andExpect(view().name("hotels/show"));
+		mvc.perform(post("/hotels")
+				.param("id", Integer.toString(0))
+                .param("name", hotelName))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/hotels"));;
+				
+		// Tested below
+//		mvc.perform(get("/hotels/1"))
+//				.andExpect(view().name("hotels/show"))
+//				.andExpect(content().string(containsString(hotelName)));
+	}
+	
+	@Test
+	public void testGetOne() throws Exception {
+		String hotelName = "new hotel 1"; 
+		mvc.perform(get("/hotels/1"))
+				.andExpect(view().name("hotels/show"))
+				.andExpect(content().string(containsString(hotelName)));
 	}
 }

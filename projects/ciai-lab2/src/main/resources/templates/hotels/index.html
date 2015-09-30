@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>All Hotels</title>
+    <title>Hotel List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Showing All Hotels</h1>
+	<h1>Hotel List</h1>
     <table> 
     	<tr th:each="hotel : ${hotels}">
   	   		<td th:text="${hotel.name}"></td>
   		</tr>
 	</table>
-	<a href="/hotels/new">Add another hotel</a>
+	<p>	<a href="/hotels/new">new hotel</a></p>
 </body>
 </html>
 
