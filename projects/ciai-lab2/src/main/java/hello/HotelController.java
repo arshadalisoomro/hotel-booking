@@ -32,5 +32,46 @@ public class HotelController {
         return "hotels/index";
     }
 
-    // GET  /hotels/new			- the form to fill the data for a new hotel 
+    // GET  /hotels/new			- the form to fill the data for a new hotel
+    @RequestMapping(value="/new", method=RequestMethod.GET)
+    public String newHotel(Model model) {
+    	model.addAttribute("hotel", new Hotel());
+    	return "hotels/form";
+    }
+    
+    // POST /hotels         	- creates a new hotel
+    @RequestMapping(method=RequestMethod.POST)
+    public String saveIt(@ModelAttribute Hotel hotel, Model model) {
+    	hotels.save(hotel);
+    	model.addAttribute("hotel", hotel);
+    	return "hotels/show";
+    }
+    
+    // GET  /hotels/{id} 		- the hotel with identifier {id}
+    @RequestMapping(value="{id}", method=RequestMethod.GET) 
+    public String show(@PathVariable("id") long id, Model model) {
+    	model.addAttribute("hotel", hotels.findOne(id));
+    	return "hotels/show";
+    }
+    
+    // GET  /hotels/{id}/edit 	- the form to edit the hotel with identifier {id}
+    @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
+    public String edit(@PathVariable("id") long id, Model model) {
+    	model.addAttribute("hotel", hotels.findOne(id));
+    	return "hotels/form_edit";
+    }
+   
+    // POST /hotels/{id} 	 	- update the hotel with identifier {id}
+    @RequestMapping(value="{id}", method=RequestMethod.POST)
+    public String editSave(@PathVariable("id") long id, Hotel hotel, Model model) {
+    	hotels.save(hotel);
+    	return "redirect:";
+    }
 }
+
+
+
+
+
+
+
