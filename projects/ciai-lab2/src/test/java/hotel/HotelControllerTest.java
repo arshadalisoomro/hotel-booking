@@ -12,13 +12,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.Matchers.contains;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import hello.Application;
+import hello.Hotel;
 import hello.HotelController;
 import hello.HotelRepository;
 
@@ -45,4 +49,11 @@ public class HotelControllerTest {
 	}
 
 
+	@Test
+	public void testAddHotel() throws Exception {
+		String hotelName = "new hotel 1"; 
+		mvc.perform(post("/hotels", new Hotel(1, hotelName)))
+				.andExpect(status().isOk())
+				.andExpect(view().name("hotels/show"));
+	}
 }
