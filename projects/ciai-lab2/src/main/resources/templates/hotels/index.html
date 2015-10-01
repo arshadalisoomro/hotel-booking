@@ -9,7 +9,7 @@
     <div class="container">
 	<h1>Hotel List</h1>
     <ul th:each="hotel : ${hotels}">
-  	   	<li> <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"/></li>
+  	   	<li> <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a></li>
 	</ul>
 	<p>	<a href="/hotels/new">new hotel</a></p>
 	</div>

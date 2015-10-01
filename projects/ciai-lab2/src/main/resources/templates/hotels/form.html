@@ -8,12 +8,14 @@
 <body>
 	<div class="container">
 	<h1>Hotel Form</h1>
-    	<form action="#" th:action="@{/hotels}" th:object="${hotel}" method="post">
-    		<p>
-	    	<input type="hidden" th:field="*{id}" />
-        	Name: <input type="text" th:field="*{name}" /></p>
-    	    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-	    </form>
+		<div th:fragment="hotelform(url)">
+	    	<form  action="#" th:action="${url}" th:object="${hotel}" method="post">
+	    		<p>
+		    	<input type="hidden" th:field="*{id}" />
+	        	Name: <input type="text" th:field="*{name}" /></p>
+	    	    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+		    </form>
+	    </div>
     </div>
 </body>
 </html>

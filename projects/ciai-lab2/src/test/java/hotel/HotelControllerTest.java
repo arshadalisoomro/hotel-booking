@@ -1,5 +1,6 @@
 package hotel;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +13,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import static org.hamcrest.Matchers.contains;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,6 +37,9 @@ public class HotelControllerTest {
 	private WebApplicationContext context;
 
 	private MockMvc mvc;
+	
+	@Autowired
+	HotelRepository hotels;
 
 	@Before
 	public void setUp() {
@@ -61,10 +63,10 @@ public class HotelControllerTest {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/hotels"));;
 				
-		// Tested below
-//		mvc.perform(get("/hotels/1"))
-//				.andExpect(view().name("hotels/show"))
-//				.andExpect(content().string(containsString(hotelName)));
+		Hotel hotel = hotels.findOne(hotels.count());
+		
+		Assert.assertTrue(hotel != null);
+		Assert.assertTrue(hotel.getName().equals(hotelName));
 	}
 	
 	@Test

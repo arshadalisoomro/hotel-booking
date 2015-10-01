@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
@@ -32,11 +34,17 @@ public class HotelController {
         return "hotels/index";
     }
 
+	// GET  /hotels.json 			- the list of hotels
+    @RequestMapping(method=RequestMethod.GET, produces={"text/plain","application/json"})
+    public @ResponseBody Iterable<Hotel> indexJSON(Model model) {
+        return hotels.findAll();
+    }
+
     // GET  /hotels/new			- the form to fill the data for a new hotel
     @RequestMapping(value="/new", method=RequestMethod.GET)
     public String newHotel(Model model) {
     	model.addAttribute("hotel", new Hotel());
-    	return "hotels/form";
+    	return "hotels/create";
     }
     
     // POST /hotels         	- creates a new hotel
@@ -50,15 +58,26 @@ public class HotelController {
     // GET  /hotels/{id} 		- the hotel with identifier {id}
     @RequestMapping(value="{id}", method=RequestMethod.GET) 
     public String show(@PathVariable("id") long id, Model model) {
-    	model.addAttribute("hotel", hotels.findOne(id));
+    	Hotel hotel = hotels.findOne(id);
+    	if( hotel == null )
+    		throw new NotFoundException();
+    	model.addAttribute("hotel", hotel );
     	return "hotels/show";
+    }
+    
+    @RequestMapping(value="{id}", method=RequestMethod.GET, produces={"text/plain","application/json"})
+    public @ResponseBody Hotel showJSON(@PathVariable("id") long id, Model model) {
+    	Hotel hotel = hotels.findOne(id);
+    	if( hotel == null )
+    		throw new NotFoundException();
+    	return hotel;
     }
     
     // GET  /hotels/{id}/edit 	- the form to edit the hotel with identifier {id}
     @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
     public String edit(@PathVariable("id") long id, Model model) {
     	model.addAttribute("hotel", hotels.findOne(id));
-    	return "hotels/form_edit";
+    	return "hotels/edit";
     }
    
     // POST /hotels/{id} 	 	- update the hotel with identifier {id}
