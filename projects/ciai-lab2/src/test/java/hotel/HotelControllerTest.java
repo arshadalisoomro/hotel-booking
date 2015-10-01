@@ -74,4 +74,10 @@ public class HotelControllerTest {
 				.andExpect(view().name("hotels/show"))
 				.andExpect(content().string(containsString(hotelName)));
 	}
+	
+	@Test
+	public void testModel() throws Exception {
+		mvc.perform(get("/hotels"))
+				.andExpect(model().attributeExists("hotels"));
+	}
 }
