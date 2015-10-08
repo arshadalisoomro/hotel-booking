@@ -8,9 +8,6 @@ import java.util.*;
 
 public interface HotelRepository extends CrudRepository<Hotel, Long> {
 	
-	@Query("select * from hotel join address")
-	public List<Hotel> findAllWithAddress();
-
 	Hotel findByName(String name);
 }
 
