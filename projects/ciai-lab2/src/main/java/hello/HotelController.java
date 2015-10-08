@@ -60,7 +60,7 @@ public class HotelController {
     public String show(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
     	if( hotel == null )
-    		throw new NotFoundException();
+    		throw new HotelNotFoundException();
     	model.addAttribute("hotel", hotel );
     	return "hotels/show";
     }
@@ -69,7 +69,7 @@ public class HotelController {
     public @ResponseBody Hotel showJSON(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
     	if( hotel == null )
-    		throw new NotFoundException();
+    		throw new HotelNotFoundException();
     	return hotel;
     }
     
