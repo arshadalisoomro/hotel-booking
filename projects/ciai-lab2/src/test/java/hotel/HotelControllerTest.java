@@ -56,25 +56,26 @@ public class HotelControllerTest {
 
 	@Test
 	public void testAddHotel() throws Exception {
-		String hotelName = "new hotel 1"; 
+		String hotelName = "Salgados"; 
 		mvc.perform(post("/hotels")
 				.param("id", Integer.toString(0))
                 .param("name", hotelName))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/hotels"));;
 				
-		Hotel hotel = hotels.findOne(hotels.count());
+		Hotel hotel = hotels.findByName(hotelName);
 		
 		Assert.assertTrue(hotel != null);
-		Assert.assertTrue(hotel.getName().equals(hotelName));
 	}
 	
 	@Test
 	public void testGetOne() throws Exception {
-		String hotelName = "new hotel 1"; 
-		mvc.perform(get("/hotels/1"))
-				.andExpect(view().name("hotels/show"))
-				.andExpect(content().string(containsString(hotelName)));
+		String hotelName = "Marriot"; 
+
+		Hotel hotel = hotels.findByName(hotelName);
+		
+		mvc.perform(get("/hotels/"+hotel.getId()))
+				.andExpect(view().name("hotels/show"));
 	}
 	
 	@Test

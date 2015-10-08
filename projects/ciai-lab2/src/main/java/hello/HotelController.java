@@ -65,6 +65,7 @@ public class HotelController {
     	return "hotels/show";
     }
     
+    // GET  /hotels/{id}.json 		- the hotel with identifier {id}
     @RequestMapping(value="{id}", method=RequestMethod.GET, produces={"text/plain","application/json"})
     public @ResponseBody Hotel showJSON(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
