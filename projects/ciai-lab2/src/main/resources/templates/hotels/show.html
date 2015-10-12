@@ -10,6 +10,7 @@
 		<h1>Hotel <span th:text="${hotel.name}"></span></h1>
 		<p>Address: <span th:text="${hotel.address}"></span></p>
 		<p>Rating: <span th:text="${hotel.rating}"></span></p>
+		<p>Category: <span th:text="${hotel.category}"></span></p>
 	
 	    <p><a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a></p>
 	    <p><a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a></p>

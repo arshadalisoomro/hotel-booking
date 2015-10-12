@@ -23,11 +23,12 @@ public class Hotel {
  
     protected Hotel() {}
     
-    public Hotel(long id, String name, String address, int rating) {
+    public Hotel(long id, String name, String address, int rating, Category category) {    	
     	this.id = id;
     	this.name = name;
     	this.address = address;
     	this.rating = rating;
+    	this.category = category;    
     }
 
     public long getId() {
@@ -60,6 +61,14 @@ public class Hotel {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+    
+    public String getCategory(){
+    	return category.getName();
+    }
+    
+    public void setCategory(Category category){
+    	this.category = category;
     }
     
     @Override

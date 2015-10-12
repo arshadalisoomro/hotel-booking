@@ -9,12 +9,20 @@
 	<div class="container">
 	<h1>Hotel Form</h1>
 		<div th:fragment="hotelform(url)">
-	    	<form  action="#" th:action="${url}" th:object="${hotel}" method="post">
+	    	<form action="#" th:action="${url}" th:object="${hotel}" method="post">
 	    		<p>
-		    	<input type="hidden" th:field="*{id}" />
-	        	<p>Name: <input type="text" th:field="*{name}" /></p>
-	        	<p>Address: <input type="text" th:field="*{address}" /></p>
-	        	<p>Rating: <input type="number" th:field="*{rating}" /></p>
+			    	<input type="hidden" th:field="*{id}" />
+		        	<p>Name: <input type="text" th:field="*{name}" /></p>
+		        	<p>Address: <input type="text" th:field="*{address}" /></p>
+		        	<p>Rating: <input type="number" th:field="*{rating}" /></p>
+		        	
+	<!--          	<p>Category: <input type="text" th:field="*{category}" /></p>	
+
+ 		        	<select th:field ="*{category}">
+		        		<option th:each="c : ${categories}" th:text="${c.name}" th:value="${c.id}"></option>
+		        	</select>	      
+	-->
+	
 	        	</p>
 	    	    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 		    </form>
