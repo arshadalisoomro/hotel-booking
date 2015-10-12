@@ -32,12 +32,12 @@ public class Application implements CommandLineRunner {
     	log.info("Setting up seed data");
     	
     	hotels.deleteAll();
-    	Hotel myHotels[] = {new Hotel(0,"Marriot"), 
-    						new Hotel(1,"Intercontinental"), 
-    						new Hotel(2,"Trip"), 
-    						new Hotel(3,"Holiday Inn"), 
-    						new Hotel(4,"Tulip"), 
-    						new Hotel(5,"Hostel da Costa")};
+    	Hotel myHotels[] = {new Hotel(0,"Marriot", "Rua do Pico", 5), 
+    						new Hotel(1,"Intercontinental", "Rua do Caramulo", 5), 
+    						new Hotel(2,"Trip", "Rua do Pinheiro", 2), 
+    						new Hotel(3,"Holiday Inn", "Rua da Fonte", 4), 
+    						new Hotel(4,"Tulip", "Rua do Lousado", 1), 
+    						new Hotel(5,"Hostel da Costa", "Rua do Painel", 3)};
     	
     	for(Hotel hotel : myHotels) hotels.save(hotel);
     }
