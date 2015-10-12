@@ -87,6 +87,13 @@ public class HotelController {
     	hotels.save(hotel);
     	return "redirect:/";
     }
+    
+    // GET  /hotels/{id}/remove 	- removes the hotel with identifier {id}
+    @RequestMapping(value="{id}/remove", method=RequestMethod.GET)
+    public String remove(@PathVariable("id") long id, Model model) {
+    	hotels.delete(hotels.findOne(id));
+    	return "redirect:/";
+    }
 }
 
 

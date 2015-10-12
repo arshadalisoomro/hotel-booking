@@ -12,6 +12,7 @@
 		<p>Rating: <span th:text="${hotel.rating}"></span></p>
 	
 	    <p><a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a></p>
+	    <p><a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a></p>
 	    <p><a href="/hotels/new">Add a new hotel</a></p>
     	<p><a href="/hotels">List all hotels</a></p>
     </div>
