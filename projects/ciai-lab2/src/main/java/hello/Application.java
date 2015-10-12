@@ -26,6 +26,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     HotelRepository hotels;
     
+    @Autowired
+    CategoryRepository categories;
+    
     @Override
     public void run(String... strings) {
     	    
@@ -40,6 +43,16 @@ public class Application implements CommandLineRunner {
     						new Hotel(5,"Hostel da Costa", "Rua do Painel", 3)};
     	
     	for(Hotel hotel : myHotels) hotels.save(hotel);
+    	
+    	categories.deleteAll();
+    	Category myCategories[] = {new Category(0,"Resort"),
+    								new Category(1,"Apartment Hotel"),
+    								new Category(2,"Luxury"),
+    								new Category(3,"Bed & Breakfast"),
+    								new Category(4,"Hostel")};
+    	
+    	
+    	for(Category category : myCategories) categories.save(category);
     }
 
 }

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Hotel {
@@ -14,6 +16,10 @@ public class Hotel {
     private String name;    
     private String address;
     private int rating;
+    
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
  
     protected Hotel() {}
     
