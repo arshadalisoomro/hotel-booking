@@ -14,7 +14,7 @@
 			    	<input type="hidden" th:field="*{id}" />
 		        	<p>Name: <input type="text" th:field="*{name}" /></p>
 		        	<p>Address: <input type="text" th:field="*{address}" /></p>
-		        	<p>Rating: <input type="number" th:field="*{rating}" /></p>
+		        	<p>Rating: <input type="number" min="1" max="5" th:field="*{rating}" /></p>
 		        	
 	<!--          	<p>Category: <input type="text" th:field="*{category}" /></p>	
 

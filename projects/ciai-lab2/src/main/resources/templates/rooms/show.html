@@ -1,18 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Create new hotel</title>
+    <title>Hotels</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
 </head>
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
-		<h1>Editing Hotel <span th:text="${hotel.name}"></span></h1>
+	<div class="page-header">  		
+	</div>
 	
-		<div th:include="hotels/form :: hotelform(@{|/hotels/${hotel.id}|})"></div>
-		
-	    <p><a href="rooms/new">Add room</a></p>
+	<p>Hotel: <span th:text="${hotel.name}"></span></p>
+	<p>Floor: <span th:text="${room.floor}"></span></p>
+	<p>Number: <span th:text="${room.room_number}"></span></p>
+	<p>Type: <span th:text="${room.type.description}"></span></p>
+
     </div>
 </body>
 </html>

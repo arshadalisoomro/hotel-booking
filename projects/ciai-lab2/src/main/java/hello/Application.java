@@ -29,6 +29,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     CategoryRepository categories;
     
+    @Autowired
+    RoomTypeRepository roomTypes;
+    
     @Override
     public void run(String... strings) {
     	    
@@ -55,23 +58,46 @@ public class Application implements CommandLineRunner {
     	
     	for(Hotel hotel : myHotels) hotels.save(hotel);
     	
-    	Room [] roomArray = { new Room(1, 2, "209"),
-    						  new Room(2, 3, "310")
+    	RoomType[] typesArray = { new RoomType(1, "Single"), new RoomType(2, "Double"), new RoomType(3, "Presidential Suite") };
+    	
+    	for(RoomType type : typesArray)
+    		roomTypes.save(type);    	
+    	
+    	/* Add rooms to hotels */
+    	
+    	Room [] roomArrayIntercontinental = { new Room(1, 2, "209", roomTypes.findOne((long) 1)),
+    						  				  new Room(2, 3, "310", roomTypes.findOne((long) 3))
     	};
     	
     	Hotel intercontinental = myHotels[0];
     	
-    	for(Room room : roomArray)
+    	for(Room room : roomArrayIntercontinental)
     	{
-    		intercontinental.getRooms().add(room);
+    		intercontinental.getRooms().put(room.getId(), room);
     		log.info("Added room: " + room.getId());
     	}
     	
     	hotels.save(intercontinental);
     	
+    	
+    	Room [] roomArrayTrip = { new Room(3, 11, "1109", roomTypes.findOne((long) 1)),
+				  				  new Room(4, 5, "510", roomTypes.findOne((long) 2)),
+				  				  new Room(5, 2, "205", roomTypes.findOne((long) 2))
+		};
+		
+		Hotel trip = myHotels[2];
+		
+		for(Room room : roomArrayTrip)
+		{
+			trip.getRooms().put(room.getId(), room);
+			log.info("Added room: " + room.getId());
+		}
+		
+		hotels.save(trip);
+    	
+    	/* ----------------- */
   /*  	
-    	
-    	
+    	    	
     	RoomType [] types = { new RoomType(1, "Single")}
     	
     	for(Roomtype type:types)

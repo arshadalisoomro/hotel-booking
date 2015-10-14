@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * GET  /hotels/{id} 		- the hotel with identifier {id}
  * GET  /hotels/{id}/edit 	- the form to edit the hotel with identifier {id}
  * POST /hotels/{id} 	 	- update the hotel with identifier {id}
+ * 
+ * GET /hotels/{id}/rooms/{id_room} - the room with identifier {id_room} of hotel with identifier {id}
+ * GET /hotels/{id}/rooms/new - the form to fill the data for a new room
+ * 
  */
 
 @Controller
@@ -98,6 +102,26 @@ public class HotelController {
     public String remove(@PathVariable("id") long id, Model model) {
     	hotels.delete(hotels.findOne(id));
     	return "redirect:/";
+    }
+    
+    
+    
+    
+    // GET  /hotels/{id}/rooms/new - the form to fill the data for a new room
+    @RequestMapping(value="{id}/rooms/new", method=RequestMethod.GET)
+    public String newRoom(@PathVariable("id") long id, Model model) {
+    	model.addAttribute("hotel", hotels.findOne(id));
+    	model.addAttribute("room", new Room());
+    	return "rooms/create";
+    }
+    
+    // GET  /hotels/{id}/rooms/{id} - 
+    @RequestMapping(value="{id}/rooms/{id_room}", method=RequestMethod.GET)
+    public String showRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
+    	Hotel hotel = hotels.findOne(id);
+    	model.addAttribute("hotel", hotel);
+    	model.addAttribute("room", hotel.getRooms().get(id_room));
+    	return "rooms/show";
     }
 }
 

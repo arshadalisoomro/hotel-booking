@@ -1,7 +1,8 @@
 package hello;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Hotel {
     private Category category;
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<Room> rooms = new ArrayList<Room>();
+    private Map<Long, Room> rooms = new HashMap<Long, Room>();
  
     protected Hotel() {}
     
@@ -80,11 +81,11 @@ public class Hotel {
     	this.category = category;
     }
     
-    public Collection<Room> getRooms() {
+    public Map<Long, Room> getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(Collection<Room> rooms) {
+	public void setRooms(Map<Long, Room> rooms) {
 		this.rooms = rooms;
 	}
 

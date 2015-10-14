@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Room {
@@ -15,20 +16,16 @@ public class Room {
 	private int floor;	
 	private String room_number;	
 	
-	/* 
-	 * Falta adicionar o tipo
-	 * @onetomany(mappedby="type")
-     * private roomtype type;
-	 * 
-	 * 
-	 */
+	@ManyToOne
+	private RoomType type;
 	
 	protected Room() {}
 	
-	public Room (long id, int floor, String room_number) {
+	public Room (long id, int floor, String room_number, RoomType type) {
 		this.id = id;
 		this.floor = floor;
 		this.room_number = room_number;	
+		this.type = type;
 	}
 	
 	public long getId() {
@@ -54,7 +51,12 @@ public class Room {
 	public void setRoom_number(String room_number) {
 		this.room_number = room_number;
 	}
-	
-	
-	
+
+	public RoomType getType() {
+		return type;
+	}
+
+	public void setType(RoomType type) {
+		this.type = type;
+	}
 }
