@@ -32,7 +32,6 @@ public class HotelController {
     
     @Autowired
     CategoryRepository categories;
-    
    
 
 	// GET  /hotels 			- the list of hotels
@@ -116,7 +115,28 @@ public class HotelController {
     	return "rooms/create";
     }
     
-    // GET  /hotels/{id}/rooms/{id} - 
+    // POST /hotels/{id}/rooms/        	- creates a new room
+    @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
+    public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {    	
+    	Hotel hotel = hotels.findOne(id);
+
+    	System.out.println("--------");
+    	
+    	System.out.println(room.getType());
+    	
+    	System.out.println("--------");
+    	
+    	// Tipo martelado
+    	room.setType(new RoomType(2, ""));
+    	
+    	hotel.getRooms().put(room.getId(), room);
+    	hotels.save(hotel);
+    	model.addAttribute("hotel", hotel);
+    	model.addAttribute("room", room);
+    	return "rooms/show";
+    }
+    
+    // GET  /hotels/{id}/rooms/{id} - show a room
     @RequestMapping(value="{id}/rooms/{id_room}", method=RequestMethod.GET)
     public String showRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
     	Hotel hotel = hotels.findOne(id);
@@ -124,6 +144,16 @@ public class HotelController {
     	model.addAttribute("room", hotel.getRooms().get(id_room));
     	return "rooms/show";
     }
+    
+    // GET  /hotels/{id}/rooms/ - show the list of rooms of the hotel
+    @RequestMapping(value="{id}/rooms/", method=RequestMethod.GET)
+    public String showRooms(@PathVariable("id") long id, Model model) {
+    	Hotel hotel = hotels.findOne(id);
+    	model.addAttribute("hotel", hotel);
+    	return "rooms/hotel-rooms";
+    }
+    
+    
 }
 
 

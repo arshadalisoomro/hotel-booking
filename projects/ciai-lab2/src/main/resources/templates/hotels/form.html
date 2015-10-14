@@ -12,9 +12,9 @@
 	    	<form action="#" th:action="${url}" th:object="${hotel}" method="post">
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />
-		        	<p>Name: <input type="text" th:field="*{name}" /></p>
-		        	<p>Address: <input type="text" th:field="*{address}" /></p>
-		        	<p>Rating: <input type="number" min="1" max="5" th:field="*{rating}" /></p>
+		        	<p><label>Hotel Name</label><input class="form-control" placeholder="Name" type="text" th:field="*{name}" /></p>
+		        	<p><label>Hotel Address</label><input class="form-control" placeholder="Address" type="text" th:field="*{address}" /></p>
+		        	<p><label>Hotel Rating</label><input class="form-control" placeholder="Rating" type="number" min="1" max="5" th:field="*{rating}" /></p>
 		        	
 	<!--          	<p>Category: <input type="text" th:field="*{category}" /></p>	
 
@@ -22,9 +22,8 @@
 		        		<option th:each="c : ${categories}" th:text="${c.name}" th:value="${c.id}"></option>
 		        	</select>	      
 	-->
-	
 	        	</p>
-	    	    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
 		    </form>
 	    </div>
     </div>
