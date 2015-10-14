@@ -55,6 +55,66 @@ public class Application implements CommandLineRunner {
     	
     	for(Hotel hotel : myHotels) hotels.save(hotel);
     	
+    	Room [] roomArray = { new Room(1, 2, "209"),
+    						  new Room(2, 3, "310")
+    	};
+    	
+    	Hotel intercontinental = myHotels[0];
+    	
+    	for(Room room : roomArray)
+    	{
+    		intercontinental.getRooms().add(room);
+    		log.info("Added room: " + room.getId());
+    	}
+    	
+    	hotels.save(intercontinental);
+    	
+  /*  	
+    	
+    	
+    	RoomType [] types = { new RoomType(1, "Single")}
+    	
+    	for(Roomtype type:types)
+    		roomtypes.save(type)
+    	
+    	Room [] roomArray = { new Room (1, 12, "121", types[0])}
+    	
+    	Hotel marriot = myHotels[0];
+    	
+    	for(Room room:roomArray)
+    	{
+    		marriot.getRooms().add(room);
+    		log.info("Added room");
+    	}
+    	
+    	hotels.save(marriot);
+    	
+    	cascade=CascadeType.ALL -> operacoes feitas no hotel passam para os quartos. incluir isto na relacao onetomany
+    	@onetomany (fetch lazy e adicionar cascade)
+    	private collection<room> rooms = new arraylist<room>()
+    	
+    	
+    	no roomtype:
+    	
+    	onetomany(cascade persist)
+    	
+    	id e descricao
+    	
+    	private list<room> rooms = new array list()
+    	
+    	
+    	
+    	no room:
+    	
+    	id floor number type
+    	
+    	@onetomany(mappedby="type")
+    	private roomtype type;
+    	
+    	
+    	
+    */	
+    	
     }
 
 }

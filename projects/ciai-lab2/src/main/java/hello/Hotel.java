@@ -1,11 +1,17 @@
 package hello;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Hotel {
@@ -20,6 +26,9 @@ public class Hotel {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<Room> rooms = new ArrayList<Room>();
  
     protected Hotel() {}
     
@@ -71,7 +80,15 @@ public class Hotel {
     	this.category = category;
     }
     
-    @Override
+    public Collection<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(Collection<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	@Override
     public String toString() {
     	return "Id: " + getId() + "\nName: " + getName() + "\nAddress: " + getAddress() + "\nRating: " + getRating();
     }

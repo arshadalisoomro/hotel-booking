@@ -9,14 +9,14 @@
 	<div th:include="fragments/header"></div>
 	<div class="container">
 		<h1>Hotel <span th:text="${hotel.name}"></span></h1>
-		<p>Address: <span th:text="${hotel.address}"></span></p>
-		<p>Rating: <span th:text="${hotel.rating}"></span></p>
-		<p>Category: <span th:text="${hotel.category}"></span></p>
+		<p><span th:text="${hotel.address}"></span>, <span th:text="${hotel.rating}"></span>*, <span th:text="${hotel.category}"></span></p>
+		
+		<h4>Rooms</h4>
+		<ul th:each="room : ${hotel.rooms}">
+  	   	<li> <a th:text="${room.room_number}"></a></li>
+		</ul>
 	
-	    <p><a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a></p>
-	    <p><a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a></p>
-	    <p><a href="/hotels/new">Add a new hotel</a></p>
-    	<p><a href="/hotels">List all hotels</a></p>
+	    <p><a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a> | <a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a></p>
     </div>
 </body>
 </html>
