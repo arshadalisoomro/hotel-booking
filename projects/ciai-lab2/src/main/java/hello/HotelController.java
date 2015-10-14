@@ -105,6 +105,7 @@ public class HotelController {
     }
     
     
+    /* ROOMS */
     
     
     // GET  /hotels/{id}/rooms/new - the form to fill the data for a new room
