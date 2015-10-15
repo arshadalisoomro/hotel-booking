@@ -19,7 +19,7 @@
 	<p>Type: <span th:text="${room.type.description}"></span></p>
 	
 	<p><a th:href="@{|/hotels/${hotel.id}/rooms/|}">Back</a></p>
-	<p><a>Edit</a> | <a>Remove</a></p>
+	<p><a th:href="@{|/hotels/${hotel.id}/rooms/${room.id}/edit|}">Edit</a> | <a>Remove</a></p>
 
     </div>
 </body>

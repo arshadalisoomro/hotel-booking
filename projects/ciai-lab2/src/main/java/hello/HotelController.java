@@ -32,6 +32,12 @@ public class HotelController {
     
     @Autowired
     CategoryRepository categories;
+    
+    @Autowired
+    RoomTypeRepository roomTypes;
+    
+    @Autowired
+    RoomRepository rooms;
    
 
 	// GET  /hotels 			- the list of hotels
@@ -119,16 +125,9 @@ public class HotelController {
     @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
     public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {    	
     	Hotel hotel = hotels.findOne(id);
-
-    	System.out.println("--------");
     	
-    	System.out.println(room.getType());
-    	
-    	System.out.println("--------");
-    	
-    	// Tipo martelado
-    	room.setType(new RoomType(2, ""));
-    	
+    	room.setType(roomTypes.findOne(room.getType().getId()));
+    	rooms.save(room);
     	hotel.getRooms().put(room.getId(), room);
     	hotels.save(hotel);
     	model.addAttribute("hotel", hotel);
@@ -153,6 +152,15 @@ public class HotelController {
     	return "rooms/hotel-rooms";
     }
     
+    @RequestMapping(value="{id}/rooms/{id_room}/edit", method=RequestMethod.GET)
+    public String editRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model){
+    	
+    	Hotel hotel = hotels.findOne(id);
+    	model.addAttribute("hotel", hotel);
+    	model.addAttribute("room", hotel.getRooms().get(id_room));
+    	model.addAttribute("roomTypes", roomTypes.findAll()); 
+    	return "rooms/edit";
+    }
     
 }
 

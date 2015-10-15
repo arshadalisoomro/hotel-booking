@@ -8,9 +8,9 @@
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
-		<h1>Editing Room <span th:text="${hotel.name}"></span></h1>
+		<h1>Editing Room of Hotel:  <span th:text="${hotel.name}"></span></h1>
 	
-		<div th:include="hotels/form :: hotelform(@{|/hotels/${hotel.id}|})"></div>
+		<div th:include="rooms/form :: roomform(@{|/hotels/${hotel.id}/rooms/${room.id}/|})"></div>
 		
 	    <p><a href="">Add room</a></p>
     </div>
