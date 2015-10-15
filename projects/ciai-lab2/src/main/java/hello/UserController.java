@@ -33,7 +33,7 @@ public class UserController {
     	
     	users.delete(user);
     	model.addAttribute("users", users.findAll());
-    	return "users/index";
+    	return "redirect:/users";
     }  
     
     @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
