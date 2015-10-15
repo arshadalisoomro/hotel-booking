@@ -47,12 +47,37 @@ public class CommentController {
     	return "comments/create";
     }
     
-    // GET  /hotels/{id}/rooms/ - show the list of rooms of the hotel
     @RequestMapping(value="{id}/comments/", method=RequestMethod.GET)
-    public String showRooms(@PathVariable("id") long id, Model model) {
+    public String showComments(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
     	model.addAttribute("hotel", hotel);
     	return "comments/hotel-comments";
     }
     
+    @RequestMapping(value="{id}/comments/{id_comment}", method=RequestMethod.GET)
+    public String showComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model) {
+    	Hotel hotel = hotels.findOne(id);
+    	model.addAttribute("hotel", hotel);
+    	model.addAttribute("comment", hotel.getComments().get(id_comment));
+    	return "comments/show";
+    }
+    
+    @RequestMapping(value="{id}/comments/{id_comment}/edit", method=RequestMethod.GET)
+    public String editComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model) {
+    	
+    	Hotel hotel = hotels.findOne(id);
+    	model.addAttribute("hotel", hotel);
+    	model.addAttribute("comment", hotel.getComments().get(id_comment));
+    	return "comments/edit";
+    }
+    
+    @RequestMapping(value="{id}/comments/{id_comment}/remove", method=RequestMethod.GET)
+    public String removeRoom(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){
+    	
+    	Hotel hotel = hotels.findOne(id);
+    	hotel.getComments().remove(id_comment);
+    	comments.delete(id_comment);
+    	model.addAttribute("hotel", hotel);
+		return "redirect:/hotels/{id}/comments/";	
+    }
 }

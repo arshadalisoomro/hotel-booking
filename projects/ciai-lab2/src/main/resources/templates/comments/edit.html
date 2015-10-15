@@ -8,11 +8,10 @@
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
-		<h1>Editing Hotel <span th:text="${hotel.name}"></span></h1>
+		<h1>Editing Hotel comment <span th:text="${hotel.name}"></span></h1>
 	
-		<div th:include="hotels/form :: hotelform(@{|/hotels/${hotel.id}|})"></div>
+		<div th:include="comments/form :: commentform(@{|/hotels/${hotel.id}|})"></div>
 		
-	    <p><a href="rooms/new">Add room</a></p>
     </div>
 </body>
 </html>
