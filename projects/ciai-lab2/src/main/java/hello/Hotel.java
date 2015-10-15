@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -24,7 +23,6 @@ public class Hotel {
     private int rating;
     
     @ManyToOne
-    @JoinColumn(name = "category_id")
     private Category category;
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -72,8 +70,8 @@ public class Hotel {
         this.rating = rating;
     }
     
-    public String getCategory(){
-    	return category.getName();
+    public Category getCategory(){
+    	return category;
     }
     
     public void setCategory(Category category){
@@ -90,7 +88,7 @@ public class Hotel {
 
 	@Override
     public String toString() {
-    	return "Id: " + getId() + "\nName: " + getName() + "\nAddress: " + getAddress() + "\nRating: " + getRating();
+    	return "Id: " + getId() + "\nName: " + getName() + "\nAddress: " + getAddress() + "\nRating: " + getRating() + "\nCategory: " + category.getName() + "\n";
     }
 
 }
