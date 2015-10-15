@@ -9,13 +9,26 @@
 	<div th:include="fragments/header"></div>
 	<div class="container">
 	<div class="page-header">
-  		<h1><span th:text="${hotel.name}"></span><small> (<a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a> | <a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a>)</small> <br/> <small><span th:text="${hotel.address}"></span> · <span th:text="${hotel.rating}"></span>* · <span th:text="${hotel.category}"></span></small></h1>
+  		<h1><span th:text="${hotel.name}"></span><small> ( <a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a> | <a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a> )</small> <br/> <small><span th:text="${hotel.address}"></span> · <span th:text="${hotel.rating}"></span>* · <span th:text="${hotel.category}"></span></small></h1>
 	</div>
 	
-	<p><a th:href="@{|/hotels/${hotel.id}/rooms/|}">View room list</a></p>
-	<p><a th:href="@{|/hotels/${hotel.id}/comments/|}">View comments list</a></p>
-	<p><a th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a comment</a></p>
-
+	<div class="row">
+  		<div class="col-md-6">
+  			<p><img src="../images/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/></p>
+			<p><a th:href="@{|/hotels/${hotel.id}/rooms/|}">View room list</a></p>
+			<p><a th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a comment</a></p>
+		</div>
+  		<div class="col-md-6">  		
+  			<div class="panel panel-primary" th:each="comment : ${hotel.comments}" th:unless="${comment.key > 2}">
+				<p class="panel-heading" th:text="${comment.value.date}"></p>
+		 	   	<div class="panel-body">
+		 	   		<p th:text="${comment.value.text}"></p>
+		 	   		<p><a th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}">Remove</a></p>
+		 	   	</div> 	   	
+			</div>
+			<p><a th:href="@{|/hotels/${hotel.id}/comments/|}">View more comments</a></p>
+  		</div>
+	</div>
     </div>
 </body>
 </html>
