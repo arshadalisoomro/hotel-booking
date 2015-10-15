@@ -14,11 +14,14 @@
   		<h1><span th:text="${hotel.name}"></span> <br/> <small><span>Comments</span></small></h1>
 	</div>
     
-	<div class="panel panel-primary" th:each="comment : ${hotel.comments}">
+	<div th:class="${comment.value.status} ? 'panel panel-success' : 'panel panel-warning'" th:each="comment : ${hotel.comments}">
 		<p class="panel-heading"><b><span th:text="${comment.value.user.name}"></span></b><span class="pull-right" th:text="${comment.value.date}"></span></p>
  	   	<div class="panel-body">
- 	   		<p th:text="${comment.value.text}"></p>
- 	   		<p><a th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}">Remove</a></p>
+ 	   		<p th:text="${comment.value.text}"></p> 	   	
+ 	   		<p>
+ 	   			<span th:if="${!comment.value.status}"><a th:href="@{|/hotels/${hotel.id}/comments/${comment.value.id}/approve|}"><i class="glyphicon glyphicon-ok"></i></a> · </span>
+ 	   			<a th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>
+ 	   		</p>
  	   	</div> 	   	
 	</div>
 	

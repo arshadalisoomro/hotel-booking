@@ -14,16 +14,15 @@
 	
 	<div class="row">
   		<div class="col-md-6">
-  			<p><img src="../images/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/></p>
+  			<p><img src="../static/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/></p>
 			<p><a th:href="@{|/hotels/${hotel.id}/rooms/|}">View room list</a></p>
 			<p><a th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a comment</a></p>
 		</div>
   		<div class="col-md-6">  		
-  			<div class="panel panel-primary" th:each="comment : ${hotel.comments}" th:unless="${comment.key > 2}">
+  			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments}" th:unless="${!comment.value.status}">
 				<p class="panel-heading"><b><span th:text="${comment.value.user.name}"></span></b><span class="pull-right" th:text="${comment.value.date}"></span></p>
 		 	   	<div class="panel-body">
-		 	   		<p th:text="${comment.value.text}"></p>
-		 	   		<p><a th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}">Remove</a></p>
+		 	   		<p th:text="${comment.value.text}"></p>		 	   		
 		 	   	</div> 	   	
 			</div>
 			<p><a th:href="@{|/hotels/${hotel.id}/comments/|}">View more comments</a></p>

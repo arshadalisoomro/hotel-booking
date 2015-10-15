@@ -19,12 +19,6 @@ public class CommentController {
 	
 	@Autowired
 	CommentRepository comments;
-	
-//    @RequestMapping(value="/{id}/comments", method=RequestMethod.GET)
-//    public String newComment(@PathVariable("id") long id, Model model) {
-//    	model.addAttribute("hotel", hotels.findOne(id));
-//    	return "redirect:";
-//    }
     
     @RequestMapping(value="/{id}/comments/", method = RequestMethod.POST)
     public String createComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){
@@ -72,12 +66,21 @@ public class CommentController {
     }
     
     @RequestMapping(value="{id}/comments/{id_comment}/remove", method=RequestMethod.GET)
-    public String removeRoom(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){
+    public String removeComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){
     	
     	Hotel hotel = hotels.findOne(id);
     	hotel.getComments().remove(id_comment);
     	comments.delete(id_comment);
     	model.addAttribute("hotel", hotel);
 		return "redirect:/hotels/{id}/comments/";	
+    }
+    
+    @RequestMapping(value="{id}/comments/{id_comment}/approve", method=RequestMethod.GET)
+    public String approveComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model) {
+    	Hotel hotel = hotels.findOne(id);
+    	hotel.getComments().get(id_comment).setStatus(true);
+    	hotels.save(hotel);
+    	model.addAttribute("hotel", hotel);
+    	return "comments/hotel-comments";
     }
 }

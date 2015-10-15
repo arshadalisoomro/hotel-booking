@@ -17,17 +17,19 @@ public class Comment {
 
 	private String text;
 	private Date date;
+	private boolean status;
 	
 	@ManyToOne
 	private User user;
 
 	protected Comment() {}
 
-	public Comment(long comment_id, String text, Date date, User user) {
+	public Comment(long comment_id, String text, Date date, User user, boolean status) {
 		this.comment_id = comment_id;
 		this.text = text;
 		this.date = date;
 		this.user = user;
+		this.status = status;
 	}
 
 	public long getId() {
@@ -61,5 +63,15 @@ public class Comment {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	
 
 }
