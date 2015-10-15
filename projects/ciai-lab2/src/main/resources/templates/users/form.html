@@ -7,23 +7,18 @@
 </head>
 <body>
 	<div class="container">
-	<h1>Hotel Form</h1>
-		<div th:fragment="hotelform(url)">
-	    	<form action="#" th:action="${url}" th:object="${hotel}" method="post">
+	<h1>User Form</h1>
+		<div th:fragment="userform(url)">
+	    	<form action="#" th:action="@{|/users/${user.id}/|}" th:object="${user}" method="post">
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />
-			    	<!-- <input type="hidden" name="rooms" th:field="*{rooms}" /> -->
-		        	<p><label>Hotel Name</label><input class="form-control" placeholder="Name" type="text" th:field="*{name}" /></p>
-		        	<p><label>Hotel Address</label><input class="form-control" placeholder="Address" type="text" th:field="*{address}" /></p>
-		        	<p><label>Hotel Rating</label><input class="form-control" placeholder="Rating" type="number" min="1" max="5" th:field="*{rating}" /></p>
+		        	<p><label>Username</label><input class="form-control" placeholder="Username" type="text" th:field="*{username}" /></p>
+		        	<p><label>User Password</label><input class="form-control" placeholder="Password" type="text" th:field="*{password}" /></p>
+		        	<p><label>User email</label><input class="form-control" placeholder="Email" type="text" th:field="*{email}" /></p>
 		        	
-					<p><label>Hotel Category</label>
-					<select class="form-control" th:field ="*{category}">
-		        		<option th:each="c : ${categories}" th:text="${c.name}" th:value="${c.id}"></option>
-		        	</select>		
-		        	</p>
 	        	</p>
 	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
+	    	   
 		    </form>
 	    </div>
     </div>

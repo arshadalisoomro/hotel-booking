@@ -32,10 +32,21 @@ public class Application implements CommandLineRunner {
     @Autowired
     RoomTypeRepository roomTypes;
     
+    @Autowired
+    UserRepository users;
+    
     @Override
     public void run(String... strings) {
     	    
     	log.info("Setting up seed data");
+    	
+    	users.deleteAll();
+    	User myUsers[] = {new User(1,"João", "123456", "joao@mail.pt"),
+    						new User(2,"Manuel",  "123456", "manuel@mail.pt"),
+    						new User(3,"Rui", "123456", "rui@mail.pt"),
+    						new User(4,"Henrique", "123456", "henrique@mail.pt")};
+    	
+    	for(User user : myUsers) users.save(user);
     	
     	categories.deleteAll();
     	Category myCategories[] = {	new Category(1,"Apartment Hotel"),
@@ -94,52 +105,6 @@ public class Application implements CommandLineRunner {
 		}
 		
 		hotels.save(trip);
-    	
-    	/* ----------------- */
-  /*  	
-    	    	
-    	RoomType [] types = { new RoomType(1, "Single")}
-    	
-    	for(Roomtype type:types)
-    		roomtypes.save(type)
-    	
-    	Room [] roomArray = { new Room (1, 12, "121", types[0])}
-    	
-    	Hotel marriot = myHotels[0];
-    	
-    	for(Room room:roomArray)
-    	{
-    		marriot.getRooms().add(room);
-    		log.info("Added room");
-    	}
-    	
-    	hotels.save(marriot);
-    	
-    	cascade=CascadeType.ALL -> operacoes feitas no hotel passam para os quartos. incluir isto na relacao onetomany
-    	@onetomany (fetch lazy e adicionar cascade)
-    	private collection<room> rooms = new arraylist<room>()
-    	
-    	
-    	no roomtype:
-    	
-    	onetomany(cascade persist)
-    	
-    	id e descricao
-    	
-    	private list<room> rooms = new array list()
-    	
-    	
-    	
-    	no room:
-    	
-    	id floor number type
-    	
-    	@onetomany(mappedby="type")
-    	private roomtype type;
-    	
-    	
-    	
-    */	
     	
     }
 

@@ -10,11 +10,15 @@
 <div th:include="fragments/header"></div>
 
     <div class="container">
-	<h1>Hotel List</h1>
-    <ul th:each="hotel : ${hotels}">
-  	   	<li> <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a></li>
+	<h1>Users List</h1>
+    <ul th:each="user : ${users}">
+  	   	<li> 
+  	   		<a th:text="${user.username}" th:href="@{|/users/${user.id}|}"></a> · <span th:text="${user.password}"></span> · <span th:text="${user.email}"></span>
+  	   		<a th:text="delete" th:href="@{|/users/${user.id}/remove|}"></a>
+  	   		<a th:text="edit" th:href="@{|/users/${user.id}/edit|}"></a>
+  	   	</li>
 	</ul>
-	<p><a href="/hotels/new">New hotel</a></p>
+	<p><a href="/users/new">New user</a></p>
 	</div>
 </body>
 </html>
