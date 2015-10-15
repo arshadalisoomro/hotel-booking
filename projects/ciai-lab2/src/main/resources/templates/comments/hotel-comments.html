@@ -11,10 +11,9 @@
 
     <div class="container">
 	<div class="page-header">
-  		<h1><span th:text="${hotel.name}"></span> <br/> <small><span th:text="${hotel.address}"></span> · <span th:text="${hotel.rating}"></span>* · <span th:text="${hotel.category}"></span></small></h1>
+  		<h1><span th:text="${hotel.name}"></span> <br/> <small><span>Comments</span></small></h1>
 	</div>
     
-	<h4>Comments</h4>
 	<div class="panel panel-primary" th:each="comment : ${hotel.comments}">
 		<p class="panel-heading" th:text="${comment.value.date}"></p>
  	   	<div class="panel-body">

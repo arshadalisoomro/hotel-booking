@@ -9192,3 +9192,6 @@ org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic c
 	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:973)
 	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.doClose(EmbeddedWebApplicationContext.java:150)
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:893)
+2015-10-15 22:15:47 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "TEXT VARCHAR(255)": "'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eleifend orci et euismod tempor. Quisque elementum egestas erat,... (687)"; SQL statement:
+insert into comment (comment_id, date, text) values (null, ?, ?) [22001-188]
