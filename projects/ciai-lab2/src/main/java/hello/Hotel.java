@@ -28,6 +28,9 @@ public class Hotel {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Map<Long, Room> rooms = new HashMap<Long, Room>();
  
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Map<Long, Comment> comments = new HashMap<Long, Comment>();
+    
     protected Hotel() {}
     
     public Hotel(long id, String name, String address, int rating, Category category) {    	
@@ -84,6 +87,14 @@ public class Hotel {
 
 	public void setRooms(Map<Long, Room> rooms) {
 		this.rooms = rooms;
+	}
+	
+	public Map<Long, Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
 	}
 
 	@Override

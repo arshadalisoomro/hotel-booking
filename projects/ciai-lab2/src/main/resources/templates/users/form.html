@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
+</head>
+<body>
+	<div class="container">
+	<h1>Hotel Form</h1>
+		<div th:fragment="hotelform(url)">
+	    	<form action="#" th:action="${url}" th:object="${hotel}" method="post">
+	    		<p>
+			    	<input type="hidden" th:field="*{id}" />
+			    	<!-- <input type="hidden" name="rooms" th:field="*{rooms}" /> -->
+		        	<p><label>Hotel Name</label><input class="form-control" placeholder="Name" type="text" th:field="*{name}" /></p>
+		        	<p><label>Hotel Address</label><input class="form-control" placeholder="Address" type="text" th:field="*{address}" /></p>
+		        	<p><label>Hotel Rating</label><input class="form-control" placeholder="Rating" type="number" min="1" max="5" th:field="*{rating}" /></p>
+		        	
+					<p><label>Hotel Category</label>
+					<select class="form-control" th:field ="*{category}">
+		        		<option th:each="c : ${categories}" th:text="${c.name}" th:value="${c.id}"></option>
+		        	</select>		
+		        	</p>
+	        	</p>
+	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
+		    </form>
+	    </div>
+    </div>
+</body>
+</html>
+

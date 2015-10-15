@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Create new Comment</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
+</head>
+<body>
+	<div th:include="fragments/header"></div>
+	<div class="container">
+		<div class="page-header"><h1>Leave a Comment</h1></div>
+		<div th:include="comments/form :: commentform(@{/comments/})"></div>		
+    </div>
+</body>
+</html>
+

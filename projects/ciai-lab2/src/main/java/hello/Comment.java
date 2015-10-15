@@ -16,18 +16,14 @@ public class Comment {
 	private long comment_id;
 
 	private String text;
-	private Date comment_date;
-	
-	@ManyToOne
-	private Hotel hotel;
+	private Date date;
 
 	protected Comment() {}
 
-	public Comment(long comment_id, String text, Date comment_date, Hotel hotel) {
+	public Comment(long comment_id, String text, Date date) {
 		this.comment_id = comment_id;
 		this.text = text;
-		this.comment_date = comment_date;
-		this.hotel = hotel;
+		this.date = date;
 	}
 
 	public long getId() {
@@ -46,20 +42,12 @@ public class Comment {
 		this.text = text;
 	}
 
-	public Date getCommentDate() {
-		return comment_date;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCommentDate(Date comment_date) {
-		this.comment_date = comment_date;
-	}
-	
-	public Hotel getHotel() {
-		return hotel;
-	}
-	
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

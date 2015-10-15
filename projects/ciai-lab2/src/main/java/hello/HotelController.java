@@ -111,18 +111,5 @@ public class HotelController {
     public String remove(@PathVariable("id") long id, Model model) {
     	hotels.delete(hotels.findOne(id));
     	return "redirect:/";
-    }
-    
-    /* --------------------------------- */
-    /* ------------- ROOMS ------------- */    
-    /* --------------------------------- */
- 
-    
+    }  
 }
-
-
-
-
-
-
-
