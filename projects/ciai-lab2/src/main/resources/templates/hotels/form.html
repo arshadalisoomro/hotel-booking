@@ -12,7 +12,7 @@
 	    	<form action="#" th:action="${url}" th:object="${hotel}" method="post">
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />
-			    	<input type="hidden" th:field="${rooms}" />
+			    	<!-- <input type="hidden" name="rooms" th:field="*{rooms}" /> -->
 		        	<p><label>Hotel Name</label><input class="form-control" placeholder="Name" type="text" th:field="*{name}" /></p>
 		        	<p><label>Hotel Address</label><input class="form-control" placeholder="Address" type="text" th:field="*{address}" /></p>
 		        	<p><label>Hotel Rating</label><input class="form-control" placeholder="Rating" type="number" min="1" max="5" th:field="*{rating}" /></p>
