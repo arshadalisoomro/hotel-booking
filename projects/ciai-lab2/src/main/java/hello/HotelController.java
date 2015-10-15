@@ -121,7 +121,7 @@ public class HotelController {
     	return "rooms/create";
     }
     
-    // POST /hotels/{id}/rooms/        	- creates a new room
+    // POST /hotels/{id}/rooms/ - creates a new room
     @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
     public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {    	
     	Hotel hotel = hotels.findOne(id);
@@ -152,8 +152,9 @@ public class HotelController {
     	return "rooms/hotel-rooms";
     }
     
+    // GET /hotels/{id}/rooms/{id_room}/edit - shows the form to edit a room
     @RequestMapping(value="{id}/rooms/{id_room}/edit", method=RequestMethod.GET)
-    public String editRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model){
+    public String editRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
     	
     	Hotel hotel = hotels.findOne(id);
     	model.addAttribute("hotel", hotel);

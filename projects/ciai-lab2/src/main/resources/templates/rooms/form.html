@@ -26,7 +26,8 @@
 				</p>
 				</p>
 				<p>
-				<select class="form-control" th:field ="*{type}">
+					<label>Room type</label>
+					<select class="form-control" th:field ="*{type}">
 		        		<option th:each="rt : ${roomTypes}" th:text="${rt.description}" th:value="${rt.id}"></option>
 		        	</select>	
 				</p>

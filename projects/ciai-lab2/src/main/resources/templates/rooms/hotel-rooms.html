@@ -19,8 +19,8 @@
  	   	<li> <a th:text="${room.value.room_number + ' - ' + room.value.type.description}" th:href="@{|/hotels/${hotel.id}/rooms/${room.key}|}"></a></li>
 	</ul>
 	
-	<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>
 	<p><a th:href="@{|/hotels/${hotel.id}/rooms/new|}">Add room</a></p>
+	<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>
 	</div>
 </body>
 </html>
