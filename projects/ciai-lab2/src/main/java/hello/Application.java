@@ -43,10 +43,10 @@ public class Application implements CommandLineRunner {
 		log.info("Setting up seed data");
 
 		users.deleteAll();
-		User myUsers[] = {new User(1,"João", "123456", "joao@mail.pt"),
-				new User(2,"Manuel",  "123456", "manuel@mail.pt"),
-				new User(3,"Rui", "123456", "rui@mail.pt"),
-				new User(4,"Henrique", "123456", "henrique@mail.pt")};
+		User myUsers[] = {new User(1,"Pedro", "elcapitan", "123456", "pedro@gmail.com"),
+				new User(2,"Manuel", "manuel27", "123456", "manuel@gmail.com"),
+				new User(3,"Rui", "rui_cc", "123456", "rui@gmail.com"),
+				new User(4,"Henrique", "hcunha", "123456", "henrique@gmail.com")};
 
 		for(User user : myUsers) users.save(user);
 
@@ -71,6 +71,8 @@ public class Application implements CommandLineRunner {
 
 		for(Hotel hotel : myHotels) hotels.save(hotel);
 
+		
+		roomTypes.deleteAll();
 		RoomType[] typesArray = { new RoomType(1, "Single"), new RoomType(2, "Double"), new RoomType(3, "Presidential Suite") };
 
 		for(RoomType type : typesArray)
@@ -84,11 +86,11 @@ public class Application implements CommandLineRunner {
 
 		Comment[] commentArray = { new Comment(1, "The best thing about this hotel were the owners. They were lovely friendly people. Giovanni asked us what he"
 											+ " could cook for us. In no time we had a delicious pasta all'amatriciana and a mixed meat dish. It was very nice.",
-											new Date()),
+											new Date(), myUsers[0]),
 									new Comment(2, "Great getaway destination with a virtually private sand beach 50m from the hotel. No need for a restaurant - Fabiana (owner)"
-											+ " cooked exquisite brazilian dishes. Very calm and tranquil place.", new Date()),
+											+ " cooked exquisite brazilian dishes. Very calm and tranquil place.", new Date(), myUsers[1]),
 									new Comment(3, "The hosts are simply amazing and constantly go an extra mile in their efforts to make you feel welcome. Genuine family atmosphere!"
-											+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date())
+											+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date(), myUsers[2])
 		};
 
 		Hotel intercontinental = myHotels[0];

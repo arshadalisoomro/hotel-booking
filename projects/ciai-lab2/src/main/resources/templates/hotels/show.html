@@ -20,7 +20,7 @@
 		</div>
   		<div class="col-md-6">  		
   			<div class="panel panel-primary" th:each="comment : ${hotel.comments}" th:unless="${comment.key > 2}">
-				<p class="panel-heading" th:text="${comment.value.date}"></p>
+				<p class="panel-heading"><b><span th:text="${comment.value.user.name}"></span></b><span class="pull-right" th:text="${comment.value.date}"></span></p>
 		 	   	<div class="panel-body">
 		 	   		<p th:text="${comment.value.text}"></p>
 		 	   		<p><a th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}">Remove</a></p>

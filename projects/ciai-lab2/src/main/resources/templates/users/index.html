@@ -15,6 +15,7 @@
 		<table class="table table-striped">
 			<thead>
 			<tr>
+				<th>Name</th>
 				<th>Username</th>
 				<th>E-mail</th>
 				<th>Password</th>
@@ -22,8 +23,9 @@
 				<th></th>
 			</tr>
 			</thead>
-			<tr th:each="user : ${users}">	  	   	
-		  	   	<td><a th:text="${user.username}" th:href="@{|/users/${user.id}|}"></a></td>
+			<tr th:each="user : ${users}">
+				<td><span th:text="${user.name}"></span></td>	  	   	
+		  	   	<td><span th:text="${user.username}"></span></td>
 		  	   	<td><span th:text="${user.email}"></span></td>
 		  	   	<td><span th:text="${user.password}"></span></td>
 		  	   	<td><a th:text="Edit" th:href="@{|/users/${user.id}/edit|}"></a></td>
