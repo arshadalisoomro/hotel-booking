@@ -88,7 +88,6 @@ public class HotelController {
     	return hotel;
     }
     
-    // GET  /hotels/{id}/edit 	- the form to edit the hotel with identifier {id}
     @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
     public String edit(@PathVariable("id") long id, Model model) { 	
     	Hotel hotel = hotels.findOne(id);
@@ -117,57 +116,7 @@ public class HotelController {
     /* --------------------------------- */
     /* ------------- ROOMS ------------- */    
     /* --------------------------------- */
-    
-    // GET  /hotels/{id}/rooms/new - the form to fill the data for a new room
-    @RequestMapping(value="{id}/rooms/new", method=RequestMethod.GET)
-    public String newRoom(@PathVariable("id") long id, Model model) {
-    	model.addAttribute("hotel", hotels.findOne(id));
-    	model.addAttribute("room", new Room());
-    	model.addAttribute("roomTypes", roomTypes.findAll());
-    	return "rooms/create";
-    }
-    
-    // POST /hotels/{id}/rooms/ - creates a new room
-    @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
-    public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {    	
-    	Hotel hotel = hotels.findOne(id);
-    	
-    	room.setType(roomTypes.findOne(room.getType().getId()));
-    	rooms.save(room);
-    	hotel.getRooms().put(room.getId(), room);
-    	hotels.save(hotel);
-    	model.addAttribute("hotel", hotel);
-    	model.addAttribute("room", room);
-    	return "rooms/show";
-    }
-    
-    // GET  /hotels/{id}/rooms/{id} - show a room
-    @RequestMapping(value="{id}/rooms/{id_room}", method=RequestMethod.GET)
-    public String showRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
-    	Hotel hotel = hotels.findOne(id);
-    	model.addAttribute("hotel", hotel);
-    	model.addAttribute("room", hotel.getRooms().get(id_room));
-    	return "rooms/show";
-    }
-    
-    // GET  /hotels/{id}/rooms/ - show the list of rooms of the hotel
-    @RequestMapping(value="{id}/rooms/", method=RequestMethod.GET)
-    public String showRooms(@PathVariable("id") long id, Model model) {
-    	Hotel hotel = hotels.findOne(id);
-    	model.addAttribute("hotel", hotel);
-    	return "rooms/hotel-rooms";
-    }
-    
-    // GET /hotels/{id}/rooms/{id_room}/edit - shows the form to edit a room
-    @RequestMapping(value="{id}/rooms/{id_room}/edit", method=RequestMethod.GET)
-    public String editRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
-    	
-    	Hotel hotel = hotels.findOne(id);
-    	model.addAttribute("hotel", hotel);
-    	model.addAttribute("room", hotel.getRooms().get(id_room));
-    	model.addAttribute("roomTypes", roomTypes.findAll()); 
-    	return "rooms/edit";
-    }
+ 
     
 }
 
