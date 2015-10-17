@@ -23,18 +23,35 @@ public class UserController {
         return "users/index";
     }
     
+    // GET  /users/new			- the form to fill the data for a new user
+    @RequestMapping(value="/new", method=RequestMethod.GET)
+    public String newHotel(Model model) {
+    	model.addAttribute("user", new User());
+    	return "users/create";
+    }
+    
+    // GET  /users/{id} 		- the user with identifier {id}
+    @RequestMapping(value="{id}", method=RequestMethod.GET) 
+    public String show(@PathVariable("id") long id, Model model) {
+    	User user = users.findOne(id);
+    	if( user == null )
+    		throw new HotelNotFoundException();
+    	model.addAttribute("user", user);
+    	return "users/show";
+    }
+    
+    
     // GET  /users/{id}/remove 	- removes the user with identifier {id}
     @RequestMapping(value="{id}/remove", method=RequestMethod.GET)
     public String remove(@PathVariable("id") long id, Model model) {
-    	User user = users.findOne(id);
-    	
+    	User user = users.findOne(id);    	
     	if( user == null )
-    		throw new UserNotFoundException();
-    	
+    		throw new UserNotFoundException();    	
     	users.delete(user);
     	model.addAttribute("users", users.findAll());
-    	return "redirect:/users";
+    	return "users/index";
     }  
+    
     
     @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
     public String edit(@PathVariable("id") long id, Model model) { 	

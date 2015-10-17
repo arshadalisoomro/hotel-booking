@@ -9,11 +9,13 @@
 	<div th:include="fragments/header"></div>
 	<div class="container">
 	<div class="page-header">
-  		<h1><span th:text="${hotel.name}"></span><small> (<a th:href="@{|/hotels/${hotel.id}/edit|}">Edit</a> | <a th:href="@{|/hotels/${hotel.id}/remove|}">Remove</a>)</small> <br/> <small><span th:text="${hotel.address}"></span> · <span th:text="${hotel.rating}"></span>* · <span th:text="${hotel.category}"></span></small></h1>
+  		<h1><span th:text="${user.name}"></span> <small><span th:text="${user.username}"></span></small></h1>
 	</div>
 	
-	<p><a th:href="@{|/hotels/${hotel.id}/rooms/|}">View room list</a></p>
-	<p><a href="">Leave a comment</a></p>
+	
+	<p><label>E-mail: </label> <span th:text="${user.email}"></span></p>
+	
+	
 
     </div>
 </body>
