@@ -36,6 +36,9 @@ public class Application implements CommandLineRunner {
 
 	@Autowired
 	UserRepository users;
+	
+	@Autowired
+	BookingRepository bookings;
 
 	@Override
 	public void run(String... strings) {
@@ -106,6 +109,13 @@ public class Application implements CommandLineRunner {
 		}
 
 		hotels.save(intercontinental);    	
+		
+		Booking[] bookingsArray={new Booking(1,new Date(), new Date(), true,myUsers[1],  roomArrayIntercontinental[1]),
+								 new Booking(2,new Date(), new Date(), true,myUsers[2],  roomArrayIntercontinental[0]),
+								 new Booking(3,new Date(), new Date(), false,myUsers[2],  roomArrayIntercontinental[0])};
+		
+		for(Booking booking : bookingsArray)
+			bookings.save(booking);    	
 	}
 
 }

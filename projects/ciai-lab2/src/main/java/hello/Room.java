@@ -1,10 +1,18 @@
 package hello;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Room {
@@ -18,6 +26,12 @@ public class Room {
 	
 	@ManyToOne
 	private RoomType type;
+	
+	@ElementCollection
+	private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
+	
+	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 private Map<Long, Booking> bookings = new HashMap<Long, Booking>();
 	
 	protected Room() {}
 	
@@ -58,5 +72,13 @@ public class Room {
 
 	public void setType(RoomType type) {
 		this.type = type;
+	}
+
+	public Map<Date, Long> getDays_reserved() {
+		return days_reserved;
+	}
+
+	public void setDays_reserved(Map<Date, Long> days_reserved) {
+		this.days_reserved = days_reserved;
 	}
 }
