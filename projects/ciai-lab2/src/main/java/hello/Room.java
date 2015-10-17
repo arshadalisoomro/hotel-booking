@@ -27,6 +27,9 @@ public class Room {
 	@ManyToOne
 	private RoomType type;
 	
+	@ManyToOne
+	private Hotel hotel;
+	
 	@ElementCollection
 	private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
 	
@@ -43,11 +46,12 @@ public class Room {
 
 	protected Room() {}
 	
-	public Room (long id, int floor, String room_number, RoomType type) {
+	public Room (long id, int floor, String room_number, RoomType type, Hotel hotel) {
 		this.id = id;
 		this.floor = floor;
 		this.room_number = room_number;	
 		this.type = type;
+		this.hotel = hotel;
 	}
 	
 	public long getId() {
@@ -88,5 +92,13 @@ public class Room {
 
 	public void setDays_reserved(Map<Date, Long> days_reserved) {
 		this.days_reserved = days_reserved;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 }

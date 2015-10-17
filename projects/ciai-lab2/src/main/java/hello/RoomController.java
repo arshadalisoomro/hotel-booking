@@ -34,7 +34,6 @@ public class RoomController {
     @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
     public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {    	
     	Hotel hotel = hotels.findOne(id);
-    	
     	room.setType(roomTypes.findOne(room.getType().getId()));
     	rooms.save(room);
     	hotel.getRooms().put(room.getId(), room);

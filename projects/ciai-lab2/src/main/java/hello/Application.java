@@ -83,8 +83,8 @@ public class Application implements CommandLineRunner {
 
 		/* Add rooms to hotels */
 
-		Room [] roomArrayIntercontinental = { new Room(1, 2, "209", roomTypes.findOne((long) 1)),
-				new Room(2, 3, "310", roomTypes.findOne((long) 3))
+		Room [] roomArrayIntercontinental = { new Room(1, 2, "209", roomTypes.findOne((long) 1), myHotels[0]),
+				new Room(2, 3, "310", roomTypes.findOne((long) 3), myHotels[0])
 		};
 
 		Comment[] commentArray = { new Comment(1, "The best thing about this hotel were the owners. They were lovely friendly people. Giovanni asked us what he"
