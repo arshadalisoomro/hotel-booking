@@ -32,18 +32,11 @@
 				</tr>
 			</thead>
 			<tr th:each="room : ${rooms}">
-				<td><span th:text="${room.key.name}"></span></td>
-				<td><span th:text="${room.value.floor}"></span></td>
-				<td><span th:text="${room.value.room_number}"></span></td>
-				<td><span th:text="${room.value.type.description}"></span></td>
-				<form action="#" th:action="@{|/bookings/new/${room.value.id}/|}" th:object="${booking}" method="post">
-<!-- 					<input type="hidden" th:field="*{id}" /> -->
-					<input type="hidden" th:value="*{begin_date}" />
-<!-- 					<input type="hidden" th:field="${booking.end_date}" /> -->
-<!-- 					<input type="text" id="start" th:field="*{begin_date}"/> -->
-					<input class="btn btn-primary" type="submit" value="Submit" />
-				</form>
-<!-- 				<td><a th:text="Book" th:href="@{|/bookings/new/${room.value.id}/|}"></a></td> -->
+				<td><span th:text="${room.value.name}"></span></td>
+				<td><span th:text="${room.key.floor}"></span></td>
+				<td><span th:text="${room.key.room_number}"></span></td>
+				<td><span th:text="${room.key.type.description}"></span></td>
+<!-- 				<td><a th:text="Book" th:href="@{|/bookings/new/${room.key.id}/|}"></a></td> -->
 			</tr>
 		</table>
 		<p>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value="/bookings")
@@ -47,7 +48,8 @@ public class BookingController {
 //		System.out.println("bookRoom");
 //		System.out.println("ID: " + booking.getId());
 //		System.out.println(booking.getId());
-		System.out.println(booking.getBegin_date());
+//		System.out.println(begin_date);
+//		System.out.println(booking.getBegin_date());
 //		System.out.println(booking.getEnd_date());
 //		System.out.println(booking);
 		
@@ -85,7 +87,7 @@ public class BookingController {
     @RequestMapping(value="/search", method=RequestMethod.POST)
     public String searchRooms(@ModelAttribute Booking booking, Model model) {
     	
-    	Map<Hotel, Room> rooms_available = new HashMap<Hotel,Room>();
+    	Map<Room, Hotel> rooms_available = new HashMap<Room,Hotel>();
     	List<Date> dates = getDates(booking);
     	
     	Iterator<Hotel> ithotels = hotels.findAll().iterator();
@@ -98,23 +100,18 @@ public class BookingController {
     			Map<Date, Long> room_bookings = r.getDays_reserved();
     			boolean found = false;
     			Iterator<Date> itDates = dates.iterator();
-    			
+
     			while(itDates.hasNext()){
     				Date day = itDates.next();
     				if(room_bookings.get(day) != null){
     					found = true;
     					break;
     				}
-    			}			
+    			}	
     			if(!found)
-    				rooms_available.put(hotel, r);
+    				rooms_available.put(r, hotel);
     		}
     	}
-    	System.out.println("search");
-		System.out.println(booking.getId());
-		System.out.println(booking.getBegin_date());
-		System.out.println(booking.getEnd_date());
-		System.out.println();
     	model.addAttribute("rooms", rooms_available);
     	model.addAttribute("booking", booking);
     	return "bookings/results";
