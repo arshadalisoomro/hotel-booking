@@ -33,6 +33,14 @@ public class Room {
 	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	 private Map<Long, Booking> bookings = new HashMap<Long, Booking>();
 	
+	public Map<Long, Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(Map<Long, Booking> bookings) {
+		this.bookings = bookings;
+	}
+
 	protected Room() {}
 	
 	public Room (long id, int floor, String room_number, RoomType type) {
