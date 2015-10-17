@@ -30,6 +30,12 @@ public class UserController {
     	return "users/create";
     }
     
+    // GET /login
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String login(Model model) {
+    	return "users/sign-in";
+    }
+    
     // GET  /users/{id} 		- the user with identifier {id}
     @RequestMapping(value="{id}", method=RequestMethod.GET) 
     public String show(@PathVariable("id") long id, Model model) {
