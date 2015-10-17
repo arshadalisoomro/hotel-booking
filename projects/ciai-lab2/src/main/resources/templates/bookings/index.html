@@ -10,15 +10,33 @@
 <div th:include="fragments/header"></div>
 
     <div class="container">
-	<h1>Booking List</h1>
-    <ul th:each="booking : ${bookings}">
-  	   	<li> <a th:text="${booking.id}" th:href="@{|/booking/${booking.id}|}"></a></li>
-  	   	<li> <span th:text="${booking.begin_date}"></span></li>
-  	   	<li> <span th:text="${booking.end_date}"></span></li>
-  	   	<li> <span th:text="${booking.state}"></span></li>
-  	   	<li> <span th:text="${booking.user.name}"></span></li>
-  	   	<li> <span th:text="${booking.room.type}"></span></li>
-	</ul>
+    	<div class="page-header">
+		<h1>Booking List</h1>
+		</div>
+	
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Begin date</th>
+				<th>End date</th>
+				<th>Hotel</th>
+				<th>Type</th>
+				<th>Room Number</th>
+				<th>Status</th>			
+			</tr>
+		</thead>
+		<tr th:each="booking : ${bookings}">
+			<td><span th:text="${booking.user.name}"></span></td>
+			<td><span th:text="${booking.begin_date}"></span></td>
+  	   		<td><span th:text="${booking.end_date}"></span></td>
+  	   		<td><span th:text="${booking.room.hotel.name}"></span></td>
+  	   		<td><span th:text="${booking.room.type}"></span></td>
+  	   		<td><span th:text="${booking.room.room_number}"></span></td>
+  	   		<td><span th:text="${booking.state}"></span></td>  	   					
+		</tr>
+	</table>
+	
 	<p><a href="/bookings/new">New booking</a></p>
 	</div>
 </body>
