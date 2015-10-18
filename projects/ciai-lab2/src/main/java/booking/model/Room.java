@@ -33,7 +33,7 @@ public class Room {
 	@ElementCollection
 	private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
 	
-	 @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
 	 private Map<Long, Booking> bookings = new HashMap<Long, Booking>();
 	
 	public Map<Long, Booking> getBookings() {
