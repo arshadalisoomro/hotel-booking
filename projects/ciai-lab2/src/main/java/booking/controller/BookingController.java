@@ -156,6 +156,17 @@ public class BookingController {
     	if(booking == null)
     		throw new BookingNotFoundException();
     	
+    	Room room = booking.getRoom();
+    	
+    	Map<Date, Long> daysReserved = room.getDays_reserved();
+    	
+    	List<Date> dates = getDates(booking);
+    	
+    	for (Date d : dates)
+    		daysReserved.remove(d);
+    	
+    	room.setDays_reserved(daysReserved);
+    	
     	bookings.delete(booking);
     	return "redirect:/bookings/";
     }
