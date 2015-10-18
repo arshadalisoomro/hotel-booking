@@ -20,13 +20,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import booking.Application;
-import booking.model.Hotel;
-import booking.repository.HotelRepository;
+import booking.model.User;
+import booking.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 @WebAppConfiguration
-public class HotelControllerTest {
+public class UserControllerTest {
 	
 	@Autowired
 	private WebApplicationContext context;
@@ -34,7 +34,7 @@ public class HotelControllerTest {
 	private MockMvc mvc;
 	
 	@Autowired
-	HotelRepository hotels;
+	UserRepository users;
 
 	@Before
 	public void setUp() {
@@ -45,37 +45,40 @@ public class HotelControllerTest {
 	@Test
 	public void testIndex() throws Exception
 	{
-		mvc.perform(get("/hotels")).andExpect(status().isOk())
-				.andExpect(view().name("hotels/index"));
+		mvc.perform(get("/users")).andExpect(status().isOk())
+				.andExpect(view().name("users/index"));
 	}
 
-
 	@Test
-	public void testAddHotel() throws Exception {
-		String hotelName = "Salgados"; 
-		mvc.perform(post("/hotels")
-				.param("id", Integer.toString(0))
-                .param("name", hotelName))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/hotels"));;
-				
-		Hotel hotel = hotels.findByName(hotelName);
+	public void testAddUser() throws Exception {
 		
-		Assert.assertTrue(hotel != null);
+		String userName = "Ruben"; 
+		mvc.perform(post("/users")
+				.param("id", Integer.toString(0))
+                .param("name", userName)
+                .param("email", "a@a.pt")
+                .param("username", "rb")
+                .param("password", "abcabc"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/users"));;
+				
+		User u = users.findByName(userName);
+		
+		Assert.assertTrue(u != null);
 	}
 	
 	@Test
 	public void testGetOne() throws Exception
 	{
-		String hotelName = "Marriott"; 
-		Hotel hotel = hotels.findByName(hotelName);
-		mvc.perform(get("/hotels/"+hotel.getId()))
-				.andExpect(view().name("hotels/show"));
+		String userName = "Pedro"; 
+		User u = users.findByName(userName);
+		mvc.perform(get("/users/"+ u.getId()))
+				.andExpect(view().name("users/show"));
 	}
 	
 	@Test
 	public void testModel() throws Exception {
-		mvc.perform(get("/hotels"))
-				.andExpect(model().attributeExists("hotels"));
+		mvc.perform(get("/users"))
+				.andExpect(model().attributeExists("users"));
 	}
 }

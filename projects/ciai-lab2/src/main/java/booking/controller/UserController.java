@@ -18,8 +18,7 @@ import booking.util.UserNotFoundException;
 public class UserController {
 
 	@Autowired
-	UserRepository users;
-	
+	UserRepository users;	
 	
 	// GET  /users 			- the list of users
     @RequestMapping(method=RequestMethod.GET)
@@ -35,6 +34,15 @@ public class UserController {
     	return "users/create";
     }
     
+    // POST /users         	- creates a new hotel
+    @RequestMapping(method=RequestMethod.POST)
+    public String saveIt(@ModelAttribute User user, Model model)
+    {
+    	users.save(user);
+    	model.addAttribute("user", user);
+    	return "redirect:/users";
+    }
+    
     // GET /login
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public String login(Model model) {
@@ -47,9 +55,7 @@ public class UserController {
     	User user = users.findOne(id);
     	if( user == null )
     		throw new HotelNotFoundException();
-    	model.addAttribute("user", user);
-    	
-    	
+    	model.addAttribute("user", user);    	    	
     	return "users/show";
     }
     
@@ -65,7 +71,7 @@ public class UserController {
     	return "users/index";
     }  
     
-    
+    // GET /users/{id}/edit - form to edit user
     @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
     public String edit(@PathVariable("id") long id, Model model) { 	
     	User user = users.findOne(id);
@@ -75,7 +81,8 @@ public class UserController {
     
     // POST /users/{id}        	- edit a user
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
-    public String edit(@PathVariable("id") long id, @ModelAttribute User user, Model model) {
+    public String edit(@PathVariable("id") long id, @ModelAttribute User user, Model model)
+    {
     	users.save(user);
     	model.addAttribute("user", user);
     	return "redirect:/users/";

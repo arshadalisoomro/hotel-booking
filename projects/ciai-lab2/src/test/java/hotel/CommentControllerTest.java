@@ -1,3 +1,4 @@
+
 package hotel;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,13 +21,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import booking.Application;
+import booking.model.Comment;
 import booking.model.Hotel;
+import booking.model.User;
+import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
+import booking.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 @WebAppConfiguration
-public class HotelControllerTest {
+public class CommentControllerTest {
 	
 	@Autowired
 	private WebApplicationContext context;
@@ -35,47 +40,61 @@ public class HotelControllerTest {
 	
 	@Autowired
 	HotelRepository hotels;
+	
+	@Autowired
+	UserRepository users;
+	
+	@Autowired
+	CommentRepository comments;
 
 	@Before
 	public void setUp() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 	}
-	
-	
+		
 	@Test
 	public void testIndex() throws Exception
 	{
-		mvc.perform(get("/hotels")).andExpect(status().isOk())
-				.andExpect(view().name("hotels/index"));
-	}
-
-
-	@Test
-	public void testAddHotel() throws Exception {
-		String hotelName = "Salgados"; 
-		mvc.perform(post("/hotels")
-				.param("id", Integer.toString(0))
-                .param("name", hotelName))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/hotels"));;
-				
+		String hotelName = "Intercontinental"; 
 		Hotel hotel = hotels.findByName(hotelName);
-		
-		Assert.assertTrue(hotel != null);
+		mvc.perform(get("/hotels/" + hotel.getId() + "/comments/")).andExpect(status().isOk())
+				.andExpect(view().name("comments/hotel-comments"));
 	}
 	
 	@Test
 	public void testGetOne() throws Exception
 	{
-		String hotelName = "Marriott"; 
+		String hotelName = "Intercontinental"; 
 		Hotel hotel = hotels.findByName(hotelName);
-		mvc.perform(get("/hotels/"+hotel.getId()))
-				.andExpect(view().name("hotels/show"));
+		mvc.perform(get("/hotels/"+ hotel.getId() + "/comments/1"))
+				.andExpect(view().name("comments/show"));
 	}
 	
 	@Test
-	public void testModel() throws Exception {
-		mvc.perform(get("/hotels"))
-				.andExpect(model().attributeExists("hotels"));
+	public void testModel() throws Exception
+	{
+		String hotelName = "Intercontinental"; 
+		Hotel hotel = hotels.findByName(hotelName);
+		mvc.perform(get("/hotels/" + hotel.getId() + "/comments/")).andExpect(status().isOk())
+				.andExpect(model().attributeExists("hotel"));
 	}
+	
+//	@Test
+//	public void testAddComment() throws Exception
+//	{
+//		String hotelName = "Intercontinental";
+//		Hotel hotel = hotels.findByName(hotelName);
+//		
+//		String userName = "Pedro";
+//		User u = users.findByName(userName);
+//				
+//		mvc.perform(post("/hotels/" + hotel.getId() + "/comments/")
+//				.param("id", Integer.toString(0))
+//                .param("text", "Comentario"))
+//				.andExpect(status().is3xxRedirection())
+//				.andExpect(redirectedUrl("/hotels/" + hotel.getId()));;
+//				
+//		Comment c = comments.findOne((long) 0);		
+//		Assert.assertTrue(c != null);
+//	}
 }

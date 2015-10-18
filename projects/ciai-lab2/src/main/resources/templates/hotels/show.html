@@ -3,7 +3,22 @@
 <head> 
     <title>Hotels</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
+    
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    
+    <link rel="stylesheet" type="text/css" href="../css/general.css"/>    
+    <script src="../js/jquery.js"></script>    
+    <script src="../js/app.js"></script>
+    <script src="../js/sss.js"></script>
+	<link rel="stylesheet" href="../css/sss.css" type="text/css" media="all"/>
+	
+	<script>
+		jQuery(function($)
+		{
+			$('.slider').sss({showNav : true});
+		});
+	</script>
+        
 </head>
 <body>
 	<div th:include="fragments/header"></div>
@@ -27,11 +42,16 @@
 	
 	<div class="row">
   		<div class="col-md-6">
-  			<p><img src="../static/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/></p>
+			<div class="slider">  		
+  			<img src="../static/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
+  			<img src="../static/intercontinental2.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
+  			<img src="../static/intercontinental3.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
+  			</div>
+  			<p></p>
 			<p><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a></p>			
 		</div>
   		<div class="col-md-6">  		
-  			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments}" th:unless="${!comment.value.status}">
+  			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments.?[value.status]}" th:unless="${iterStat.count > 2}">
 				<p class="panel-heading">
 					<span><i class="glyphicon glyphicon-comment"></i></span>
 					<b><span th:text="${comment.value.user.name}"></span></b>
