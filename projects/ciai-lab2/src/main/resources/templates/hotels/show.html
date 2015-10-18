@@ -31,7 +31,7 @@
 			<p><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a></p>			
 		</div>
   		<div class="col-md-6">  		
-  			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments}" th:unless="${!comment.value.status}">
+  			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments.?[value.status]}" th:unless="${iterStat.count > 2}">
 				<p class="panel-heading">
 					<span><i class="glyphicon glyphicon-comment"></i></span>
 					<b><span th:text="${comment.value.user.name}"></span></b>
