@@ -1,4 +1,4 @@
-package hello;
+package booking.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +17,7 @@ public class User {
 	private String password;
 	private String email;
 	
-	protected User() {}
+	public User() {}
 	
 	public User(long id, String name, String username, String password, String email) {
 		this.name = name;

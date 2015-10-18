@@ -1,4 +1,4 @@
-package hello;
+package booking.model;
 
 import java.util.Date;
 
@@ -22,7 +22,7 @@ public class Comment {
 	@ManyToOne
 	private User user;
 
-	protected Comment() {}
+	public Comment() {}
 
 	public Comment(long comment_id, String text, Date date, User user, boolean status) {
 		this.comment_id = comment_id;

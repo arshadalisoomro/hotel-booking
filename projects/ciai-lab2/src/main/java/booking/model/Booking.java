@@ -1,4 +1,4 @@
-package hello;
+package booking.model;
 
 import java.util.Date;
 
@@ -24,7 +24,7 @@ public class Booking {
 	@ManyToOne
 	private Room room;
 	
-	protected Booking(){}
+	public Booking(){}
 	
 	public Booking(long id, Date begin_date, Date end_date, boolean state, User user, Room room){
 		this.id = id;

@@ -1,4 +1,4 @@
-package hello;
+package booking.controller;
 
 import java.util.Date;
 
@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import booking.model.Comment;
+import booking.model.Hotel;
+import booking.repository.CommentRepository;
+import booking.repository.HotelRepository;
 
 @Controller
 @RequestMapping(value="/hotels")

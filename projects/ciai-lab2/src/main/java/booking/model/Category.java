@@ -1,4 +1,4 @@
-package hello;
+package booking.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ public class Category {
 	
 	private String name;
 	
-	protected Category(){}
+	public Category(){}
 	
 	public Category(long id, String name){
 		this.category_id = id;

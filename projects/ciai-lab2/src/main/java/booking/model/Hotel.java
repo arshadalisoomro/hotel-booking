@@ -1,4 +1,4 @@
-package hello;
+package booking.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class Hotel {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
     
-    protected Hotel() {}
+    public Hotel() {}
     
     public Hotel(long id, String name, String address, int rating, Category category) {    	
     	this.id = id;

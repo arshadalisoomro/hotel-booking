@@ -1,4 +1,5 @@
-package hello;
+package booking;
+
 
 import java.util.Date;
 
@@ -8,6 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import booking.model.Booking;
+import booking.model.Category;
+import booking.model.Comment;
+import booking.model.Hotel;
+import booking.model.Room;
+import booking.model.RoomType;
+import booking.model.User;
+import booking.repository.BookingRepository;
+import booking.repository.CategoryRepository;
+import booking.repository.HotelRepository;
+import booking.repository.RoomTypeRepository;
+import booking.repository.UserRepository;
 
 
 @SpringBootApplication

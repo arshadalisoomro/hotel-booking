@@ -1,4 +1,4 @@
-package hello;
+package booking.model;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -44,7 +44,7 @@ public class Room {
 		this.bookings = bookings;
 	}
 
-	protected Room() {}
+	public Room() {}
 	
 	public Room (long id, int floor, String room_number, RoomType type, Hotel hotel) {
 		this.id = id;
