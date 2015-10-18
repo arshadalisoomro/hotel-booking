@@ -15,14 +15,12 @@
 				th:object="${room}" method="post">
 				<p>
 					<input type="hidden" th:field="*{id}" />
-				<p>
 					<label>Floor</label><input min="1" class="form-control" placeholder="Floor"
 						type="number" th:field="*{floor}" />
 				</p>
 				<p>
 					<label>Room number</label><input class="form-control"
 						placeholder="Room Number" type="text" th:field="*{room_number}" />
-				</p>
 				</p>
 				<p>
 					<label>Room type</label>

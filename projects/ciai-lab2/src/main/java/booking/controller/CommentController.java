@@ -32,17 +32,12 @@ public class CommentController {
     
     @RequestMapping(value="/{id}/comments/", method = RequestMethod.POST)
     public String createComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){
+    	
     	Hotel hotel = hotels.findOne(id);
     	Date date = new Date();
     	comment.setDate(date);
+    	comment.setHotel(hotel);
     	comments.save(comment);    	
-    	hotel.getComments().put(comment.getId(), comment);
-    	hotels.save(hotel);
-    	
-    	User u = users.findOne(comment.getUser().getId());
-    	u.getComments().put(comment.getId(), comment);
-    	users.save(u);
-    	
     	model.addAttribute("hotel", hotel);    	
     	return "redirect:/hotels/{id}";
     }
@@ -83,7 +78,6 @@ public class CommentController {
     public String removeComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){
     	
     	Hotel hotel = hotels.findOne(id);
-    	hotel.getComments().remove(id_comment);
     	comments.delete(id_comment);
     	model.addAttribute("hotel", hotel);
 		return "redirect:/hotels/{id}/comments/";	

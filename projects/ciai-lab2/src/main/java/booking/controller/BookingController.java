@@ -57,22 +57,20 @@ public class BookingController {
 	@RequestMapping(value="/new/{room_id}", method=RequestMethod.GET)
 	public String bookRoom(Model model, @PathVariable("room_id") long room_id, @ModelAttribute("booking") Booking booking){
 		
-		User user = users.findOne((long) 1);
+		User user = users.findOne((long) 2);
 		
 		if(user == null)
 			throw new UserNotFoundException();
-		
+		System.out.println(user.getName());
 		booking.setUser(user);
 		
 		Room room = rooms.findOne(room_id);
+		
 		if(room == null)
 			throw new RoomNotFoundException();
 		
+		System.out.println(room.getRoom_number());
 		booking.setRoom(room);
-		
-		Map<Long, Booking> booking_map = room.getBookings();
-		booking_map.put(booking.getId(), booking);
-		room.setBookings(booking_map);
 		
 		Map<Date, Long> days_reserved = room.getDays_reserved();
 		
@@ -80,9 +78,7 @@ public class BookingController {
 		
 		for(Date date: dates_list)
 			days_reserved.put(date, booking.getId());
-		
-		room.setDays_reserved(days_reserved);
-		
+				
 		bookings.save(booking);
 		
 		model.addAttribute("bookings", bookings.findAll());
@@ -173,13 +169,8 @@ public class BookingController {
     		daysReserved.remove(d);
     	
     	room.setDays_reserved(daysReserved);
-    	Map<Long, Booking> bookings_room = room.getBookings();
-    	bookings_room.remove(booking.getId());
-    	room.setBookings(bookings_room);
     	
-    	System.out.println(bookings.count());
     	bookings.delete(booking);
-    	System.out.println(bookings.count());
     	return "redirect:/bookings/";
     }
 	

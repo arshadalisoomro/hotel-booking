@@ -10,7 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Hotel {
@@ -26,10 +30,12 @@ public class Hotel {
     @ManyToOne
     private Category category;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
+    @MapKeyColumn(name="id")
     private Map<Long, Room> rooms = new HashMap<Long, Room>();
  
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
+    @MapKeyColumn(name="comment_id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
     
     public Hotel() {}
@@ -39,7 +45,7 @@ public class Hotel {
     	this.name = name;
     	this.address = address;
     	this.rating = rating;
-    	this.category = category;    
+    	this.category = category;
     }
 
     public long getId() {

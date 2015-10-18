@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
@@ -26,8 +27,8 @@ public class User {
 	private String password;
 	private String email;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="user", orphanRemoval = true)
+	@MapKeyColumn(name="comment_id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
 	
 	public User() {}

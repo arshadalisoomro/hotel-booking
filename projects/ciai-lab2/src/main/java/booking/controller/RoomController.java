@@ -30,24 +30,21 @@ public class RoomController {
     // GET  /hotels/{id}/rooms/new - the form to fill the data for a new room
     @RequestMapping(value="{id}/rooms/new", method=RequestMethod.GET)
     public String newRoom(@PathVariable("id") long id, Model model) {
+    	Room r = new Room();
+    	
     	model.addAttribute("hotel", hotels.findOne(id));
-    	model.addAttribute("room", new Room());
+    	model.addAttribute("room", r);
     	model.addAttribute("roomTypes", roomTypes.findAll());
     	return "rooms/create";
     }
     
     // POST /hotels/{id}/rooms/ - creates a new room
     @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
-    public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {      	
-    	Hotel hotel = hotels.findOne(id);
-    	room.setType(roomTypes.findOne(room.getType().getId()));
+    public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {  
+    	Hotel hotel = hotels.findOne(id);    	
     	room.setHotel(hotel);    	
     	rooms.save(room);
-    	hotel.getRooms().put(room.getId(), room);    	
-    	hotels.save(hotel);    	
-    	model.addAttribute("hotel", hotel);
-    	model.addAttribute("room", room);
-    	return "rooms/hotel-rooms";
+    	return "redirect:/hotels/"+id+"/rooms/";
     }
     
     // GET  /hotels/{id}/rooms/{id} - show a room
@@ -82,7 +79,7 @@ public class RoomController {
     public String removeRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model){
     	
     	Hotel hotel = hotels.findOne(id);
-    	hotel.getRooms().remove(id_room);
+
     	rooms.delete(id_room);
     	model.addAttribute("hotel", hotel);
 		return "redirect:/hotels/{id}/rooms/";	

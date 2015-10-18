@@ -10,23 +10,23 @@ public class Category {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private long category_id;
+	private long id;
 	
 	private String name;
 	
 	public Category(){}
 	
 	public Category(long id, String name){
-		this.category_id = id;
+		this.id = id;
 		this.name = name;	
 	}
 
 	public long getId(){
-		return category_id;
+		return id;
 	}
 	
 	public void setId(long id){
-		this.category_id = id;
+		this.id = id;
 	}
 	
 	public void setName(String name){

@@ -19,7 +19,9 @@ import booking.model.RoomType;
 import booking.model.User;
 import booking.repository.BookingRepository;
 import booking.repository.CategoryRepository;
+import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
+import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
 
@@ -53,89 +55,100 @@ public class Application implements CommandLineRunner {
 	
 	@Autowired
 	BookingRepository bookings;
+	
+	@Autowired
+	CommentRepository comments;
+	
+	@Autowired
+	RoomRepository rooms;
 
 	@Override
 	public void run(String... strings) {
 
-		log.info("Setting up seed data");
-
-		users.deleteAll();
-		User myUsers[] = {new User(1,"Pedro", "elcapitan", "123456", "pedro@gmail.com"),
-				new User(2,"Manuel", "manuel27", "123456", "manuel@gmail.com"),
-				new User(3,"Rui", "rui_cc", "123456", "rui@gmail.com"),
-				new User(4,"Henrique", "hcunha", "123456", "henrique@gmail.com")};
-
-		for(User user : myUsers) users.save(user);
-
-		categories.deleteAll();
-		Category myCategories[] = {	new Category(1,"Apartment Hotel"),
-				new Category(2,"Luxury"),
-				new Category(3,"Bed & Breakfast"),
-				new Category(4,"Hostel"),
-				new Category(5,"Resort")};
-
-
-		for(Category category : myCategories) categories.save(category);
-
-		hotels.deleteAll();
-		Hotel myHotels[] = {
-				new Hotel(1,"Intercontinental", "Rua Castilho 149, Lisbon", 5, myCategories[1]), 
-				new Hotel(2,"Tryp", "Av. D. Joao II, Lisboa", 4, myCategories[1]), 
-				new Hotel(3,"Holiday Inn", "Av. Antonio José Almeida 28-A, Lisbon", 2, myCategories[2]), 
-				new Hotel(4,"Altis Suites", "Rua Castilho 13, Lisbon", 4, myCategories[4]), 
-				new Hotel(5,"Hostel 4U", "Rua da Madalena 96, Lisbon", 3, myCategories[3]),
-				new Hotel(6,"Marriott", "Avenida dos Combatentes, Lisbon", 5, myCategories[0])};
-
-		for(Hotel hotel : myHotels) hotels.save(hotel);
-
-
-		roomTypes.deleteAll();
-		RoomType[] typesArray = { new RoomType(1, "Single"), new RoomType(2, "Double"), new RoomType(3, "Presidential Suite") };
-
-		for(RoomType type : typesArray)
-			roomTypes.save(type);    	
-
-		/* Add rooms to hotels */
-
-		Room [] roomArrayIntercontinental = { new Room(1, 2, "209", roomTypes.findOne((long) 1), myHotels[0]),
-				new Room(2, 3, "310", roomTypes.findOne((long) 3), myHotels[0])
-		};
-
-		Comment[] commentArray = { new Comment(1, "The best thing about this hotel were the owners. They were lovely friendly people. Giovanni asked us what he"
-				+ " could cook for us. In no time we had a delicious pasta all'amatriciana and a mixed meat dish. It was very nice.",
-				new Date(), myUsers[0], true, myHotels[0]),
-				new Comment(2, "Great getaway destination with a virtually private sand beach 50m from the hotel. No need for a restaurant - Fabiana (owner)"
-						+ " cooked exquisite brazilian dishes. Very calm and tranquil place.", new Date(), myUsers[1], false, myHotels[0]),
-				new Comment(3, "The hosts are simply amazing and constantly go an extra mile in their efforts to make you feel welcome. Genuine family atmosphere!"
-						+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date(), myUsers[2], true, myHotels[0])
-		};
-		
-		myUsers[0].getComments().put(commentArray[0].getId(), commentArray[0]);		
-		myUsers[1].getComments().put(commentArray[0].getId(), commentArray[1]);
-		myUsers[2].getComments().put(commentArray[0].getId(), commentArray[2]);
-		
-		users.save(myUsers[0]);
-		users.save(myUsers[1]);
-		users.save(myUsers[2]);
-
-		Hotel intercontinental = myHotels[0];
-
-		for(Room room : roomArrayIntercontinental)
-		{
-			intercontinental.getRooms().put(room.getId(), room);
-		}
-
-		for(Comment comment : commentArray)
-		{
-			intercontinental.getComments().put(comment.getId(), comment);    	
-		}
-
-		hotels.save(intercontinental);    	
-		
-		Booking[] bookingsArray={new Booking(1,new Date(), new Date(), true,myUsers[1],  roomArrayIntercontinental[1])};
-		
-		for(Booking booking : bookingsArray)
-			bookings.save(booking);    	
+//		log.info("Setting up seed data");
+//
+//		users.deleteAll();
+//		User myUsers[] = {new User(1,"Pedro", "elcapitan", "123456", "pedro@gmail.com"),
+//				new User(2,"Manuel", "manuel27", "123456", "manuel@gmail.com"),
+//				new User(3,"Rui", "rui_cc", "123456", "rui@gmail.com"),
+//				new User(4,"Henrique", "hcunha", "123456", "henrique@gmail.com")};
+////
+//		for(User user : myUsers) users.save(user);
+////
+//		categories.deleteAll();
+//		Category myCategories[] = {	new Category(1,"Apartment Hotel"),
+//				new Category(2,"Luxury"),
+//				new Category(3,"Bed & Breakfast"),
+//				new Category(4,"Hostel"),
+//				new Category(5,"Resort")};
+//
+//
+//		for(Category category : myCategories) categories.save(category);
+////
+//		hotels.deleteAll();
+//		Hotel myHotels[] = {
+//				new Hotel(1,"Intercontinental", "Rua Castilho 149, Lisbon", 5, myCategories[1]), 
+//				new Hotel(2,"Tryp", "Av. D. Joao II, Lisboa", 4, myCategories[1]), 
+//				new Hotel(3,"Holiday Inn", "Av. Antonio José Almeida 28-A, Lisbon", 2, myCategories[2]), 
+//				new Hotel(4,"Altis Suites", "Rua Castilho 13, Lisbon", 4, myCategories[4]), 
+//				new Hotel(5,"Hostel 4U", "Rua da Madalena 96, Lisbon", 3, myCategories[3]),
+//				new Hotel(6,"Marriott", "Avenida dos Combatentes, Lisbon", 5, myCategories[0])};
+//
+//		for(Hotel hotel : myHotels) hotels.save(hotel);
+////		
+//		roomTypes.deleteAll();
+//		RoomType[] typesArray = { new RoomType(1, "Single"), new RoomType(2, "Double"), new RoomType(3, "Presidential Suite") };
+//
+//		for(RoomType type : typesArray)
+//			roomTypes.save(type);  	
+////
+////		/* Add rooms to hotels */
+////
+//		Room [] roomArrayIntercontinental = { new Room(1, 2, "209", roomTypes.findOne((long) 1), myHotels[0]),
+//				new Room(2, 3, "310", roomTypes.findOne((long) 3), myHotels[0])
+//		};
+//		
+//		for (Room r : roomArrayIntercontinental)
+//			rooms.save(r);
+//		
+////		
+////		
+////		Comment[] commentArray = { new Comment(1, "The best thing about this hotel were the owners. They were lovely friendly people. Giovanni asked us what he"
+////				+ " could cook for us. In no time we had a delicious pasta all'amatriciana and a mixed meat dish. It was very nice.",
+////				new Date(), myUsers[0], true, myHotels[0]),
+////				new Comment(2, "Great getaway destination with a virtually private sand beach 50m from the hotel. No need for a restaurant - Fabiana (owner)"
+////						+ " cooked exquisite brazilian dishes. Very calm and tranquil place.", new Date(), myUsers[1], false, myHotels[0]),
+////				new Comment(3, "The hosts are simply amazing and constantly go an extra mile in their efforts to make you feel welcome. Genuine family atmosphere!"
+////						+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date(), myUsers[2], true, myHotels[0])
+////		};
+////		
+//////		for (Comment c : commentArray)
+//////			comments.save(c);
+//////		myUsers[0].getComments().put(commentArray[0].getId(), commentArray[0]);		
+//////		myUsers[1].getComments().put(commentArray[1].getId(), commentArray[1]);
+//////		myUsers[2].getComments().put(commentArray[2].getId(), commentArray[2]);
+//////		users.save(myUsers[0]);
+//////		users.save(myUsers[1]);
+//////		users.save(myUsers[2]);
+////		
+//		Hotel intercontinental = myHotels[0];
+//		log.info("Adding rooms");
+////		for(Room room : roomArrayIntercontinental)
+////		{
+////			intercontinental.getRooms().put(room.getId(), room);
+////		}
+//		
+//////
+//////		for(Comment comment : commentArray)
+//////		{
+//////			intercontinental.getComments().put(comment.getId(), comment);    	
+//////		}
+////		hotels.save(intercontinental);    	
+////		
+////		Booking[] bookingsArray={new Booking(1,new Date(), new Date(), true,myUsers[1],  roomArrayIntercontinental[1])};
+////		
+////		for(Booking booking : bookingsArray)
+////			bookings.save(booking);    	
 	}
 
 }
