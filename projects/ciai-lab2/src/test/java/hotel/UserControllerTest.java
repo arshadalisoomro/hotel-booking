@@ -54,13 +54,13 @@ public class UserControllerTest {
 		
 		String userName = "Ruben"; 
 		mvc.perform(post("/users")
-				.param("id", Integer.toString(10))
+				.param("id", Integer.toString(0))
                 .param("name", userName)
                 .param("email", "a@a.pt")
                 .param("username", "rb")
                 .param("password", "abcabc"))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/users/"));;
+				.andExpect(redirectedUrl("/users"));;
 				
 		User u = users.findByName(userName);
 		
