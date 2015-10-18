@@ -15,8 +15,15 @@
 	
 	<p><label>E-mail: </label> <span th:text="${user.email}"></span></p>
 	
+	<h4>Comments:</h4>
+	<div>
+		<p th:each="comment : ${user.comments}">
+			<b>Text:</b> <p th:text="${comment.value.text}"></p>
+			<b>Date:</b> <p th:text="${comment.value.date}"></p>
+			<hr/>
+		</p>
+	</div>
 	
-
     </div>
 </body>
 </html>

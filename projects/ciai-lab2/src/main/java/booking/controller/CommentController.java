@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import booking.model.Comment;
 import booking.model.Hotel;
+import booking.model.User;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;
@@ -34,12 +35,15 @@ public class CommentController {
     	Hotel hotel = hotels.findOne(id);
     	Date date = new Date();
     	comment.setDate(date);
-    	comments.save(comment);
-    	
+    	comments.save(comment);    	
     	hotel.getComments().put(comment.getId(), comment);
     	hotels.save(hotel);
-    	model.addAttribute("hotel", hotel);
     	
+    	User u = users.findOne(comment.getUser().getId());
+    	u.getComments().put(comment.getId(), comment);
+    	users.save(u);
+    	
+    	model.addAttribute("hotel", hotel);    	
     	return "redirect:/hotels/{id}";
     }
     

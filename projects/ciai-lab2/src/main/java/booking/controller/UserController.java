@@ -48,6 +48,8 @@ public class UserController {
     	if( user == null )
     		throw new HotelNotFoundException();
     	model.addAttribute("user", user);
+    	
+    	
     	return "users/show";
     }
     

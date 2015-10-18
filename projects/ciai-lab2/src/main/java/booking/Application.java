@@ -109,6 +109,14 @@ public class Application implements CommandLineRunner {
 				new Comment(3, "The hosts are simply amazing and constantly go an extra mile in their efforts to make you feel welcome. Genuine family atmosphere!"
 						+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date(), myUsers[2], true, myHotels[0])
 		};
+		
+		myUsers[0].getComments().put(commentArray[0].getId(), commentArray[0]);		
+		myUsers[1].getComments().put(commentArray[0].getId(), commentArray[1]);
+		myUsers[2].getComments().put(commentArray[0].getId(), commentArray[2]);
+		
+		users.save(myUsers[0]);
+		users.save(myUsers[1]);
+		users.save(myUsers[2]);
 
 		Hotel intercontinental = myHotels[0];
 
