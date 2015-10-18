@@ -28,8 +28,7 @@
 	<div class="row">
   		<div class="col-md-6">
   			<p><img src="../static/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/></p>
-			<p><a th:href="@{|/hotels/${hotel.id}/rooms/|}">View room list</a></p>
-			<p><a th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a comment</a></p>
+			<p><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a></p>			
 		</div>
   		<div class="col-md-6">  		
   			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments}" th:unless="${!comment.value.status}">
@@ -41,7 +40,10 @@
 		 	   		<p th:text="${comment.value.text}"></p>		 	   		
 		 	   	</div>   	
 			</div>
-			<p><a th:href="@{|/hotels/${hotel.id}/comments/|}">View more comments</a></p>
+			<p>
+				<span><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a comment</a></span>
+				<span><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>
+			</p>
   		</div>
 	</div>
     </div>

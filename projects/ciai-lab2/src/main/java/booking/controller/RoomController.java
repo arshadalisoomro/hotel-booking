@@ -38,20 +38,16 @@ public class RoomController {
     
     // POST /hotels/{id}/rooms/ - creates a new room
     @RequestMapping(value="{id}/rooms/", method=RequestMethod.POST)
-    public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {  
-    	
+    public String saveRoom(@PathVariable("id") long id, @ModelAttribute Room room, Model model) {      	
     	Hotel hotel = hotels.findOne(id);
     	room.setType(roomTypes.findOne(room.getType().getId()));
-    	room.setHotel(hotel);
-    	
+    	room.setHotel(hotel);    	
     	rooms.save(room);
-    	hotel.getRooms().put(room.getId(), room);
-    	
-    	hotels.save(hotel);
-    	
+    	hotel.getRooms().put(room.getId(), room);    	
+    	hotels.save(hotel);    	
     	model.addAttribute("hotel", hotel);
     	model.addAttribute("room", room);
-    	return "rooms/show";
+    	return "rooms/hotel-rooms";
     }
     
     // GET  /hotels/{id}/rooms/{id} - show a room

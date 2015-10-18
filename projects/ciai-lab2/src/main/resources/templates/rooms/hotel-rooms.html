@@ -10,9 +10,7 @@
 <div th:include="fragments/header"></div>
 
     <div class="container">
-	<div th:include="hotels/show :: hotel-header" class="page-header">
-  		
-	</div>
+	<div th:include="hotels/show :: hotel-header" class="page-header"></div>
     
 	<h3>Rooms</h3>
 	<div class="list-group" th:each="room : ${hotel.rooms}">
