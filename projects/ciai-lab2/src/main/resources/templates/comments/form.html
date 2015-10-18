@@ -12,11 +12,16 @@
 		<div th:fragment="commentform(url)">
 	    	<form action="#" th:action="@{|/hotels/${hotel.id}/comments/|}" th:object="${comment}" method="post">
 	    		<p>
-			    	<input type="hidden" th:field="*{id}" />
-		        	
-		        	<p><textarea  rows="10" class="form-control" placeholder="Comment" th:field="*{text}" ></textarea></p>
-		        	
+			    	<input type="hidden" th:field="*{id}" />		        	
+		        	<p><textarea  rows="10" class="form-control" placeholder="Comment" th:field="*{text}" ></textarea></p>		        	
 	        	</p>
+	        	
+	        	<p><label>Author</label>
+					<select class="form-control" th:field ="*{user}">
+		        		<option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}"></option>
+		        	</select>		
+		        </p>
+	        	
 	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
 		    </form>
 		    <p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>

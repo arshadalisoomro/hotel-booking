@@ -14,6 +14,7 @@ import booking.model.Comment;
 import booking.model.Hotel;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
+import booking.repository.UserRepository;
 
 @Controller
 @RequestMapping(value="/hotels")
@@ -24,6 +25,9 @@ public class CommentController {
 	
 	@Autowired
 	CommentRepository comments;
+	
+	@Autowired
+	UserRepository users;
     
     @RequestMapping(value="/{id}/comments/", method = RequestMethod.POST)
     public String createComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){
@@ -36,13 +40,14 @@ public class CommentController {
     	hotels.save(hotel);
     	model.addAttribute("hotel", hotel);
     	
-    	return "redirect:/hotels/{id}/";
+    	return "redirect:/hotels/{id}";
     }
     
     @RequestMapping(value="/{id}/comments/new", method = RequestMethod.GET)
     public String newComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){
     	model.addAttribute("comment", new Comment());
     	model.addAttribute("hotel", hotels.findOne(id));
+    	model.addAttribute("users", users.findAll());
     	return "comments/create";
     }
     
