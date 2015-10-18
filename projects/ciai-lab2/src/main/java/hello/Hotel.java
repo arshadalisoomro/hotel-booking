@@ -25,10 +25,10 @@ public class Hotel {
     @ManyToOne
     private Category category;
     
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Map<Long, Room> rooms = new HashMap<Long, Room>();
  
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
     
     protected Hotel() {}

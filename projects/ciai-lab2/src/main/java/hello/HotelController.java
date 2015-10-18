@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /*
  * Mapping
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/hotels")
+@SessionAttributes("hotel")
 public class HotelController {
 
     @Autowired
@@ -91,7 +93,6 @@ public class HotelController {
     @RequestMapping(value="{id}/edit", method=RequestMethod.GET)
     public String edit(@PathVariable("id") long id, Model model) { 	
     	Hotel hotel = hotels.findOne(id);
-//    	model.addAttribute("rooms", hotel.getRooms());
     	model.addAttribute("hotel", hotel);    	
     	model.addAttribute("categories", categories.findAll());
     	return "hotels/edit";
@@ -99,9 +100,7 @@ public class HotelController {
    
     // POST /hotels/{id} 	 	- update the hotel with identifier {id}
     @RequestMapping(value="{id}", method=RequestMethod.POST)
-    public String editSave(@PathVariable("id") long id, Hotel hotel, Model model) {
-//    	System.out.println(model.asMap().keySet());
-//    	hotel.setRooms((Map<Long, Room>)model.asMap().get("rooms"));
+    public String editSave(@PathVariable("id") long id, @ModelAttribute("hotel") Hotel hotel, Model model) {    	
     	hotels.save(hotel);
     	return "hotels/show";
     }
