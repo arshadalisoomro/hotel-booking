@@ -23,8 +23,10 @@ import org.springframework.web.context.WebApplicationContext;
 import booking.Application;
 import booking.model.Comment;
 import booking.model.Hotel;
+import booking.model.User;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
+import booking.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
@@ -38,6 +40,9 @@ public class CommentControllerTest {
 	
 	@Autowired
 	HotelRepository hotels;
+	
+	@Autowired
+	UserRepository users;
 	
 	@Autowired
 	CommentRepository comments;
@@ -79,6 +84,9 @@ public class CommentControllerTest {
 //	{
 //		String hotelName = "Intercontinental";
 //		Hotel hotel = hotels.findByName(hotelName);
+//		
+//		String userName = "Pedro";
+//		User u = users.findByName(userName);
 //				
 //		mvc.perform(post("/hotels/" + hotel.getId() + "/comments/")
 //				.param("id", Integer.toString(0))
