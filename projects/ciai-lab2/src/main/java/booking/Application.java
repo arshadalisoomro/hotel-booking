@@ -103,11 +103,11 @@ public class Application implements CommandLineRunner {
 
 		Comment[] commentArray = { new Comment(1, "The best thing about this hotel were the owners. They were lovely friendly people. Giovanni asked us what he"
 				+ " could cook for us. In no time we had a delicious pasta all'amatriciana and a mixed meat dish. It was very nice.",
-				new Date(), myUsers[0], true),
+				new Date(), myUsers[0], true, myHotels[0]),
 				new Comment(2, "Great getaway destination with a virtually private sand beach 50m from the hotel. No need for a restaurant - Fabiana (owner)"
-						+ " cooked exquisite brazilian dishes. Very calm and tranquil place.", new Date(), myUsers[1], false),
+						+ " cooked exquisite brazilian dishes. Very calm and tranquil place.", new Date(), myUsers[1], false, myHotels[0]),
 				new Comment(3, "The hosts are simply amazing and constantly go an extra mile in their efforts to make you feel welcome. Genuine family atmosphere!"
-						+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date(), myUsers[2], true)
+						+ " The hotel is rated as a three-star establishment, but the hosts, deserve seven stars. :)", new Date(), myUsers[2], true, myHotels[0])
 		};
 
 		Hotel intercontinental = myHotels[0];
