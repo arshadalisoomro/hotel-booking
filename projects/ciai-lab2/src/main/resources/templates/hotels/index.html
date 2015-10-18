@@ -16,7 +16,7 @@
     <ul th:each="hotel : ${hotels}">
   	   	<li> <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a></li>
 	</ul>
-	<p><a href="/hotels/new">New hotel</a></p>
+	<p><a class="btn btn-primary" href="/hotels/new">New hotel</a></p>
 	</div>
 </body>
 </html>

@@ -37,7 +37,7 @@
   	   		<td><span th:text="${booking.room.hotel.name}"></span></td>
   	   		<td><span th:text="${booking.room.type}"></span></td>
   	   		<td><span th:text="${booking.room.room_number}"></span></td>
-  	   		<td><span th:text="${booking.state}"></span></td>  	   	
+  	   		<td><span th:if="${booking.state}"><i class="glyphicon glyphicon-ok"></i></span></td>  	   	
   	   		<td><a th:if="${!booking.state}" th:href="@{|/bookings/${booking.id}/approve|}"><i class="glyphicon glyphicon-ok"></i></a></td>
   	   		<td><a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-remove"></i></a></td>				
 		</tr>
