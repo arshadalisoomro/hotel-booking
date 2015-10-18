@@ -79,12 +79,12 @@ public class Application implements CommandLineRunner {
 
 		hotels.deleteAll();
 		Hotel myHotels[] = {
-				new Hotel(1,"Intercontinental", "Rua do Caramulo", 5, myCategories[1]), 
-				new Hotel(2,"Trip", "Rua do Pinheiro", 2, myCategories[2]), 
-				new Hotel(3,"Holiday Inn", "Rua da Fonte", 4, myCategories[3]), 
-				new Hotel(4,"Tulip", "Rua do Lousado", 1, myCategories[4]), 
-				new Hotel(5,"Hostel da Costa", "Rua do Painel", 3, myCategories[2]),
-				new Hotel(6,"Marriot", "Rua do Pico", 5, myCategories[0])};
+				new Hotel(1,"Intercontinental", "Rua Castilho 149, Lisbon", 5, myCategories[1]), 
+				new Hotel(2,"Tryp", "Av. D. Joao II, Lisboa", 4, myCategories[1]), 
+				new Hotel(3,"Holiday Inn", "Av. Antonio José Almeida 28-A, Lisbon", 2, myCategories[2]), 
+				new Hotel(4,"Altis Suites", "Rua Castilho 13, Lisbon", 4, myCategories[4]), 
+				new Hotel(5,"Hostel 4U", "Rua da Madalena 96, Lisbon", 3, myCategories[3]),
+				new Hotel(6,"Marriott", "Avenida dos Combatentes, Lisbon", 5, myCategories[0])};
 
 		for(Hotel hotel : myHotels) hotels.save(hotel);
 

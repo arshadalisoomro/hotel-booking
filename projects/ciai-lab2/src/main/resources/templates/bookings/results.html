@@ -8,18 +8,21 @@
 	rel="stylesheet" media="screen" />
 </head>
 <body>
-
 	<div th:include="fragments/header"></div>
-
 	<div class="container">
 		<div class="page-header">
 			<h1>Available Rooms</h1>
-		</div>
-		
-		
+		</div>				
 		<table class="table table-bordered table-condensed">
-		<th>Check-in</th><th>Check-out</th>
-		<tr><td><span th:text="${booking.begin_date}"></span></td><td><span th:text="${booking.end_date}"></span></td></tr>
+		<thead>
+			<tr>
+				<th>Check-in</th>
+				<th>Check-out</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td><span th:text="${booking.begin_date}"></span></td><td><span th:text="${booking.end_date}"></span></td></tr>
+		</tbody>
 		</table>
 
 		<table class="table table-striped">
@@ -33,7 +36,7 @@
 				</tr>
 			</thead>
 			<tr th:each="room : ${rooms}">
-				<td><span th:text="${room.value.name}"></span></td>
+				<td><a th:href="@{|/hotels/${room.value.id}|}" th:text="${room.value.name}"></a></td>
 				<td><span th:text="${room.key.floor}"></span></td>
 				<td><span th:text="${room.key.room_number}"></span></td>
 				<td><span th:text="${room.key.type.description}"></span></td>

@@ -10,6 +10,7 @@
 	<div class="container">
 		<h1>Editing Hotel <span th:text="${hotel.name}"></span></h1>	
 		<div th:include="hotels/form :: hotelform(@{|/hotels/${hotel.id}|})"></div>
+		<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>
     </div>
 </body>
 </html>
