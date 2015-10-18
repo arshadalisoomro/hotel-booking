@@ -12,14 +12,15 @@
 	<div th:include="fragments/header"></div>
 
 	<div class="container">
-		<h2>
-			From: <span th:text="${booking.begin_date}" /> <br/>
-			Until: <span th:text="${booking.end_date}" />
-		</h2>
-
 		<div class="page-header">
-			<h1>Rooms List</h1>
+			<h1>Available Rooms</h1>
 		</div>
+		
+		
+		<table class="table table-bordered table-condensed">
+		<th>Check-in</th><th>Check-out</th>
+		<tr><td><span th:text="${booking.begin_date}"></span></td><td><span th:text="${booking.end_date}"></span></td></tr>
+		</table>
 
 		<table class="table table-striped">
 			<thead>
@@ -36,7 +37,7 @@
 				<td><span th:text="${room.key.floor}"></span></td>
 				<td><span th:text="${room.key.room_number}"></span></td>
 				<td><span th:text="${room.key.type.description}"></span></td>
-				<td><a th:text="Book" th:href="@{|/bookings/new/${room.key.id}/|}"></a></td>
+				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.key.id}/|}"></a></td>
 			</tr>
 		</table>
 		<p>
