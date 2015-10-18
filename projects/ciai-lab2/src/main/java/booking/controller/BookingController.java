@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import booking.model.Booking;
 import booking.model.Hotel;
 import booking.model.Room;
+import booking.model.RoomType;
 import booking.model.User;
 import booking.repository.BookingRepository;
 import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
+import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
 import booking.util.BookingNotFoundException;
 import booking.util.RoomNotFoundException;
@@ -48,6 +51,8 @@ public class BookingController {
 	@Autowired
 	UserRepository users;
 	
+	@Autowired
+	RoomTypeRepository roomTypes;
 	
 	@RequestMapping(method=RequestMethod.GET)
     public String index(Model model) {
@@ -89,12 +94,15 @@ public class BookingController {
     @RequestMapping(value="/new", method=RequestMethod.GET)
     public String newBooking(Model model) {
     	model.addAttribute("booking", new Booking());
+    	model.addAttribute("roomTypes", roomTypes.findAll());
     	return "bookings/create";
     }
     
     @RequestMapping(value="/search", method=RequestMethod.POST)
-    public String searchRooms(@ModelAttribute Booking booking, Model model) {
+    public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType,
+    		@RequestParam("rating") int rating) {
     	
+    	RoomType rt = roomTypes.findOne(roomType);
     	Map<Room, Hotel> rooms_available = new HashMap<Room,Hotel>();
     	List<Date> dates = getDates(booking);
     	
@@ -116,7 +124,7 @@ public class BookingController {
     					break;
     				}
     			}	
-    			if(!found)
+    			if(!found && r.getType() == rt)
     				rooms_available.put(r, hotel);
     		}
     	}
