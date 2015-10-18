@@ -4,8 +4,6 @@
     <title>Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
-    
-
 </head>
 <body>
 	<div class="container">
@@ -15,15 +13,15 @@
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />
 		        	<div style="display: inline-block">
-				        <label for="start">Start:</label>
-				        <br/>
-				        <input type="text" id="start" th:field="*{begin_date}"/>
+				        <label for="start">Check-in:</label>				        
+				        <input type="text" class="form-control" id="start" th:field="*{begin_date}"/>
 				    </div>
+				    
+				    <p></p>
 				
 				    <div style="display: inline-block">
-				        <label for="end">End:</label>
-				        <br/>
-				        <input type="text" id="end" th:field="*{end_date}"/>
+				        <label for="end">Check-out:</label>
+				        <input type="text" class="form-control" id="end" th:field="*{end_date}"/>
 				    </div>		        	
 	        	</p>
 	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
