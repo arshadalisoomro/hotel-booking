@@ -13,9 +13,9 @@
 	<div class="page-header">
 		<h1>Hotel List</h1>
 	</div>
-    <ul th:each="hotel : ${hotels}">
-  	   	<li> <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a></li>
-	</ul>
+    <div class="list-group" th:each="hotel : ${hotels}">
+  	   	<a class="list-group-item" th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a>
+	</div>
 	<p><a class="btn btn-primary" href="/hotels/new">New hotel</a></p>
 	</div>
 </body>
