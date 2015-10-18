@@ -14,7 +14,7 @@
 		<h1>Booking List</h1>
 		</div>
 	
-	<table class="table table-striped">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>Id</th>
@@ -29,7 +29,7 @@
 				<th></th>			
 			</tr>
 		</thead>
-		<tr th:each="booking : ${bookings}">
+		<tr th:class="${!booking.state} ? 'warning' : 'success'" th:each="booking : ${bookings}">
 			<td><span th:text="${booking.id}"></span></td>
 			<td><span th:text="${booking.user.name}"></span></td>
 			<td><span th:text="${booking.begin_date}"></span></td>
@@ -39,7 +39,7 @@
   	   		<td><span th:text="${booking.room.room_number}"></span></td>
   	   		<td><span th:if="${booking.state}"><i class="glyphicon glyphicon-ok"></i></span></td>  	   	
   	   		<td><a th:if="${!booking.state}" th:href="@{|/bookings/${booking.id}/approve|}"><i class="glyphicon glyphicon-ok"></i></a></td>
-  	   		<td><a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-remove"></i></a></td>				
+  	   		<td><a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></td>				
 		</tr>
 	</table>
 	</div>

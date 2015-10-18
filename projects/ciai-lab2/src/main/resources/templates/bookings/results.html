@@ -16,8 +16,8 @@
 		<table class="table table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>Check-in</th>
-				<th>Check-out</th>
+				<th><i class="glyphicon glyphicon-calendar"></i> Check-in</th>
+				<th><i class="glyphicon glyphicon-calendar"></i> Check-out</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -42,10 +42,7 @@
 				<td><span th:text="${room.key.type.description}"></span></td>
 				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.key.id}/|}"></a></td>
 			</tr>
-		</table>
-		<p>
-			<a th:href="@{|/bookings/new/|}">Back</a>
-		</p>
+		</table>		
 	</div>
 </body>
 </html>

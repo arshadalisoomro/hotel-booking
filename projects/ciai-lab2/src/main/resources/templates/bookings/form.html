@@ -13,20 +13,19 @@
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />
 		        	<div style="display: inline-block">
-				        <label for="start">Check-in:</label>				        
-				        <input type="text" class="form-control" id="start" th:field="*{begin_date}"/>
+				        <label for="start"><i class='glyphicon glyphicon-calendar'></i> Check-in:</label>				        
+				        <input type="text" class="form-control" id="start" th:field="*{begin_date}"></input>
 				    </div>
 				    
-				    <p></p>
+				    <p></p>				
 				
 				    <div style="display: inline-block">
-				        <label for="end">Check-out:</label>
+				        <label for="end"><i class='glyphicon glyphicon-calendar'></i> Check-out:</label>
 				        <input type="text" class="form-control" id="end" th:field="*{end_date}"/>
 				    </div>		        	
 	        	</p>
 	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
 		    </form>
-		    <p><a th:href="@{|/bookings/|}">Back</a></p>
 	    </div>
     </div>
 </body>

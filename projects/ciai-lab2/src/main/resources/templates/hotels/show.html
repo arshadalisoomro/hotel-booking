@@ -14,7 +14,7 @@
   			
   			<small>
   				<span th:each="i : ${#numbers.sequence(1, hotel.rating)}" ><i class="glyphicon glyphicon-star"></i></span>  				
-  				<span class="pull-right"><a th:href="@{|/hotels/${hotel.id}/edit|}"><i class="glyphicon glyphicon-edit"></i></a>  <a th:href="@{|/hotels/${hotel.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></span>
+  				<span class="pull-right"><a th:href="@{|/hotels/${hotel.id}/edit|}"><i class="glyphicon glyphicon-pencil"></i></a> · <a th:href="@{|/hotels/${hotel.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></span>
   			</small>
   			<br/>
   			<small>

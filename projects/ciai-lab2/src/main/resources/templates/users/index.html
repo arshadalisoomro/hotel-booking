@@ -28,8 +28,8 @@
 		  	   	<td><a th:href="@{|/users/${user.id}|}"><span th:text="${user.username}"></span></a></td>
 		  	   	<td><span th:text="${user.email}"></span></td>
 		  	   	<td><span th:text="${user.password}"></span></td>
-		  	   	<td><a th:text="Edit" th:href="@{|/users/${user.id}/edit|}"></a></td>
-		  	   	<td><a th:text="Delete" th:href="@{|/users/${user.id}/remove|}"></a></td>	  	   		  	  	  	  	   		
+		  	   	<td><a th:href="@{|/users/${user.id}/edit|}"><i class="glyphicon glyphicon-pencil"></i></a></td>
+		  	   	<td><a th:href="@{|/users/${user.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></td>	  	   		  	  	  	  	   		
 			</tr>
 		</table>
 	</div>
