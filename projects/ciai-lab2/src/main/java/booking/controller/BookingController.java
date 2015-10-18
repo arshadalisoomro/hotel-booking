@@ -27,6 +27,7 @@ import booking.repository.BookingRepository;
 import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
 import booking.repository.UserRepository;
+import booking.util.BookingNotFoundException;
 import booking.util.RoomNotFoundException;
 
 @Controller
@@ -132,6 +133,19 @@ public class BookingController {
             calendar.add(Calendar.DATE, 1);       
         }      
         return dates;
+    }
+    
+    @RequestMapping(value="/{booking_id}/approve", method=RequestMethod.GET)
+    public String approveBooking(Model model, @PathVariable("booking_id") long booking_id){
+    	
+    	Booking booking = bookings.findOne(booking_id);
+    	
+    	if(booking == null)
+    		throw new BookingNotFoundException();
+    	
+    	booking.setState(true);
+    	bookings.save(booking);
+    	return "redirect:/bookings/";
     }
 	
 }
