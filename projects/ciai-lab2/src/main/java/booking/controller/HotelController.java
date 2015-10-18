@@ -116,6 +116,6 @@ public class HotelController {
     @RequestMapping(value="{id}/remove", method=RequestMethod.GET)
     public String remove(@PathVariable("id") long id, Model model) {
     	hotels.delete(hotels.findOne(id));
-    	return "redirect:/";
+    	return "redirect:/hotels";
     }  
 }
