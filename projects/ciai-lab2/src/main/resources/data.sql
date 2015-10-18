@@ -6,11 +6,11 @@ VALUES
 (4, 'Bed and Breakfast'),
 (5, 'Resort');
 
-INSERT INTO room_type (id, description)
+INSERT INTO room_type (id, description, occupancy)
 VALUES
-(1, 'Single'),
-(2, 'Double'),
-(3, 'Presidential Suite');
+(1, 'Single', 1),
+(2, 'Double', 2),
+(3, 'Presidential Suite', 6);
 
 INSERT INTO `user`(id, email, name, password, username)
 VALUES

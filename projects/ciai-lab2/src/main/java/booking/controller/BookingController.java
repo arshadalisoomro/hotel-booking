@@ -48,6 +48,7 @@ public class BookingController {
 	@Autowired
 	UserRepository users;
 	
+	
 	@RequestMapping(method=RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("bookings", bookings.findAll());
