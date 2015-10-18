@@ -25,6 +25,7 @@
 				<th>Type</th>
 				<th>Room Number</th>
 				<th>Status</th>
+				<th></th>
 				<th></th>			
 			</tr>
 		</thead>
@@ -37,7 +38,8 @@
   	   		<td><span th:text="${booking.room.type}"></span></td>
   	   		<td><span th:text="${booking.room.room_number}"></span></td>
   	   		<td><span th:text="${booking.state}"></span></td>  	   	
-  	   		<td><a th:href="@{|/bookings/${booking.id}/approve|}">Aprovar Reserva</a></td>				
+  	   		<td><a th:href="@{|/bookings/${booking.id}/approve|}">Aprovar Reserva</a></td>
+  	   		<td><a th:href="@{|/bookings/${booking.id}/remove|}">Apagar Reserva</a></td>				
 		</tr>
 	</table>
 	

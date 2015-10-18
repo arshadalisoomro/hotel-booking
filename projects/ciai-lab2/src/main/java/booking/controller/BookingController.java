@@ -147,5 +147,17 @@ public class BookingController {
     	bookings.save(booking);
     	return "redirect:/bookings/";
     }
+    
+    @RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
+    public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
+    	
+    	Booking booking = bookings.findOne(booking_id);
+    	
+    	if(booking == null)
+    		throw new BookingNotFoundException();
+    	
+    	bookings.delete(booking);
+    	return "redirect:/bookings/";
+    }
 	
 }
