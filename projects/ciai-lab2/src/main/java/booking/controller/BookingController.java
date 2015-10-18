@@ -26,6 +26,7 @@ import booking.model.User;
 import booking.repository.BookingRepository;
 import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
+import booking.repository.UserRepository;
 import booking.util.RoomNotFoundException;
 
 @Controller
@@ -38,10 +39,12 @@ public class BookingController {
 	
 	@Autowired
 	HotelRepository hotels;
+	
 	@Autowired
 	RoomRepository rooms;
 	
-	User user = new User(5,"Tiago", "tds", "123456", "tds@gmail.com");
+	@Autowired
+	UserRepository users;
 	
 	@RequestMapping(method=RequestMethod.GET)
     public String index(Model model) {
@@ -51,18 +54,14 @@ public class BookingController {
 	
 	@RequestMapping(value="/new/{room_id}", method=RequestMethod.GET)
 	public String bookRoom(Model model, @PathVariable("room_id") long room_id, @ModelAttribute("booking") Booking booking){
-
+		User user = users.findOne((long) 1);
 		booking.setUser(user);
-		System.out.println(booking.getBegin_date());
-		System.out.println(booking.getEnd_date());
-		System.out.println(booking.getId());
-		System.out.println(booking.getUser().getName());
+		
 		Room room = rooms.findOne(room_id);
 		if(room == null)
 			throw new RoomNotFoundException();
 		
 		booking.setRoom(room);
-		System.out.println(booking.getRoom().getRoom_number());
 		
 		Map<Long, Booking> booking_map = room.getBookings();
 		booking_map.put(booking.getId(), booking);
@@ -77,8 +76,9 @@ public class BookingController {
 		
 		room.setDays_reserved(days_reserved);
 		bookings.save(booking);
+		
 		model.addAttribute("bookings", bookings.findAll());
-		return "bookings/index";
+		return "redirect:/bookings/";
 	}
 	
     @RequestMapping(value="/new", method=RequestMethod.GET)

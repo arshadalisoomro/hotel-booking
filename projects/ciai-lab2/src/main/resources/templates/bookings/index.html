@@ -17,6 +17,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
+				<th>Id</th>
 				<th>Username</th>
 				<th>Begin date</th>
 				<th>End date</th>
@@ -27,6 +28,7 @@
 			</tr>
 		</thead>
 		<tr th:each="booking : ${bookings}">
+			<td><span th:text="${booking.id}"></span></td>
 			<td><span th:text="${booking.user.name}"></span></td>
 			<td><span th:text="${booking.begin_date}"></span></td>
   	   		<td><span th:text="${booking.end_date}"></span></td>
