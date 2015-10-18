@@ -11,14 +11,7 @@
     <script src="../js/app.js"></script>
     <script src="../js/sss.js"></script>
 	<link rel="stylesheet" href="../css/sss.css" type="text/css" media="all"/>
-	
-	<script>
-		jQuery(function($)
-		{
-			$('.slider').sss({showNav : true});
-		});
-	</script>
-        
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
 </head>
 <body>
 	<div th:include="fragments/header"></div>
@@ -35,20 +28,24 @@
   			<small>
   				<span th:text="${hotel.category}"></span>  				
   				 · 
-  				<span th:text="${hotel.address}"></span>
+  				<span id="address" th:text="${hotel.address}"></span>
   			</small>
   		</h1>
 	</div>
 	
 	<div class="row">
   		<div class="col-md-6">
+  			<div class="hidden" id="map"></div>
 			<div class="slider">  		
   			<img src="../static/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
   			<img src="../static/intercontinental2.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
   			<img src="../static/intercontinental3.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
   			</div>
   			<p></p>
-			<p><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a></p>			
+			<p>
+			<a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a>
+			<a id="showMap" onclick="displayMap()" class="btn btn-default">View map</a>
+			</p>			
 		</div>
   		<div class="col-md-6">  		
   			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments.?[value.status]}" th:unless="${iterStat.count > 2}">

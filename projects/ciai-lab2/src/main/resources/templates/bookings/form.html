@@ -25,6 +25,8 @@
 				    </div>	
 				    <div>
 				    
+				    <p></p>
+				    <label><i class="glyphicon glyphicon-user"></i> Room Type</label>
 			    	<select class="form-control" th:name="roomType">
 	        			<option th:each="rt : ${roomTypes}" th:text="${rt.description + ' - ' +rt.occupancy}" th:value="${rt.id}"></option>
 		        	</select>
