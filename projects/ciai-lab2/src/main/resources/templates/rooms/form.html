@@ -23,6 +23,10 @@
 						placeholder="Room Number" type="text" th:field="*{room_number}" />
 				</p>
 				<p>
+					<label>Price (€)</label><input class="form-control"
+						placeholder="Price per night" type="text" th:field="*{price}" />
+				</p>
+				<p>
 					<label>Room type</label>
 					<select class="form-control" th:field ="*{type}">
 		        		<option th:each="rt : ${roomTypes}" th:text="${rt.description}" th:value="${rt.id}"></option>

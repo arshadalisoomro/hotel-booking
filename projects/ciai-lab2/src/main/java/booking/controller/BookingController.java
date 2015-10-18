@@ -99,8 +99,7 @@ public class BookingController {
     }
     
     @RequestMapping(value="/search", method=RequestMethod.POST)
-    public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType,
-    		@RequestParam("rating") int rating) {
+    public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType) {
     	
     	RoomType rt = roomTypes.findOne(roomType);
     	Map<Room, Hotel> rooms_available = new HashMap<Room,Hotel>();

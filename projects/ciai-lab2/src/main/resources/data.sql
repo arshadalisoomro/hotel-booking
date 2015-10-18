@@ -26,16 +26,16 @@ VALUES
 (3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3),
 (4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5);
 
-INSERT INTO room (id, floor, room_number, hotel_id, type_id)
+INSERT INTO room (id, floor, room_number, hotel_id, type_id, price)
 VALUES
-(1, 2, '217', 1, 1),
-(2, 3, '310', 1, 2),
-(3, 5, '57', 1, 3),
-(4, 4, '413', 2, 1),
-(5, 5, '25', 2, 2),
-(6, 1, '111', 3, 2),
-(7, 3, '321', 3, 1),
-(8, 2, '226', 4, 4);
+(1, 2, '217', 1, 1, 50),
+(2, 3, '310', 1, 2, 100),
+(3, 5, '57', 1, 3, 150),
+(4, 4, '413', 2, 1, 50),
+(5, 5, '25', 2, 2, 100),
+(6, 1, '111', 3, 2, 100),
+(7, 3, '321', 3, 1, 50),
+(8, 2, '226', 4, 4, 75);
 
 INSERT INTO comment (comment_id, `date`, status, text, hotel_id, user_id)
 VALUES

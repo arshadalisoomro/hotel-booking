@@ -52,7 +52,7 @@ public class RoomController {
     public String showRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
     	Hotel hotel = hotels.findOne(id);
     	model.addAttribute("hotel", hotel);
-    	model.addAttribute("room", hotel.getRooms().get(id_room));
+    	model.addAttribute("room", rooms.findOne(id_room));
     	return "rooms/show";
     }
     

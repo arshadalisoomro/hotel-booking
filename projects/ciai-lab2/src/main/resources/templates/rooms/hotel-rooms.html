@@ -14,7 +14,7 @@
     
 	<h3>Rooms</h3>
 	<div class="list-group" th:each="room : ${hotel.rooms}">
- 		<a class="list-group-item" th:text="${room.value.room_number + ' - ' + room.value.type.description}" th:href="@{|/hotels/${hotel.id}/rooms/${room.key}|}"></a>
+ 		<a class="list-group-item" th:text="${room.value.room_number + ' - ' + room.value.type.description + ' - ' + room.value.price + ' €/night'}" th:href="@{|/hotels/${hotel.id}/rooms/${room.key}|}"></a>
 	</div>
 	
 	<p><a class="btn btn-primary" th:href="@{|/hotels/${hotel.id}/rooms/new|}">Add room</a></p>

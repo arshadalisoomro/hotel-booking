@@ -20,7 +20,6 @@ public class Room {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-//	@SequenceGenerator(name = "generator", allocationSize = 1, initialValue = 1)
 	private long id;
 	
 	private int floor;	
@@ -31,6 +30,8 @@ public class Room {
 	
 	@ManyToOne
 	private Hotel hotel;
+	
+	private int price;
 	
 	@ElementCollection
 	private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
@@ -49,12 +50,13 @@ public class Room {
 
 	public Room() {}
 	
-	public Room (long id, int floor, String room_number, RoomType type, Hotel hotel) {
+	public Room (long id, int floor, String room_number, RoomType type, Hotel hotel, int price) {
 		this.id = id;
 		this.floor = floor;
 		this.room_number = room_number;	
 		this.type = type;
 		this.hotel = hotel;
+		this.setPrice(price);
 	}
 	
 	public long getId() {
@@ -103,5 +105,13 @@ public class Room {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }
