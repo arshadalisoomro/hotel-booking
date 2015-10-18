@@ -20,16 +20,20 @@ public class Comment {
 	private boolean status;
 	
 	@ManyToOne
+	private Hotel hotel;
+	
+	@ManyToOne
 	private User user;
 
 	public Comment() {}
 
-	public Comment(long comment_id, String text, Date date, User user, boolean status) {
+	public Comment(long comment_id, String text, Date date, User user, boolean status, Hotel hotel) {
 		this.comment_id = comment_id;
 		this.text = text;
 		this.date = date;
 		this.user = user;
 		this.status = status;
+		this.hotel = hotel;
 	}
 
 	public long getId() {
@@ -62,6 +66,14 @@ public class Comment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 	public boolean getStatus() {
