@@ -29,6 +29,7 @@ import booking.repository.RoomRepository;
 import booking.repository.UserRepository;
 import booking.util.BookingNotFoundException;
 import booking.util.RoomNotFoundException;
+import booking.util.UserNotFoundException;
 
 @Controller
 @RequestMapping(value="/bookings")
@@ -55,7 +56,12 @@ public class BookingController {
 	
 	@RequestMapping(value="/new/{room_id}", method=RequestMethod.GET)
 	public String bookRoom(Model model, @PathVariable("room_id") long room_id, @ModelAttribute("booking") Booking booking){
+		
 		User user = users.findOne((long) 1);
+		
+		if(user == null)
+			throw new UserNotFoundException();
+		
 		booking.setUser(user);
 		
 		Room room = rooms.findOne(room_id);
@@ -76,6 +82,7 @@ public class BookingController {
 			days_reserved.put(date, booking.getId());
 		
 		room.setDays_reserved(days_reserved);
+		
 		bookings.save(booking);
 		
 		model.addAttribute("bookings", bookings.findAll());
@@ -150,7 +157,7 @@ public class BookingController {
     
     @RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
     public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
-    	
+    	System.out.println("Remove");
     	Booking booking = bookings.findOne(booking_id);
     	
     	if(booking == null)
@@ -166,8 +173,13 @@ public class BookingController {
     		daysReserved.remove(d);
     	
     	room.setDays_reserved(daysReserved);
+    	Map<Long, Booking> bookings_room = room.getBookings();
+    	bookings_room.remove(booking.getId());
+    	room.setBookings(bookings_room);
     	
+    	System.out.println(bookings.count());
     	bookings.delete(booking);
+    	System.out.println(bookings.count());
     	return "redirect:/bookings/";
     }
 	
