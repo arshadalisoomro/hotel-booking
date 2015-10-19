@@ -18,8 +18,8 @@
 	<h4>Comments:</h4>
 	<div>
 		<p th:each="comment : ${user.comments}">
-			<b>Text:</b> <p th:text="${comment.value.text}"></p>
-			<b>Date:</b> <p th:text="${comment.value.date}"></p>
+			<b>Text:</b> <p th:text="${comment.text}"></p>
+			<b>Date:</b> <p th:text="${comment.date}"></p>
 			<hr/>
 		</p>
 	</div>

@@ -53,9 +53,9 @@
 					th:each="comment, iterStat : ${hotel.comments.?[value.status]}"
 					th:unless="${iterStat.count > 2}">
 					<p class="panel-heading">
-						<span><i class="glyphicon glyphicon-comment"></i></span> <b><a
+						<span><i class="glyphicon glyphicon-comment"></i></span>  <a
 							th:href="@{|/users/${comment.value.user.id}/|}"><span
-								style="color: black" th:text="${comment.value.user.name}"></span></a></b>
+								style="color: white" th:text="${comment.value.user.name}"></span></a>
 						<span class="pull-right" th:text="${comment.value.date}"></span>
 					</p>
 					<div class="panel-body">

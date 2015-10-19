@@ -19,7 +19,7 @@
 	  		<div th:if="${comment.value.status}" class="panel panel-primary" th:each="comment : ${hotel.comments}">
 				<p class="panel-heading">
 					<span><i class="glyphicon glyphicon-comment"></i></span>
-					<b><span th:text="${comment.value.user.name}"></span></b>
+					<span th:text="${comment.value.user.name}"></span>
 					<span class="pull-right" th:text="${comment.value.date}"></span></p>
 		 	   	<div class="panel-body">
 		 	   		<p th:text="${comment.value.text}"></p> 	   	
@@ -32,7 +32,7 @@
   		</div>
   		<div class="col-md-6">
   			<div th:if="${!comment.value.status}" class="panel panel-warning" th:each="comment : ${hotel.comments}">
-				<p class="panel-heading"><b><span th:text="${comment.value.user.name}"></span></b><span class="pull-right" th:text="${comment.value.date}"></span></p>
+				<p class="panel-heading"><span th:text="${comment.value.user.name}"></span><span class="pull-right" th:text="${comment.value.date}"></span></p>
 		 	   	<div class="panel-body">
 		 	   		<p th:text="${comment.value.text}"></p> 	   	
 		 	   		<p>
