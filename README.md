@@ -6,6 +6,8 @@ This project was developed for IADI's (CIAI, in portuguese) course @ FCT-UNL, Li
 
 ### Authors ###
 
+#### G02 ####
+
 * Gonçalo Dias da Silva (nº 41831)
 * João Pinto (nº 41887)
 * Rui Carvalho (nº 41767)
