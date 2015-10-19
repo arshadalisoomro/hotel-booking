@@ -1,17 +1,12 @@
 package booking.model;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Comment {
@@ -24,12 +19,12 @@ public class Comment {
 	private Date date;
 	private boolean status;
 	
-	@ManyToOne
-	private Comment commentParent;
+//	@ManyToOne
+//	private Comment commentParent;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="commentParent", orphanRemoval = true)
-    @MapKeyColumn(name="id")
-    private Map<Long, Comment> replies = new HashMap<Long, Comment>();
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy="commentParent", orphanRemoval = true)
+//    @MapKeyColumn(name="id")
+//    private Map<Long, Comment> replies = new HashMap<Long, Comment>();
 	
 	@ManyToOne
 	private Hotel hotel;
@@ -47,9 +42,10 @@ public class Comment {
 		this.status = status;
 		this.hotel = hotel;
 	}
-	public Comment getCommentParent() {
-		return commentParent;
-	}
+	
+//	public Comment getCommentParent() {
+//		return commentParent;
+//	}
 
 	public Date getDate() {
 		return date;
@@ -63,9 +59,9 @@ public class Comment {
 		return id;
 	}
 
-	public Map<Long, Comment> getReplies() {
-		return replies;
-	}
+//	public Map<Long, Comment> getReplies() {
+//		return replies;
+//	}
 
 	public boolean getStatus() {
 		return status;
@@ -79,9 +75,9 @@ public class Comment {
 		return user;
 	}
 
-	public void setCommentParent(Comment commentParent) {
-		this.commentParent = commentParent;
-	}
+//	public void setCommentParent(Comment commentParent) {
+//		this.commentParent = commentParent;
+//	}
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -95,9 +91,9 @@ public class Comment {
 		this.id = id;
 	}
 	
-	public void setReplies(Map<Long, Comment> replies) {
-		this.replies = replies;
-	}
+//	public void setReplies(Map<Long, Comment> replies) {
+//		this.replies = replies;
+//	}
 
 	public void setStatus(boolean status) {
 		this.status = status;

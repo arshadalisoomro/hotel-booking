@@ -1,9 +1,9 @@
 package booking.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -37,8 +37,8 @@ public class Hotel {
     @MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
     
-    @ElementCollection
-    private List<String> images = new ArrayList<String>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> images = new HashSet<String>();
     
     public Hotel() {}
 
@@ -66,7 +66,7 @@ public class Hotel {
         return id;
     }
 
-    public List<String> getImages() {
+    public Set<String> getImages() {
 		return images;
 	}
 
@@ -98,7 +98,7 @@ public class Hotel {
         this.id = id;
     }
     
-    public void setImages(List<String> images) {
+    public void setImages(Set<String> images) {
 		this.images = images;
 	}
 

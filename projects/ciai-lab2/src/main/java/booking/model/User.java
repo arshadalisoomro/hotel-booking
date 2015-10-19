@@ -3,7 +3,6 @@ package booking.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,9 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class User {

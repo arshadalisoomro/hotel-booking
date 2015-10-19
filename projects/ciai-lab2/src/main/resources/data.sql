@@ -43,7 +43,8 @@ VALUES
 (2, '2015-10-18 15:10:00',TRUE,'Really helpful staff, studio room was perfect.', 1, 2),
 (3, '2015-10-20 16:43:00',FALSE,'We loved the nice quiet location, the wonderful hospitality of the proprietor and superbly attentive staff. Breakfast always well presented and varied. Beautiful apartment with excellent facilities!', 1, 3),
 (4, '2015-09-30 20:12:00',TRUE,'The location of the Hotel is great. Its only a view kms from the Airport, there is the great shopping centre Vasco da Gama in front of the hotel and the Metro station is next door as well.', 2, 3),
-(5, '2015-09-30 17:55:00',TRUE,'Shower head moves all over the place. Boiler is noisy even though its in an outside cupboard its still next to the bed. Be good if the wall could be insulated.', 3, 3);
+(5, '2015-09-30 17:55:00',TRUE,'Shower head moves all over the place. Boiler is noisy even though its in an outside cupboard its still next to the bed. Be good if the wall could be insulated.', 3, 3),
+(6, '2015-09-30 17:55:00',TRUE,'Friendly and helpful staff. Great pool. Not in the city centre of Lisbon but close to the undergound station.', 4, 1);
 
 INSERT INTO hotel_images (hotel_id, images)
 VALUES
@@ -56,3 +57,9 @@ VALUES
 (3, 'inn2.jpg'),
 (4, 'marriott.jpg'),
 (4, 'marriott2.jpg');
+
+INSERT INTO booking (id, begin_date, end_date, state, room_id, user_id)
+VALUES
+(1, '2015-11-03 14:00:00', '2015-11-05 11:00:00', TRUE, 1, 1),
+(2, '2015-11-24 14:00:00', '2015-11-29 11:00:00', TRUE, 4, 2),
+(3, '2015-11-29 14:00:00', '2015-12-02 11:00:00', TRUE, 7, 1);

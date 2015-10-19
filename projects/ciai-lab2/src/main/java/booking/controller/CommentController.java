@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import booking.model.Comment;
 import booking.model.Hotel;
-import booking.model.User;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;
@@ -30,16 +29,16 @@ public class CommentController {
 	@Autowired
 	UserRepository users;
 	
-	@RequestMapping(value="/{id}/comments/reply", method = RequestMethod.POST)
-	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, Model model){
-		Hotel hotel = hotels.findOne(id);
-		Date date = new Date();
-    	reply.setDate(date);
-    	reply.setHotel(hotel);
-    	comments.save(reply);    	
-    	model.addAttribute("hotel", hotel);    	
-    	return "redirect:/hotels/{id}";
-	}
+//	@RequestMapping(value="/{id}/comments/reply", method = RequestMethod.POST)
+//	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, Model model){
+//		Hotel hotel = hotels.findOne(id);
+//		Date date = new Date();
+//    	reply.setDate(date);
+//    	reply.setHotel(hotel);
+//    	comments.save(reply);    	
+//    	model.addAttribute("hotel", hotel);    	
+//    	return "redirect:/hotels/{id}";
+//	}
     
     @RequestMapping(value="/{id}/comments/", method = RequestMethod.POST)
     public String createComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){

@@ -59,30 +59,7 @@
 						<span class="pull-right" th:text="${comment.value.date}"></span>
 					</p>
 					<div class="panel-body">
-						<p th:text="${comment.value.text}"></p>
-						<span class="pull-right"><a th:href="@{||}"><i
-								class="glyphicon glyphicon-th-list"></i></a> · <a
-							data-toggle="collapse" th:href="@{|#${comment.value.id}-reply|}"><i
-								class="glyphicon glyphicon-share-alt"></i></a></span>
-					</div>
-					<div class="collapse" th:id="|${comment.value.id}-reply|">
-						<form class="form" id="commentForm" method="post"
-							th:action="@{|/hotels/${hotel.id}/comments/reply|}" th:object="${reply}">
-							<input type="hidden" th:field="*{id}" />
-							<input hidden="true" name="commentParent" th:value="${comment.value.id}">
-							<div class="form-group">
-								<textarea class="form-control" rows="5" th:field="*{text}"></textarea>
-							</div>
-							<div class="form-group">
-								<p><label>Author</label>
-								<select class="form-control" th:field ="*{user}">
-					        		<option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}"></option>
-					        	</select>
-					        </div>	
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Submit"/>
-							</div>
-						</form>
+						<p th:text="${comment.value.text}"></p>						
 					</div>
 				</div>
 
