@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import booking.model.Comment;
 import booking.model.Hotel;
 import booking.repository.CategoryRepository;
 import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
+import booking.repository.UserRepository;
 import booking.util.HotelNotFoundException;
 
 /*
@@ -47,6 +49,9 @@ public class HotelController {
     
     @Autowired
     RoomRepository rooms;
+    
+    @Autowired
+    UserRepository users;
    
 
 	// GET  /hotels 			- the list of hotels
@@ -85,6 +90,8 @@ public class HotelController {
     	if( hotel == null )
     		throw new HotelNotFoundException();
     	model.addAttribute("hotel", hotel );
+    	model.addAttribute("reply", new Comment());
+    	model.addAttribute("users", users.findAll());
     	return "hotels/show";
     }
     

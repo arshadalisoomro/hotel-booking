@@ -1,23 +1,35 @@
 package booking.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Comment {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long comment_id;
+	private long id;
 
 	private String text;
 	private Date date;
 	private boolean status;
+	
+	@ManyToOne
+	private Comment commentParent;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="commentParent", orphanRemoval = true)
+    @MapKeyColumn(name="id")
+    private Map<Long, Comment> replies = new HashMap<Long, Comment>();
 	
 	@ManyToOne
 	private Hotel hotel;
@@ -27,61 +39,76 @@ public class Comment {
 
 	public Comment() {}
 
-	public Comment(long comment_id, String text, Date date, User user, boolean status, Hotel hotel) {
-		this.comment_id = comment_id;
+	public Comment(long id, String text, Date date, User user, boolean status, Hotel hotel) {
+		this.id = id;
 		this.text = text;
 		this.date = date;
 		this.user = user;
 		this.status = status;
 		this.hotel = hotel;
 	}
-
-	public long getId() {
-		return comment_id;
-	}
-
-	public void setId(long comment_id) {
-		this.comment_id = comment_id;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
+	public Comment getCommentParent() {
+		return commentParent;
 	}
 
 	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
 	public Hotel getHotel() {
 		return hotel;
 	}
 
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
+	public long getId() {
+		return id;
+	}
+
+	public Map<Long, Comment> getReplies() {
+		return replies;
 	}
 
 	public boolean getStatus() {
 		return status;
 	}
 
+	public String getText() {
+		return text;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setCommentParent(Comment commentParent) {
+		this.commentParent = commentParent;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public void setReplies(Map<Long, Comment> replies) {
+		this.replies = replies;
+	}
+
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	

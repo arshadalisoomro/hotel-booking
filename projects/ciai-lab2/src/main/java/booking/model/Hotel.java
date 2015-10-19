@@ -1,9 +1,11 @@
 package booking.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,9 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Hotel {
@@ -35,12 +34,15 @@ public class Hotel {
     private Map<Long, Room> rooms = new HashMap<Long, Room>();
  
     @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
-    @MapKeyColumn(name="comment_id")
+    @MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
     
-    public Hotel() {}
+    @ElementCollection
+    private List<String> images = new ArrayList<String>();
     
-    public Hotel(long id, String name, String address, int rating, Category category) {    	
+    public Hotel() {}
+
+	public Hotel(long id, String name, String address, int rating, Category category) {    	
     	this.id = id;
     	this.name = name;
     	this.address = address;
@@ -48,60 +50,68 @@ public class Hotel {
     	this.category = category;
     }
 
+	public String getAddress() {
+        return address;
+    }
+    
+    public Category getCategory(){
+    	return category;
+    }
+
+    public Map<Long, Comment> getComments() {
+		return comments;
+	}
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public List<String> getImages() {
+		return images;
+	}
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
     
     public int getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+    public Map<Long, Room> getRooms() {
+		return rooms;
+	}
     
-    public Category getCategory(){
-    	return category;
+    public void setAddress(String address) {
+        this.address = address;
     }
-    
+
     public void setCategory(Category category){
     	this.category = category;
     }
     
-    public Map<Long, Room> getRooms() {
-		return rooms;
+    public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
 	}
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+    
+    public void setImages(List<String> images) {
+		this.images = images;
+	}
+
+	public void setName(String name) {
+        this.name = name;
+    }
+	
+	public void setRating(int rating) {
+        this.rating = rating;
+    }
 
 	public void setRooms(Map<Long, Room> rooms) {
 		this.rooms = rooms;
-	}
-	
-	public Map<Long, Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(Map<Long, Comment> comments) {
-		this.comments = comments;
 	}
 
 	@Override

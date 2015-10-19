@@ -28,7 +28,7 @@ public class User {
 	private String email;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="user", orphanRemoval = true)
-	@MapKeyColumn(name="comment_id")
+	@MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
 	
 	public User() {}

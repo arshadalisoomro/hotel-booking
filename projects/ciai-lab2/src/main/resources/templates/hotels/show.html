@@ -1,69 +1,104 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Hotels</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
-    
-    <link rel="stylesheet" type="text/css" href="../css/general.css"/>    
-    <script src="../js/jquery.js"></script>    
-    <script src="../js/app.js"></script>
-    <script src="../js/sss.js"></script>
-	<link rel="stylesheet" href="../css/sss.css" type="text/css" media="all"/>
-	<script src="https://maps.googleapis.com/maps/api/js"></script>
+<head>
+<title>Hotels</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+
+<link rel="stylesheet" type="text/css" href="../css/general.css" />
+<script src="../js/jquery.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/sss.js"></script>
+<link rel="stylesheet" href="../css/sss.css" type="text/css" media="all" />
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 </head>
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
-	<div th:fragment="hotel-header" class="page-header">
-  		<h1>
-  			<span th:text="${hotel.name}"></span>
-  			
-  			<small>
-  				<span th:each="i : ${#numbers.sequence(1, hotel.rating)}" ><i class="glyphicon glyphicon-star"></i></span>  				
-  				<span class="pull-right"><a th:href="@{|/hotels/${hotel.id}/edit|}"><i class="glyphicon glyphicon-pencil"></i></a> · <a th:href="@{|/hotels/${hotel.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></span>
-  			</small>
-  			<br/>
-  			<small>
-  				<span th:text="${hotel.category}"></span>  				
-  				 · 
-  				<span id="address" th:text="${hotel.address}"></span>
-  			</small>
-  		</h1>
-	</div>
-	
-	<div class="row">
-  		<div class="col-md-6">
-  			<div class="hidden" id="map"></div>
-			<div class="slider">  		
-  			<img src="../static/intercontinental.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
-  			<img src="../static/intercontinental2.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
-  			<img src="../static/intercontinental3.jpg" class="img-responsive img-rounded" alt="Hotel photo"/>
-  			</div>
-  			<p></p>
-			<p>
-			<a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a>
-			<a id="showMap" onclick="displayMap()" class="btn btn-default">View map</a>
-			</p>			
+		<div th:fragment="hotel-header" class="page-header">
+			<h1>
+				<span th:text="${hotel.name}"></span> <small> <span
+					th:each="i : ${#numbers.sequence(1, hotel.rating)}"><i
+						class="glyphicon glyphicon-star"></i></span> <span class="pull-right"><a
+						th:href="@{|/hotels/${hotel.id}/edit|}"><i
+							class="glyphicon glyphicon-pencil"></i></a> · <a
+						th:href="@{|/hotels/${hotel.id}/remove|}"><i
+							class="glyphicon glyphicon-trash"></i></a></span>
+				</small> <br /> <small> <span th:text="${hotel.category}"></span> ·
+					<span id="address" th:text="${hotel.address}"></span>
+				</small>
+			</h1>
 		</div>
-  		<div class="col-md-6">  		
-  			<div class="panel panel-primary" th:each="comment, iterStat : ${hotel.comments.?[value.status]}" th:unless="${iterStat.count > 2}">
-				<p class="panel-heading">
-					<span><i class="glyphicon glyphicon-comment"></i></span>
-					<b><span th:text="${comment.value.user.name}"></span></b>
-					<span class="pull-right" th:text="${comment.value.date}"></span></p>
-		 	   	<div class="panel-body">
-		 	   		<p th:text="${comment.value.text}"></p>		 	   		
-		 	   	</div>   	
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="hidden" id="map"></div>
+				<div class="slider">
+					<img src="../static/intercontinental.jpg"
+						class="img-responsive img-rounded" alt="Hotel photo" /> <img
+						src="../static/intercontinental2.jpg"
+						class="img-responsive img-rounded" alt="Hotel photo" /> <img
+						src="../static/intercontinental3.jpg"
+						class="img-responsive img-rounded" alt="Hotel photo" />
+				</div>
+				<p></p>
+				<p>
+					<a class="btn btn-default"
+						th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a> <a
+						id="showMap" onclick="displayMap()" class="btn btn-default">View
+						map</a>
+				</p>
 			</div>
-			<p>
-				<span><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a comment</a></span>
-				<span><a class="btn btn-default" th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>
-			</p>
-  		</div>
+			<div class="col-md-6">
+				<div class="panel panel-primary"
+					th:each="comment, iterStat : ${hotel.comments.?[value.status]}"
+					th:unless="${iterStat.count > 2}">
+					<p class="panel-heading">
+						<span><i class="glyphicon glyphicon-comment"></i></span> <b><a
+							th:href="@{|/users/${comment.value.user.id}/|}"><span
+								style="color: black" th:text="${comment.value.user.name}"></span></a></b>
+						<span class="pull-right" th:text="${comment.value.date}"></span>
+					</p>
+					<div class="panel-body">
+						<p th:text="${comment.value.text}"></p>
+						<span class="pull-right"><a th:href="@{||}"><i
+								class="glyphicon glyphicon-th-list"></i></a> · <a
+							data-toggle="collapse" th:href="@{|#${comment.value.id}-reply|}"><i
+								class="glyphicon glyphicon-share-alt"></i></a></span>
+					</div>
+					<div class="collapse" th:id="|${comment.value.id}-reply|">
+						<form class="form" id="commentForm" method="post"
+							th:action="@{|/hotels/${hotel.id}/comments/reply|}" th:object="${reply}">
+							<input type="hidden" th:field="*{id}" />
+							<input hidden="true" name="commentParent" th:value="${comment.value.id}">
+							<div class="form-group">
+								<textarea class="form-control" rows="5" th:field="*{text}"></textarea>
+							</div>
+							<div class="form-group">
+								<p><label>Author</label>
+								<select class="form-control" th:field ="*{user}">
+					        		<option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}"></option>
+					        	</select>
+					        </div>	
+							<div class="form-group">
+								<input class="btn btn-primary" type="submit" value="Submit"/>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<p>
+					<span><a class="btn btn-default"
+						th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a
+							comment</a></span> <span><a class="btn btn-default"
+						th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>
+				</p>
+			</div>
+		</div>
 	</div>
-    </div>
 </body>
 </html>
 
