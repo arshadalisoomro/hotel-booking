@@ -47,6 +47,12 @@ VALUES
 
 INSERT INTO hotel_images (hotel_id, images)
 VALUES
-(1, 'path/to/image/teste');
-
-
+(1, 'intercontinental.jpg'),
+(1, 'intercontinental2.jpg'),
+(1, 'intercontinental3.jpg'),
+(2, 'tryp.jpg'),
+(2, 'tryp2.jpg'),
+(3, 'inn.jpg'),
+(3, 'inn2.jpg'),
+(4, 'marriott.jpg'),
+(4, 'marriott2.jpg');
