@@ -8,8 +8,10 @@
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
-		<h1>Editing Hotel <span th:text="${hotel.name}"></span></h1>	
-		<div th:include="hotels/form :: hotelform(@{|/hotels/${hotel.id}|})"></div>
+		<div class="page-header">
+			<h1>Editing Hotel <span th:text="${hotel.name}"></span><a class="pull-right" th:href="@{|/hotels/${hotel.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></h1>			
+		</div>
+		<div th:include="hotels/form :: hotelform(@{|/hotels/${hotel.id}|})"></div>		
 		<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>
     </div>
 </body>

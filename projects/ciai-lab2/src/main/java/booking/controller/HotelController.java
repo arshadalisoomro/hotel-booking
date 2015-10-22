@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import booking.model.Comment;
 import booking.model.Hotel;
@@ -35,7 +34,6 @@ import booking.util.HotelNotFoundException;
 
 @Controller
 @RequestMapping(value="/hotels")
-@SessionAttributes("hotel")
 public class HotelController {
 
     @Autowired
@@ -116,7 +114,7 @@ public class HotelController {
     @RequestMapping(value="{id}", method=RequestMethod.POST)
     public String editSave(@PathVariable("id") long id, @ModelAttribute("hotel") Hotel hotel, Model model) {    	
     	hotels.save(hotel);
-    	return "hotels/show";
+    	return "redirect:/hotels/{id}";
     }
     
     // GET  /hotels/{id}/remove 	- removes the hotel with identifier {id}
