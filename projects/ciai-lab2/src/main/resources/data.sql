@@ -46,17 +46,18 @@ VALUES
 (5, '2015-09-30 17:55:00',TRUE,'Shower head moves all over the place. Boiler is noisy even though its in an outside cupboard its still next to the bed. Be good if the wall could be insulated.', 3, 3, false),
 (6, '2015-09-30 17:55:00',TRUE,'Friendly and helpful staff. Great pool. Not in the city centre of Lisbon but close to the undergound station.', 4, 1, false);
 
-INSERT INTO hotel_images (hotel_id, images)
+
+INSERT INTO image (id, insertion_date, hotel_id, path)
 VALUES
-(1, 'intercontinental.jpg'),
-(1, 'intercontinental2.jpg'),
-(1, 'intercontinental3.jpg'),
-(2, 'tryp.jpg'),
-(2, 'tryp2.jpg'),
-(3, 'inn.jpg'),
-(3, 'inn2.jpg'),
-(4, 'marriott.jpg'),
-(4, 'marriott2.jpg');
+(1, '2015-10-22 15:00:00', 1, 'intercontinental.jpg'),
+(2, '2015-10-22 15:00:00', 1, 'intercontinental2.jpg'),
+(3, '2015-10-22 15:00:00', 1, 'intercontinental3.jpg'),
+(4, '2015-10-22 15:00:00', 2, 'tryp.jpg'),
+(5, '2015-10-22 15:00:00', 2, 'tryp2.jpg'),
+(6, '2015-10-22 15:00:00', 3, 'inn.jpg'),
+(7, '2015-10-22 15:00:00', 3, 'inn2.jpg'),
+(8, '2015-10-22 15:00:00', 4, 'marriott.jpg'),
+(9, '2015-10-22 15:00:00', 4, 'marriott2.jpg');
 
 INSERT INTO booking (id, begin_date, end_date, state, room_id, user_id)
 VALUES

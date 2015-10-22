@@ -1,11 +1,8 @@
 package booking.model;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,8 +34,9 @@ public class Hotel {
     @MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
     
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> images = new HashSet<String>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
+    @MapKeyColumn(name="id")
+    private Map<Long, Image> images = new HashMap<Long, Image>();
     
     public Hotel() {}
 
@@ -66,7 +64,7 @@ public class Hotel {
         return id;
     }
 
-    public Set<String> getImages() {
+    public Map<Long, Image> getImages() {
 		return images;
 	}
 
@@ -98,7 +96,7 @@ public class Hotel {
         this.id = id;
     }
     
-    public void setImages(Set<String> images) {
+    public void setImages(Map<Long, Image> images) {
 		this.images = images;
 	}
 
