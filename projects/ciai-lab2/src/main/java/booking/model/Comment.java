@@ -19,9 +19,10 @@ public class Comment {
 	private String text;
 	private Date date;
 	private boolean status;
+	private boolean isAnswer;
 	
 	@OneToOne
-	private Comment commentParent;
+	private Comment reply;
 		
 	@ManyToOne
 	private Hotel hotel;
@@ -38,10 +39,15 @@ public class Comment {
 		this.user = user;
 		this.status = status;
 		this.hotel = hotel;
+		this.isAnswer = false;
 	}
-	
-	public Comment getCommentParent() {
-		return commentParent;
+
+	public Comment getReply() {
+		return reply;
+	}
+
+	public void setReply(Comment reply) {
+		this.reply = reply;
 	}
 
 	public Date getDate() {
@@ -68,10 +74,6 @@ public class Comment {
 		return user;
 	}
 
-	public void setCommentParent(Comment commentParent) {
-		this.commentParent = commentParent;
-	}
-
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -95,7 +97,13 @@ public class Comment {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
+	public boolean getIsAnswer() {
+		return isAnswer;
+	}
+
+	public void setAnswer(boolean isAnswer) {
+		this.isAnswer = isAnswer;
+	}
 
 }

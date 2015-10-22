@@ -29,14 +29,20 @@ public class CommentController {
 	@Autowired
 	UserRepository users;
 	
-	@RequestMapping(value="/{id}/comments/reply", method = RequestMethod.POST)
-	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, Model model){
+	@RequestMapping(value="/{id}/comments/{comment_id}/reply", method = RequestMethod.POST)
+	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, 
+			Model model, @PathVariable("comment_id") long comment_id){
+		
 		Hotel hotel = hotels.findOne(id);
+		Comment comment = comments.findOne(comment_id);		
 		Date date = new Date();
     	reply.setDate(date);
     	reply.setHotel(hotel);
-    	comments.save(reply);    	
-    	model.addAttribute("hotel", hotel);    	
+    	reply.setAnswer(true);
+    	reply.setStatus(true);
+    	comments.save(reply);    
+    	comment.setReply(reply);
+    	comments.save(comment);
     	return "redirect:/hotels/{id}/comments/";
 	}
     
@@ -47,7 +53,6 @@ public class CommentController {
     	comment.setDate(date);
     	comment.setHotel(hotel);
     	comments.save(comment);    	
-    	model.addAttribute("hotel", hotel);   
     	return "redirect:/hotels/{id}";
     }
     
@@ -86,11 +91,8 @@ public class CommentController {
     }
     
     @RequestMapping(value="{id}/comments/{id_comment}/remove", method=RequestMethod.GET)
-    public String removeComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){
-    	
-    	Hotel hotel = hotels.findOne(id);
+    public String removeComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){    	
     	comments.delete(id_comment);
-    	model.addAttribute("hotel", hotel);
 		return "redirect:/hotels/{id}/comments/";	
     }
     
