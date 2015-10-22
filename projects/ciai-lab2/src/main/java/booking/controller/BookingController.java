@@ -67,7 +67,6 @@ public class BookingController {
 		
 		if(user == null)
 			throw new UserNotFoundException();
-		System.out.println(user.getName());
 		booking.setUser(user);
 		
 		Room room = rooms.findOne(room_id);
@@ -75,7 +74,6 @@ public class BookingController {
 		if(room == null)
 			throw new RoomNotFoundException();
 		
-		System.out.println(room.getRoom_number());
 		booking.setRoom(room);
 		
 		Map<Date, Long> days_reserved = room.getDays_reserved();

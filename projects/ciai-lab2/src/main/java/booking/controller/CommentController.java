@@ -29,16 +29,16 @@ public class CommentController {
 	@Autowired
 	UserRepository users;
 	
-//	@RequestMapping(value="/{id}/comments/reply", method = RequestMethod.POST)
-//	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, Model model){
-//		Hotel hotel = hotels.findOne(id);
-//		Date date = new Date();
-//    	reply.setDate(date);
-//    	reply.setHotel(hotel);
-//    	comments.save(reply);    	
-//    	model.addAttribute("hotel", hotel);    	
-//    	return "redirect:/hotels/{id}";
-//	}
+	@RequestMapping(value="/{id}/comments/reply", method = RequestMethod.POST)
+	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, Model model){
+		Hotel hotel = hotels.findOne(id);
+		Date date = new Date();
+    	reply.setDate(date);
+    	reply.setHotel(hotel);
+    	comments.save(reply);    	
+    	model.addAttribute("hotel", hotel);    	
+    	return "redirect:/hotels/{id}/comments/";
+	}
     
     @RequestMapping(value="/{id}/comments/", method = RequestMethod.POST)
     public String createComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){
@@ -63,6 +63,8 @@ public class CommentController {
     public String showComments(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
     	model.addAttribute("hotel", hotel);
+    	model.addAttribute("reply", new Comment());
+    	model.addAttribute("users", users.findAll());
     	return "comments/hotel-comments";
     }
     
@@ -93,11 +95,10 @@ public class CommentController {
     }
     
     @RequestMapping(value="{id}/comments/{id_comment}/approve", method=RequestMethod.GET)
-    public String approveComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model) {
-    	Hotel hotel = hotels.findOne(id);
-    	hotel.getComments().get(id_comment).setStatus(true);
-    	hotels.save(hotel);
-    	model.addAttribute("hotel", hotel);
-    	return "comments/hotel-comments";
+    public String approveComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model) {    	
+    	Comment comment = comments.findOne(id_comment);
+    	comment.setStatus(true);
+    	comments.save(comment);
+    	return "redirect:/hotels/{id}/comments/";
     }
 }
