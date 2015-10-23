@@ -21,32 +21,32 @@
 	
 	<div class="row">
   		<div class="col-md-6">  			  			
-	  		<div th:if="${comment.value.status && !comment.value.isAnswer}" class="panel panel-primary" th:each="comment : ${hotel.comments}">
+	  		<div th:if="${comment.status && !comment.isAnswer}" class="panel panel-primary" th:each="comment : ${comments}">
 				<p class="panel-heading">
 					<span><i class="glyphicon glyphicon-comment"></i></span>
-					<span th:text="${comment.value.user.name}"></span>
-					<span class="pull-right" th:text="${comment.value.date}"></span></p>
+					<span th:text="${comment.user.name}"></span>
+					<span class="pull-right" th:text="${comment.date}"></span></p>
 		 	   	<div class="panel-body">
-		 	   		<p th:text="${comment.value.text}"></p> 	   	
+		 	   		<p th:text="${comment.text}"></p> 	   	
 		 	   		<p>
-		 	   			<span th:if="${!comment.value.status}">
-		 	   				<a th:href="@{|/hotels/${hotel.id}/comments/${comment.value.id}/approve|}">
+		 	   			<span th:if="${!comment.status}">
+		 	   				<a th:href="@{|/hotels/${hotel.id}/comments/${comment.id}/approve|}">
 		 	   					<i class="glyphicon glyphicon-ok"></i>
 		 	   				</a> · 
 		 	   			</span>
-		 	   			<a data-toggle="collapse" th:href="@{|#${comment.value.id}-viewreply|}">
-		 	   				<i th:if="${(comment.value.reply) != null}" class="glyphicon glyphicon-plus"></i>
+		 	   			<a data-toggle="collapse" th:href="@{|#${comment.id}-viewreply|}">
+		 	   				<i th:if="${(comment.reply) != null}" class="glyphicon glyphicon-plus"></i>
 		 	   			</a>
-		 	   			<a class="pull-right" th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}">
+		 	   			<a class="pull-right" th:href ="@{|/hotels/${hotel.id}/comments/${comment.id}/remove|}">
 		 	   				<i class="glyphicon glyphicon-trash"></i>
 		 	   			</a>		 	   			
-		 	   			<a data-toggle="collapse" th:href="@{|#${comment.value.id}-reply|}">		 	   						 	   			
-		 	   				<i th:if="${(comment.value.reply) == null}" class="glyphicon glyphicon-share-alt"></i>		 	   				
+		 	   			<a data-toggle="collapse" th:href="@{|#${comment.id}-reply|}">		 	   						 	   			
+		 	   				<i th:if="${(comment.reply) == null}" class="glyphicon glyphicon-share-alt"></i>		 	   				
 		 	   			</a>
 		 	   		</p>
 		 	   		
-		 	   		<div class="collapse" th:id="|${comment.value.id}-reply|">
-			 	   		<form action="#" th:action="@{|/hotels/${hotel.id}/comments/${comment.value.id}/reply|}" th:object="${reply}" method="post">
+		 	   		<div class="collapse" th:id="|${comment.id}-reply|">
+			 	   		<form action="#" th:action="@{|/hotels/${hotel.id}/comments/${comment.id}/reply|}" th:object="${reply}" method="post">
 				    		<p>
 						    	<input type="hidden" th:field="*{id}" />
 					        	<p><textarea  rows="5" class="form-control" placeholder="Comment" th:field="*{text}" ></textarea></p>		        	
@@ -61,9 +61,9 @@
 				    </div>		 	   		
 		 	   	</div> 	  
 		 
-		 	   	<div th:if="${(comment.value.reply != null)}" th:id="|${comment.value.id}-viewreply|" class="collapse panel-footer">
+		 	   	<div th:if="${(comment.reply != null)}" th:id="|${comment.id}-viewreply|" class="collapse panel-footer">
 		 	   		<h5>Manager reply</h5>				  				 
-				    <span th:text="${(comment.value.reply.text)}"></span>				  
+				    <span th:text="${(comment.reply.text)}"></span>				  
 				</div>
 		 	   	
 		 	   	
@@ -71,13 +71,13 @@
 			</div>
   		</div>
   		<div class="col-md-6">
-  			<div th:if="${!comment.value.status}" class="panel panel-warning" th:each="comment : ${hotel.comments}">
-				<p class="panel-heading"><span th:text="${comment.value.user.name}"></span><span class="pull-right" th:text="${comment.value.date}"></span></p>
+  			<div th:if="${!comment.status}" class="panel panel-warning" th:each="comment : ${comments}">
+				<p class="panel-heading"><span th:text="${comment.user.name}"></span><span class="pull-right" th:text="${comment.date}"></span></p>
 		 	   	<div class="panel-body">
-		 	   		<p th:text="${comment.value.text}"></p> 	   	
+		 	   		<p th:text="${comment.text}"></p> 	   	
 		 	   		<p>
-		 	   			<span th:if="${!comment.value.status}"><a th:href="@{|/hotels/${hotel.id}/comments/${comment.value.id}/approve|}"><i class="glyphicon glyphicon-ok"></i></a> · </span>
-		 	   			<a th:href ="@{|/hotels/${hotel.id}/comments/${comment.value.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>
+		 	   			<span th:if="${!comment.status}"><a th:href="@{|/hotels/${hotel.id}/comments/${comment.id}/approve|}"><i class="glyphicon glyphicon-ok"></i></a> · </span>
+		 	   			<a th:href ="@{|/hotels/${hotel.id}/comments/${comment.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>
 		 	   		</p>
 		 	   	</div>   	
 			</div>			

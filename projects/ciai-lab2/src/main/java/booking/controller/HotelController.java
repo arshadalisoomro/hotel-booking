@@ -146,11 +146,12 @@ public class HotelController {
 				MultipartFile file = files[i];
 				try {
 					byte[] bytes = file.getBytes();
-					String path = "src/main/resources/public/static/images/" + file.getOriginalFilename();
+					String path = "src/main/resources/public/static/" + file.getOriginalFilename();
 					BufferedOutputStream stream =
 							new BufferedOutputStream(new FileOutputStream(new File(path)));
 					stream.write(bytes);
 					stream.close();
+					
 					Image image = new Image();
 					image.setHotel(hotels.findOne(id));
 					image.setInsertion_date(new Date());

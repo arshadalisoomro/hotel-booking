@@ -1,6 +1,7 @@
 package booking.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,6 +68,9 @@ public class CommentController {
     @RequestMapping(value="{id}/comments/", method=RequestMethod.GET)
     public String showComments(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
+    	Iterable<Comment> hotel_comments = comments.getComments(id);
+    	
+    	model.addAttribute("comments", hotel_comments);
     	model.addAttribute("hotel", hotel);
     	model.addAttribute("reply", new Comment());
     	model.addAttribute("users", users.findAll());
