@@ -35,7 +35,7 @@
 			<div class="col-md-6">
 				<div class="hidden" id="map"></div>
 				<div class="slider">
-					<img th:each="img : ${hotel.images}" th:src="${'../static/' + img.value.path}"
+					<img th:each="img : ${hotel.images}" th:src="${'/static/' + img.value.path}"
 						class="img-responsive img-rounded" alt="Hotel photo" />
 				</div>
 				<p></p>
