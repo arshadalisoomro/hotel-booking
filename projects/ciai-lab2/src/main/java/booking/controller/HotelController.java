@@ -20,6 +20,7 @@ import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;
 import booking.repository.CategoryRepository;
+import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
 import booking.repository.ImageRepository;
 import booking.repository.RoomRepository;
@@ -62,6 +63,9 @@ public class HotelController {
 	
 	@Autowired
 	ImageRepository images;
+	
+	@Autowired
+	CommentRepository comments;
 
 
 	// GET  /hotels 			- the list of hotels
@@ -99,6 +103,9 @@ public class HotelController {
 		Hotel hotel = hotels.findOne(id);
 		if( hotel == null )
 			throw new HotelNotFoundException();
+		Iterable<Comment> hotel_comments = comments.getComments(id);
+    	
+    	model.addAttribute("comments", hotel_comments);
 		model.addAttribute("hotel", hotel );
 		model.addAttribute("reply", new Comment());
 		model.addAttribute("users", users.findAll());

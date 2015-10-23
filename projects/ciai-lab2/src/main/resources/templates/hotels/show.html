@@ -48,16 +48,16 @@
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-primary"
-					th:each="comment, iterStat : ${hotel.comments.?[value.status]}"
+					th:each="comment, iterStat : ${comments.?[status]}"
 					th:unless="${iterStat.count > 2}">
 					<p class="panel-heading">
 						<span><i class="glyphicon glyphicon-comment"></i></span>  <a
-							th:href="@{|/users/${comment.value.user.id}/|}"><span
-								style="color: white" th:text="${comment.value.user.name}"></span></a>
-						<span class="pull-right" th:text="${comment.value.date}"></span>
+							th:href="@{|/users/${comment.user.id}/|}"><span
+								style="color: white" th:text="${comment.user.name}"></span></a>
+						<span class="pull-right" th:text="${comment.date}"></span>
 					</p>
 					<div class="panel-body">
-						<p th:text="${comment.value.text}"></p>						
+						<p th:text="${comment.text}"></p>						
 					</div>
 				</div>
 
