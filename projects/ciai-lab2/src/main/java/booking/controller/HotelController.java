@@ -168,8 +168,16 @@ public class HotelController {
 				} catch (Exception e) {
 				}
 			}
-			return "redirect:/hotels/{id}";
+			return "redirect:/hotels/{id}/upload";
 		}
 		return "";
 	}
+	
+	@RequestMapping(value="{id}/upload", method=RequestMethod.GET)
+	public String uploadForm(@PathVariable("id") long id, Model model) { 	
+		Hotel hotel = hotels.findOne(id);
+		model.addAttribute("hotel", hotel);    			
+		return "hotels/upload";
+	}
+	
 }

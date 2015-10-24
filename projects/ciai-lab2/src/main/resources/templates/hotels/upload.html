@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Add photos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
+</head>
+<body>
+	<div th:include="fragments/header"></div>
+	<div class="container">
+		<div class="page-header"><h1>Manage hotel photos</h1></div>
+		
+		<h4>Add photos</h4>
+	    <form method="post" enctype="multipart/form-data" th:action="@{|/hotels/${hotel.id}/upload/|}">
+			<label>File to upload:</label><input type="file" name="files" multiple><br /> 
+			<p><input class="btn btn-primary" type="submit" value="Upload"></p>
+		</form>
+		
+		<hr/>
+		
+		<h4>Remove photos</h4>
+		
+		<div class="well well-sm" th:each="image : ${hotel.images}" >
+			<span th:text="${image.value.path}"></span>	
+			<span class="pull-right"><a href=""><i class="glyphicon glyphicon-remove"></i></a></span>					
+		</div>
+					
+		<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>	
+    </div>
+</body>
+</html>
+
