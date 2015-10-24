@@ -180,4 +180,12 @@ public class HotelController {
 		return "hotels/upload";
 	}
 	
+	@RequestMapping(value="{id}/remove_image/{id_image}", method=RequestMethod.GET)
+	public String deleteImage(@PathVariable("id") long id, @PathVariable("id_image") long id_image, Model model) { 	
+		Image image = images.findOne(id_image);
+		images.delete(image);
+		return "redirect:/hotels/{id}/upload";
+	}
+	
+	
 }

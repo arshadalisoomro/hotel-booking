@@ -22,7 +22,7 @@
 		
 		<div class="well well-sm" th:each="image : ${hotel.images}" >
 			<span th:text="${image.value.path}"></span>	
-			<span class="pull-right"><a href=""><i class="glyphicon glyphicon-remove"></i></a></span>					
+			<span class="pull-right"><a th:href="@{|/hotels/${hotel.id}/remove_image/${image.key}|}"><i class="glyphicon glyphicon-remove"></i></a></span>					
 		</div>
 					
 		<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>	
