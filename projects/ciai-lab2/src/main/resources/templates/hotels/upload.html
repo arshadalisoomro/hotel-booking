@@ -12,7 +12,7 @@
 		
 		<h4>Add photos</h4>
 	    <form method="post" enctype="multipart/form-data" th:action="@{|/hotels/${hotel.id}/upload/|}">
-			<label>File to upload:</label><input type="file" name="files" multiple><br /> 
+			<label>File to upload:</label><input type="file" name="files" multiple accept="image/*"><br /> 
 			<p><input class="btn btn-primary" type="submit" value="Upload"></p>
 		</form>
 		
