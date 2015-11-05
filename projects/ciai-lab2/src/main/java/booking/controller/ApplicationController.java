@@ -9,6 +9,6 @@ public class ApplicationController {
 	
 	@RequestMapping(value="/")
 	public String root(Model model) {
-		return "redirect:/hotels";
+		return "index";
 	}
 }
