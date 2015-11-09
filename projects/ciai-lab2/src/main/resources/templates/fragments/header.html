@@ -24,10 +24,18 @@
 		        <li><a href="/hotels">Hotels <span class="sr-only">(current)</span></a></li>
 		        <li><a href="/users">Users</a></li>
 		        <li><a href="/bookings">Bookings</a></li>
-		        <li><a href="/bookings/new">Book a room</a></li>		        
-		        <li><a href="/users/new">Sign up</a></li> 
-		        <li><a href="/users/login">Sign in</a></li>  
-		      </ul>		      	
+		        <li><a href="/bookings/new">Book a room</a></li>		        		        	       
+		      </ul>
+		      <ul class="nav navbar-nav navbar-right">		      
+			      <li th:if="${#httpServletRequest.remoteUser} != null"><span class="navbar-text" th:utext="'Logged in as <b>' + ${#httpServletRequest.remoteUser} + '</b>'"></span></b></li>
+			      <li>
+			      	<form th:if="${#httpServletRequest.remoteUser} != null" th:action="@{/logout}" method="post">
+	    				<input class="btn btn-link navbar-btn" type="submit" value="Log out"></input>
+				  	</form>
+				  </li> 
+				  <li th:if="${#httpServletRequest.remoteUser} == null" ><a href="/users/new">Sign up</a></li> 
+		          <li th:if="${#httpServletRequest.remoteUser} == null" ><a href="/">Log in</a></li>		        
+		      </ul>
 		      
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
