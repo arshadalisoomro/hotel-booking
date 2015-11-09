@@ -15,9 +15,9 @@ VALUES
 
 INSERT INTO `user`(id, email, name, password, username)
 VALUES
-(1, 'pedro@email.com','Pedro', 'password', 'pedro'),
-(2, 'manuel@email.com','Manuel', 'password', 'manuel'),
-(3, 'tiago@email.com','Tiago', 'password', 'tiago');
+(1, 'pedro@email.com','Pedro', 'pass', 'pedro'),
+(2, 'manuel@email.com','Manuel', 'pass', 'manuel'),
+(3, 'tiago@email.com','Tiago', 'pass', 'tiago');
 
 INSERT INTO hotel (id, address, name, rating, category_id)
 VALUES
@@ -64,3 +64,8 @@ VALUES
 (1, '2015-11-03 14:00:00', '2015-11-05 11:00:00', TRUE, 1, 1),
 (2, '2015-11-24 14:00:00', '2015-11-29 11:00:00', TRUE, 4, 1),
 (3, '2015-11-29 14:00:00', '2015-12-02 11:00:00', TRUE, 7, 1);
+
+INSERT INTO authority (id, username, role)
+VALUE
+(1, 'pedro', "USER"),
+(2, 'manuel', "ADMIN");
