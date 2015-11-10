@@ -24,15 +24,15 @@
 				<span th:text="${hotel.name}"></span> <small> <span
 					th:each="i : ${#numbers.sequence(1, hotel.rating)}"><i
 						class="glyphicon glyphicon-star"></i></span>
-						<span class="pull-right">
-							<a th:href="@{|/hotels/${hotel.id}/upload|}">
-								<i class="glyphicon glyphicon-picture"></i>
-							</a>
+						
+						<span sec:authorize="hasAnyRole('ADMIN')" class="pull-right">
+							<a th:href="@{|/hotels/${hotel.id}/upload|}"><i class="glyphicon glyphicon-picture"></i></a>
 							·
 							<a th:href="@{|/hotels/${hotel.id}/edit|}">
 								<i class="glyphicon glyphicon-pencil"></i>
 							</a>													
 						</span>
+						
 				</small> <br /> <small> <span th:text="${hotel.category}"></span> ·
 					<span id="address" th:text="${hotel.address}"></span>
 				</small>

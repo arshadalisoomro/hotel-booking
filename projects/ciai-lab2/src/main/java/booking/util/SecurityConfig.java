@@ -51,8 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 		.authorizeRequests()
-		.antMatchers("/bookings").authenticated()
-		.antMatchers("/hotels/new").hasRole("ADMIN")
+		.antMatchers("/bookings").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/new").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/*/upload").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/*/edit").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/*/remove").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/*/comments/*/approve").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/*/remove_image/*").hasAnyRole("ADMIN")		
 		.anyRequest().permitAll();
 	}	
 }

@@ -37,10 +37,10 @@
 		 	   			<a data-toggle="collapse" th:href="@{|#${comment.id}-viewreply|}">
 		 	   				<i th:if="${(comment.reply) != null}" class="glyphicon glyphicon-plus"></i>
 		 	   			</a>
-		 	   			<a class="pull-right" th:href ="@{|/hotels/${hotel.id}/comments/${comment.id}/remove|}">
+		 	   			<a sec:authorize="hasAnyRole('ADMIN')" class="pull-right" th:href ="@{|/hotels/${hotel.id}/comments/${comment.id}/remove|}">
 		 	   				<i class="glyphicon glyphicon-trash"></i>
 		 	   			</a>		 	   			
-		 	   			<a data-toggle="collapse" th:href="@{|#${comment.id}-reply|}">		 	   						 	   			
+		 	   			<a sec:authorize="hasAnyRole('ADMIN')" data-toggle="collapse" th:href="@{|#${comment.id}-reply|}">		 	   						 	   			
 		 	   				<i th:if="${(comment.reply) == null}" class="glyphicon glyphicon-share-alt"></i>		 	   				
 		 	   			</a>
 		 	   		</p>
@@ -70,7 +70,7 @@
 		 	   	
 			</div>
   		</div>
-  		<div class="col-md-6">
+  		<div sec:authorize="hasAnyRole('ADMIN')" class="col-md-6">
   			<div th:if="${!comment.status}" class="panel panel-warning" th:each="comment : ${comments}">
 				<p class="panel-heading"><span th:text="${comment.user.name}"></span><span class="pull-right" th:text="${comment.date}"></span></p>
 		 	   	<div class="panel-body">
