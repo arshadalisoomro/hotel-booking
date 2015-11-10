@@ -68,4 +68,5 @@ VALUES
 INSERT INTO authority (id, username, role)
 VALUE
 (1, 'pedro', "USER"),
-(2, 'manuel', "ADMIN");
+(2, 'manuel', "ADMIN"),
+(3, 'tiago', "USER");
