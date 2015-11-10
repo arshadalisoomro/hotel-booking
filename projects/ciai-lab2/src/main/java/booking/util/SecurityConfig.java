@@ -14,39 +14,45 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	DataSource dataSource;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery("select username, password, true from user where username=?")
-		.authoritiesByUsernameQuery("select username, role from authority where username=?");
+		//		auth.jdbcAuthentication().dataSource(dataSource)
+		//		.usersByUsernameQuery("select username, password, true from user where username=?")
+		//		.authoritiesByUsernameQuery("select username, role from authority where username=?");
+
+		auth.inMemoryAuthentication()
+			.withUser("admin").password("pass").roles("USER", "ADMIN").and()
+			.withUser("user").password("pass").roles("USER");
 	}
-	
+
 	@Override
 	public void configure(final WebSecurity web) throws Exception {
-        web.ignoring()
-           .antMatchers("/static/**")
-           .antMatchers("/js/**")
-           .antMatchers("/css/**");
-    }
-	
+		web.ignoring()
+		.antMatchers("/static/**")
+		.antMatchers("/js/**")
+		.antMatchers("/css/**");
+	}
+
 	protected void configure(HttpSecurity http) throws Exception {
-	    http
-	        .authorizeRequests()	        	
-	        	.antMatchers("/", "/hotels", "/hotels/*", "/users/new").permitAll()	        	
-	        	.anyRequest().authenticated()
-	        	.and()
-	        .formLogin()
-	            .loginPage("/")
-	            .defaultSuccessUrl("/")	           
-	            .failureUrl("/?error")
-	            .permitAll()
-	            .and()
-	        .logout()
-	        	.logoutSuccessUrl("/")
-	        	.permitAll();        
+		http
+		.formLogin()
+		.loginPage("/")
+		.defaultSuccessUrl("/")	           
+		.failureUrl("/?error")
+		.permitAll()
+		.and()
+		.logout()
+		.logoutSuccessUrl("/")
+		.permitAll();
+		
+		http
+		.authorizeRequests()
+		.antMatchers("/bookings").authenticated()
+		.antMatchers("/hotels/new").hasRole("ADMIN")
+		.anyRequest().permitAll();
 	}	
 }
