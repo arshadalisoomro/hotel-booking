@@ -32,10 +32,12 @@
 					<input type="submit" value="Sign Out" />
 				</form>			
 			</p>
-			
+			<br>
 			<p><label>User Principal: </label><span th:text="${#httpServletRequest.userPrincipal}"></span></p>
-			<p><label>Role admin: </label> <span th:text="${#httpServletRequest.isUserInRole('ADMIN')}"></span></p>
-			<p><label>Role user: </label> <span th:text="${#httpServletRequest.isUserInRole('USER')}"></span></p>
+			<br>
+			<p><label>Admin: </label> <span th:text="${#httpServletRequest.isUserInRole('ADMIN')}"></span></p>
+			<p><label>User: </label> <span th:text="${#httpServletRequest.isUserInRole('USER')}"></span></p>
+			<p><label>Comment moderator: </label> <span th:text="${#httpServletRequest.isUserInRole('COMMENT_MODERATOR')}"></span></p>
 		</div>
 
 		<div th:if="${#httpServletRequest.remoteUser} == null">

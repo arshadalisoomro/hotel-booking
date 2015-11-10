@@ -67,6 +67,7 @@ VALUES
 
 INSERT INTO authority (id, username, role)
 VALUE
-(1, 'pedro', "USER"),
-(2, 'manuel', "ADMIN"),
-(3, 'tiago', "USER");
+(1, 'pedro', "ROLE_USER"),
+(2, 'manuel', "ROLE_ADMIN"),
+(3, 'tiago', "ROLE_USER"),
+(4, 'pedro', "ROLE_COMMENT_MODERATOR");
