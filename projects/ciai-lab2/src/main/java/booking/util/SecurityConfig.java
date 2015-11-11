@@ -20,13 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-				auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select username, password, true from user where username=?")
-				.authoritiesByUsernameQuery("select username, role from authority where username=?");
+//				auth.jdbcAuthentication().dataSource(dataSource)
+//				.usersByUsernameQuery("select username, password, true from user where username=?")
+//				.authoritiesByUsernameQuery("select username, role from authority where username=?");
 
-//		auth.inMemoryAuthentication()
-//			.withUser("admin").password("pass").roles("USER", "ADMIN").and()
-//			.withUser("user").password("pass").roles("USER");
+		auth.inMemoryAuthentication()
+			.withUser("admin").password("p").roles("ADMIN").and()
+			.withUser("user").password("p").roles("USER").and()
+			.withUser("cm").password("p").roles("COMMENT_MODERATOR");
 	}
 
 	@Override
@@ -56,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/hotels/*/upload").hasAnyRole("ADMIN")
 		.antMatchers("/hotels/*/edit").hasAnyRole("ADMIN")
 		.antMatchers("/hotels/*/remove").hasAnyRole("ADMIN")
-		.antMatchers("/hotels/*/comments/*/approve").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/*/comments/*/approve").hasAnyRole("ADMIN", "COMMENT_MODERATOR")
+		.antMatchers("/hotels/*/comments/*/remove").hasAnyRole("ADMIN", "COMMENT_MODERATOR")
 		.antMatchers("/hotels/*/remove_image/*").hasAnyRole("ADMIN")		
 		.anyRequest().permitAll();
 	}	
