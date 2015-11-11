@@ -3,7 +3,10 @@ package booking.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import booking.model.Booking;
 import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;
@@ -187,5 +191,20 @@ public class HotelController {
 		return "redirect:/hotels/{id}/upload";
 	}
 	
-	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String searchHotel(Model model, @RequestParam("searchString") String searchString)
+	{
+		Iterator<Hotel> ithotels = hotels.findAll().iterator();
+    	List<Hotel> hotelsList = new ArrayList<Hotel>();	
+    	    	
+    	while(ithotels.hasNext())
+    	{
+    		Hotel h = ithotels.next();
+    		if(h.getName().toLowerCase().contains(searchString.toLowerCase()))
+    			hotelsList.add(h);
+    	}				
+    	
+    	model.addAttribute("hotels", hotelsList);
+    	return "hotels/index";
+	}
 }
