@@ -46,6 +46,10 @@
 						th:src="${'/static/' + img.value.path}" class="img-rounded"
 						alt="Hotel photo" th:unless="${istat.index > 0}" />
 				</figure>
+				<br>
+				<div class="text-center">
+					<a class="seehotel btn btn-default" th:href="@{|/hotels/${hotel.id}|}">See more info</a>
+				</div>
 			</div>
 		</div>
 

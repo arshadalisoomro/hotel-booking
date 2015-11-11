@@ -27,7 +27,13 @@ function displayMap(){
     initialize();
     $('.slider').toggleClass('hidden');
 
-    $('#showMap').text($('#showMap').text() == 'View map' ? 'View photos' : 'View map');
+    var actualText = $('#showMap').text();
+    
+    if(actualText == 'Show map')
+    	$('#showMap').text('Show photos');
+    else
+    	$('#showMap').text('Show map');
+    
 }
 
 function initialize() {
