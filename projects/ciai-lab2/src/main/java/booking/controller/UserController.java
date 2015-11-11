@@ -1,5 +1,9 @@
 package booking.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import booking.model.Booking;
 import booking.model.CustomUserDetail;
 import booking.model.User;
+import booking.repository.BookingRepository;
 import booking.repository.UserRepository;
 import booking.util.HotelNotFoundException;
 import booking.util.UserNotFoundException;
@@ -21,7 +27,10 @@ import booking.util.UserNotFoundException;
 public class UserController {
 
 	@Autowired
-	UserRepository users;	
+	UserRepository users;
+	
+	@Autowired
+	BookingRepository bookings;
 	
 	// GET  /users 			- the list of users
     @RequestMapping(method=RequestMethod.GET)
@@ -66,11 +75,26 @@ public class UserController {
     public String showActiveProfile(Model model) throws HotelNotFoundException
     {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
-    	CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal();    	
+    	CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal();       	
+    	model.addAttribute("bookings", getUserBookings(myUser.getUser().getId()));    	    	
         model.addAttribute("user", myUser.getUser());
 		return "users/show";
     }
     
+    public Iterable<Booking> getUserBookings(long user_id)
+    {
+    	Iterator<Booking> itbookings = bookings.findAll().iterator();
+    	List<Booking> bookingsList = new ArrayList<Booking>();
+    	
+    	while(itbookings.hasNext())
+    	{
+    		Booking b = itbookings.next();
+    		if(b.getUser().getId() == user_id)
+    			bookingsList.add(b);
+    	}
+    	
+    	return bookingsList;
+    }    
     
     // GET  /users/{id}/remove 	- removes the user with identifier {id}
     @RequestMapping(value="{id}/remove", method=RequestMethod.GET)
@@ -98,6 +122,5 @@ public class UserController {
     	users.save(user);
     	model.addAttribute("user", user);
     	return "redirect:/users/";
-    }
-	
+    }	
 }

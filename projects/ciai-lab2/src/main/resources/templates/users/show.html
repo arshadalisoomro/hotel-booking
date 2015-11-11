@@ -13,16 +13,16 @@
 		<div class="page-header">
 			<h1>
 				<span th:text="${user.name}"></span> <small><span
-					th:text="${user.username}"></span></small>				
+					th:text="${user.username}"></span></small>
 			</h1>
-			<h4><span class="text-lowercase" th:text="${user.role}"></span></h4>
+			<h4>
+				<span class="text-lowercase" th:text="${user.role}"></span>
+			</h4>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6">
 				<h4>Details</h4>
-				<figure><img class="media-object img-rounded img-responsive"  src="http://placehold.it/100x100" alt="placehold.it/350x250" ></figure>
-				<br>
 				<p>
 					<label>E-mail: </label> <span th:text="${user.email}"></span>
 				</p>
@@ -40,11 +40,7 @@
 						</p>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-12">
+				<hr>
 				<h4>Registered hotels</h4>
 				<div>
 					<p th:each="hotel : ${user.hotels}">
@@ -53,6 +49,29 @@
 					</p>
 				</div>
 			</div>
+		</div>
+		<hr>
+		<div>
+			<h4>Approved bookings</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Check-in</th>
+						<th>Check-out</th>
+						<th>Hotel</th>
+						<th>Room Type</th>
+						<th>Room Number</th>
+
+					</tr>
+				</thead>
+				<tr th:if="${booking.state}" th:each="booking : ${bookings}">
+					<td><span th:text="${booking.begin_date}"></span></td>
+					<td><span th:text="${booking.end_date}"></span></td>
+					<td><span th:text="${booking.room.hotel.name}"></span></td>
+					<td><span th:text="${booking.room.type}"></span></td>
+					<td><span th:text="${booking.room.room_number}"></span></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>
