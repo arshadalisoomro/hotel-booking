@@ -1,30 +1,60 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Hotels</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
+<head>
+<title>Hotels</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
 </head>
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
-	<div class="page-header">
-  		<h1><span th:text="${user.name}"></span> <small><span th:text="${user.username}"></span></small></h1>
+		<div class="page-header">
+			<h1>
+				<span th:text="${user.name}"></span> <small><span
+					th:text="${user.username}"></span></small>				
+			</h1>
+			<h4><span class="text-lowercase" th:text="${user.role}"></span></h4>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h4>Details</h4>
+				<figure><img class="media-object img-rounded img-responsive"  src="http://placehold.it/100x100" alt="placehold.it/350x250" ></figure>
+				<br>
+				<p>
+					<label>E-mail: </label> <span th:text="${user.email}"></span>
+				</p>
+				<p>...</p>
+			</div>
+
+			<div class="col-md-6">
+				<div class="reviews">
+					<h4>Written reviews</h4>
+					<div>
+						<p th:each="comment : ${user.comments}">
+							<!-- <b>Text:</b> <p th:text="${comment.text}"></p>
+							<b>Date:</b> <p th:text="${comment.date}"></p> -->
+							Comment text
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Registered hotels</h4>
+				<div>
+					<p th:each="hotel : ${user.hotels}">
+						<!-- <p th:text="${hotel.name}"></p> -->
+						Hotel name
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	
-	<p><label>E-mail: </label> <span th:text="${user.email}"></span></p>
-	
-	<!-- <h4>Comments:</h4>
-	<div>
-		<p th:each="comment : ${user.comments}">
-			<b>Text:</b> <p th:text="${comment.text}"></p>
-			<b>Date:</b> <p th:text="${comment.date}"></p>
-			<hr/>
-		</p>
-	</div> -->
-	
-    </div>
 </body>
 </html>
 

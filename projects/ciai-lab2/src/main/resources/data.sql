@@ -22,9 +22,9 @@ VALUES
 INSERT INTO hotel (id, address, name, rating, category_id, manager_id)
 VALUES
 (1, 'Rua Castilho 149, Lisbon','Intercontinental', 5, 1, 1),
-(2, 'Av. D. Joao II, Lisbon','Tryp', 4, 2,1),
-(3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3,1),
-(4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5,1);
+(2, 'Av. D. Joao II, Lisbon','Tryp', 4, 2, 1),
+(3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3, 1),
+(4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5, 1);
 
 INSERT INTO room (id, floor, room_number, hotel_id, type_id, price)
 VALUES

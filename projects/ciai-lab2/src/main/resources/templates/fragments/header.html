@@ -27,7 +27,7 @@
 		        <li><a href="/bookings/new">Book a room</a></li>		        		        	       
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">		      
-			      <li th:if="${#httpServletRequest.remoteUser} != null"><span class="navbar-text" th:utext="'Logged in as <b>' + ${#httpServletRequest.remoteUser} + '</b>'"></span></b></li>
+			      <li th:if="${#httpServletRequest.remoteUser} != null"><span class="navbar-text" th:utext="'Logged in as <b>' + '<a href=/users/me>' + ${#httpServletRequest.remoteUser} + '</a>' + '</b>'"></span></b></li>
 			      <li>
 			      	<form th:if="${#httpServletRequest.remoteUser} != null" th:action="@{/logout}" method="post">
 	    				<input class="btn btn-link navbar-btn" type="submit" value="Log out"></input>

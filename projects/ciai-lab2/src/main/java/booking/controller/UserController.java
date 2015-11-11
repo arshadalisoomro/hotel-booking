@@ -63,14 +63,11 @@ public class UserController {
     }
     
     @RequestMapping(value="/me", method=RequestMethod.GET)
-    public String showActiveProfile(Model model)
+    public String showActiveProfile(Model model) throws HotelNotFoundException
     {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String name = auth.getName(); //get logged in username
-    	CustomUserDetail myUser= (CustomUserDetail)auth.getPrincipal();
-    	System.out.println(myUser.getUser().getName());
-    	System.out.println(name);
-//        model.addAttribute("user", myUserDetails.getUser());
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
+    	CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal();    	
+        model.addAttribute("user", myUser.getUser());
 		return "users/show";
     }
     
