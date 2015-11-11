@@ -14,7 +14,7 @@ public class Authority {
 	
 	private String role;
 	private String username;
-	
+		
 	protected Authority() {}
 	
 	public Authority(long id, String role, String username) {

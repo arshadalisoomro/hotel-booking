@@ -27,66 +27,74 @@ public class User {
 	@MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
 	
-	public User() {}
+	private String role;
 	
-	public User(long id, String name, String username, String password, String email) {
+	public User() {}
+
+	public User(long id, String name, String username, String password, String email, String role) {
 		this.name = name;
 		this.id = id;
 		this.username = username;
 		this.setPassword(password);
 		this.setEmail(email);
+		this.role = role;
+	}
+
+	
+	public Map<Long, Comment> getComments() {
+		return comments;
 	}
 	
-	public long getId() {
+	public String getEmail() {
+		return email;
+	}
+
+    public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public String getName() {
+		return name;
+	}
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-	public String getPassword() {
+    public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getUsername() {
+        return username;
+    }
+
+	public String getRole() {
+		return role;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
-	}
+	public void setId(long id) {
+        this.id = id;
+    }
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Map<Long, Comment> getComments() {
-		return comments;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setComments(Map<Long, Comment> comments) {
-		this.comments = comments;
-	}
-	
-	
-	
-	
-	
+	public void setUsername(String username) {
+        this.username = username;
+    }
+
 }

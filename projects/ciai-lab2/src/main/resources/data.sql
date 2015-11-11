@@ -13,11 +13,11 @@ VALUES
 (3, 'Presidential Suite', 6),
 (4, 'Studio', 2);
 
-INSERT INTO `user`(id, email, name, password, username)
+INSERT INTO `user`(id, email, name, password, username, role)
 VALUES
-(1, 'pedro@email.com','Pedro', 'pass', 'pedro'),
-(2, 'manuel@email.com','Manuel', 'pass', 'manuel'),
-(3, 'tiago@email.com','Tiago', 'pass', 'tiago');
+(1, 'pedro@email.com','Pedro', 'pass', 'pedro', 'ROLE_ADMIN'),
+(2, 'manuel@email.com','Manuel', 'pass', 'manuel', 'ROLE_USER'),
+(3, 'tiago@email.com','Tiago', 'pass', 'tiago', 'ROLE_USER');
 
 INSERT INTO hotel (id, address, name, rating, category_id)
 VALUES
