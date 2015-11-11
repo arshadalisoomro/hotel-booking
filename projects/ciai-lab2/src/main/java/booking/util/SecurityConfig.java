@@ -20,14 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//				auth.jdbcAuthentication().dataSource(dataSource)
-//				.usersByUsernameQuery("select username, password, true from user where username=?")
-//				.authoritiesByUsernameQuery("select username, role from authority where username=?");
+				auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery("select username, password, true from user where username=?")
+				.authoritiesByUsernameQuery("select username, role from authority where username=?");
 
-		auth.inMemoryAuthentication()
-			.withUser("admin").password("p").roles("ADMIN").and()
-			.withUser("user").password("p").roles("USER").and()
-			.withUser("cm").password("p").roles("COMMENT_MODERATOR");
+//		auth.inMemoryAuthentication()
+//			.withUser("admin").password("p").roles("ADMIN").and()
+//			.withUser("user").password("p").roles("USER").and()
+//			.withUser("cm").password("p").roles("COMMENT_MODERATOR");
 	}
 
 	@Override

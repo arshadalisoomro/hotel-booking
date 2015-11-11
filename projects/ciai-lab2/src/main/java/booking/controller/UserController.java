@@ -1,6 +1,7 @@
 package booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,7 +35,7 @@ public class UserController {
     	return "users/create";
     }
     
-    // POST /users         	- creates a new hotel
+    // POST /users         	- creates a new user
     @RequestMapping(method=RequestMethod.POST)
     public String saveIt(@ModelAttribute User user, Model model)
     {
@@ -57,6 +58,15 @@ public class UserController {
     		throw new HotelNotFoundException();
     	model.addAttribute("user", user);    	    	
     	return "users/show";
+    }
+    
+    @RequestMapping(value="/me", method=RequestMethod.GET)
+    public String showActiveProfile(Model model)
+    {
+    	User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String name = user.getUsername(); //get logged in username
+        model.addAttribute("user", user);
+		return "users/show";
     }
     
     
