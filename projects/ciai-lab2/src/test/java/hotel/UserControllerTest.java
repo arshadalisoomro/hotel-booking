@@ -62,7 +62,7 @@ public class UserControllerTest {
 				.andExpect(status().is3xxRedirection())
 				.andExpect(redirectedUrl("/users"));;
 				
-		User u = users.findByName(userName);
+		User u = users.findByUsername(userName);
 		
 		Assert.assertTrue(u != null);
 	}
@@ -71,7 +71,7 @@ public class UserControllerTest {
 	public void testGetOne() throws Exception
 	{
 		String userName = "Pedro"; 
-		User u = users.findByName(userName);
+		User u = users.findByUsername(userName);
 		mvc.perform(get("/users/"+ u.getId()))
 				.andExpect(view().name("users/show"));
 	}
