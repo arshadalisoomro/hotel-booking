@@ -34,7 +34,7 @@
 				  	</form>
 				  </li> 
 				  <li th:if="${#httpServletRequest.remoteUser} == null" ><a href="/users/new">Sign up</a></li> 
-		          <li th:if="${#httpServletRequest.remoteUser} == null" ><a href="/">Log in</a></li>		        
+		          <li th:if="${#httpServletRequest.remoteUser} == null" ><a href="/users/login">Log in</a></li>		        
 		      </ul>
 		      
 			</div><!-- /.navbar-collapse -->

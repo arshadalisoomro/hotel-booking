@@ -49,7 +49,7 @@ public class UserController {
     // GET /login
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public String login(Model model) {
-    	return "users/sign-in";
+    	return "index";
     }
     
     // GET  /users/{id} 		- the user with identifier {id}
