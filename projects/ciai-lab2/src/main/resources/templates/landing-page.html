@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Homepage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+<link rel="stylesheet" type="text/css" th:href="@{|/css/general.css|}" />
+</head>
+<body>
+	<div th:include="fragments/header"></div>
+
+	<div class="container">
+
+		<div class="page-header">
+			<h1>Welcome to Booking</h1>
+		</div>
+
+		<div class="searchbar">
+			<form class="navbar-form" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</form>
+		</div>
+		
+		<hr/>
+
+		<div>
+			<div class="col-md-4" th:each="hotel, hstat : ${hotels}"
+				th:unless="${hstat.index > 2}">
+				<h3 align="center">
+					<span th:text="${hotel.name}"></span>
+				</h3>
+				<div class="starshome">
+					<span th:each="i : ${#numbers.sequence(1, hotel.rating)}"><i
+						class="starshome glyphicon glyphicon-star"></i> </span>
+				</div>
+				<figure>
+					<img width="350px" height="235px"
+						th:each="img, istat : ${hotel.images}"
+						th:src="${'/static/' + img.value.path}" class="img-rounded"
+						alt="Hotel photo" th:unless="${istat.index > 0}" />
+				</figure>
+				<br>
+				<div class="text-center">
+					<a class="seehotel btn btn-default" th:href="@{|/hotels/${hotel.id}|}">See more info</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
+

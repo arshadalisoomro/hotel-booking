@@ -3,3 +3,16 @@
     height: 400px;
     background-color: #CCC;
   }
+  
+.starshome{
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.searchbar {
+	text-align: center;
+}
+
+.seehotel {
+	text-align: center;
+}
