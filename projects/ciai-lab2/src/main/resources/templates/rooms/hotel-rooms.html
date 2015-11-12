@@ -1,24 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Hotel List</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>    
+<head>
+<title>Hotel List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
 </head>
 <body>
 
-<div th:include="fragments/header"></div>
+	<div th:include="fragments/header"></div>
 
-    <div class="container">
-	<div th:include="hotels/show :: hotel-header" class="page-header"></div>
-    
-	<h3>Rooms</h3>
-	<div class="list-group" th:each="room : ${hotel.rooms}">
- 		<a class="list-group-item" th:text="${room.value.room_number + ' - ' + room.value.type.description + ' - ' + room.value.price + ' €/night'}" th:href="@{|/hotels/${hotel.id}/rooms/${room.key}|}"></a>
-	</div>
-	
-	<p><a class="btn btn-primary" th:href="@{|/hotels/${hotel.id}/rooms/new|}">Add room</a></p>
-	<p><a th:href="@{|/hotels/${hotel.id}|}">Back</a></p>
+	<div class="container">
+		<div th:include="hotels/show :: hotel-header" class="page-header"></div>
+
+		<div class="col-md-6">
+			<h3>Rooms</h3>
+			<div th:if="${#maps.isEmpty(hotel.rooms)}">
+				<p>
+					<i>No existing rooms</i>
+				</p>
+			</div>
+			<div th:each="room : ${hotel.rooms}">
+				<div class="well">
+					<span
+						th:text="${room.value.room_number + ' - ' + room.value.type.description + ' - ' +
+ 		 	room.value.price + ' €/night'}"></span><a
+						class="pull-right"
+						th:href="@{|/hotels/${hotel.id}/rooms/${room.value.id}/remove|}"><i
+						class="glyphicon glyphicon-trash"></i></a>
+				</div>
+			</div>
+
+			<p>
+				<a class="btn btn-primary"
+					th:href="@{|/hotels/${hotel.id}/rooms/new|}">Add room</a>
+			</p>
+		</div>
 	</div>
 </body>
 </html>

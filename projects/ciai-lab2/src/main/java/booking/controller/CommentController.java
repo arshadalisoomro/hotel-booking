@@ -44,7 +44,7 @@ public class CommentController {
     	reply.setUser(getCurrentUser());
     	reply.setHotel(hotel);
     	reply.setAnswer(true);
-    	reply.setStatus(true);
+    	reply.setStatus(false);
     	comments.save(reply);    
     	comment.setReply(reply);
     	comments.save(comment);
@@ -81,14 +81,6 @@ public class CommentController {
     	model.addAttribute("reply", new Comment());
     	model.addAttribute("users", users.findAll());
     	return "comments/hotel-comments";
-    }
-    
-    @RequestMapping(value="{id}/comments/{id_comment}", method=RequestMethod.GET)
-    public String showComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model) {
-    	Hotel hotel = hotels.findOne(id);
-    	model.addAttribute("hotel", hotel);
-    	model.addAttribute("comment", hotel.getComments().get(id_comment));
-    	return "comments/show";
     }
     
     @RequestMapping(value="{id}/comments/{id_comment}/edit", method=RequestMethod.GET)

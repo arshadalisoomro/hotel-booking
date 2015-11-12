@@ -53,6 +53,7 @@
 				<div th:if="${!#sets.isEmpty(user.hotels)}">
 					<div th:each="hotel : ${user.hotels}">
 						<a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a>
+						<a class="pull-right" th:href="@{|/hotels/${hotel.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>
 					</div>
 				</div>
 				<p th:if="${#sets.isEmpty(user.hotels)}">

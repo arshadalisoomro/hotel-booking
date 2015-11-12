@@ -103,9 +103,10 @@ public class UserController {
 	public String showActiveProfile(Model model) throws HotelNotFoundException
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
-		CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal();       	
-		model.addAttribute("bookings", getUserBookings(myUser.getUser().getId()));    	    	
-		model.addAttribute("user", myUser.getUser());
+		CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal();
+		User user = users.findOne(myUser.getUser().getId());
+		model.addAttribute("bookings", getUserBookings(user.getId()));    	    	
+		model.addAttribute("user", user);
 		return "users/show";
 	}
 

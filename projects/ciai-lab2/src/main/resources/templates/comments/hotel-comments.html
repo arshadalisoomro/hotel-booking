@@ -39,12 +39,12 @@
 		 	   				</a> · 
 		 	   			</span>
 		 	   			<a data-toggle="collapse" th:href="@{|#${comment.id}-viewreply|}">
-		 	   				<i th:if="${(comment.reply) != null}" class="glyphicon glyphicon-plus"></i>
+		 	   				<i th:if="${(comment.reply) != null and (comment.reply.status)}" class="glyphicon glyphicon-plus"></i>
 		 	   			</a>
 		 	   			<a sec:authorize="hasAnyRole('ADMIN', 'COMMENT_MODERATOR')" class="pull-right" th:href ="@{|/hotels/${hotel.id}/comments/${comment.id}/remove|}">
 		 	   				<i class="glyphicon glyphicon-trash"></i>
 		 	   			</a>		 	   			
-		 	   			<a sec:authorize="hasAnyRole('ADMIN')" data-toggle="collapse" th:href="@{|#${comment.id}-reply|}">		 	   						 	   			
+		 	   			<a sec:authorize="hasAnyRole('ADMIN', 'HOTEL_MANAGER')" data-toggle="collapse" th:href="@{|#${comment.id}-reply|}">		 	   						 	   			
 		 	   				<i th:if="${(comment.reply) == null}" class="glyphicon glyphicon-share-alt"></i>		 	   				
 		 	   			</a>
 		 	   		</p>
@@ -60,7 +60,7 @@
 				    </div>		 	   		
 		 	   	</div> 	  
 		 
-		 	   	<div th:if="${(comment.reply != null)}" th:id="|${comment.id}-viewreply|" class="collapse panel-footer">
+		 	   	<div th:if="${(comment.reply != null) and (comment.reply.status)}" th:id="|${comment.id}-viewreply|" class="collapse panel-footer">
 		 	   		<h5>Manager reply</h5>				  				 
 				    <span th:text="${(comment.reply.text)}"></span>				  
 				</div>
