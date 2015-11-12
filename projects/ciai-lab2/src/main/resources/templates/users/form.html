@@ -9,7 +9,7 @@
 	<div class="container">
 	<h1>User Form</h1>
 		<div th:fragment="userform(url)">
-	    	<form action="#" th:action="@{|/users/${user.id}/|}" th:object="${user}" method="post">
+	    	<form action="#" th:action="${url}" th:object="${user}" method="post">
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />		        	
 		        	<p><label>Name</label><input class="form-control" placeholder="Name" type="text" th:field="*{name}" /></p>

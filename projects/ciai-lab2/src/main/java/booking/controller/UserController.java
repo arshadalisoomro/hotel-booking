@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import booking.model.Authority;
 import booking.model.Booking;
 import booking.model.CustomUserDetail;
 import booking.model.User;
+import booking.repository.AuthorityRepository;
 import booking.repository.BookingRepository;
 import booking.repository.UserRepository;
 import booking.util.HotelNotFoundException;
@@ -31,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	BookingRepository bookings;
+	
+	@Autowired
+	AuthorityRepository authorities;
 	
 	// GET  /users 			- the list of users
     @RequestMapping(method=RequestMethod.GET)
@@ -50,6 +55,8 @@ public class UserController {
     @RequestMapping(method=RequestMethod.POST)
     public String saveIt(@ModelAttribute User user, Model model)
     {
+    	Authority authority = authorities.findByRole("ROLE_USER");
+    	user.setAuthority(authority);
     	users.save(user);
     	model.addAttribute("user", user);
     	return "redirect:/users";
