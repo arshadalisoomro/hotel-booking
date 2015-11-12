@@ -70,6 +70,7 @@ public class UserController {
 			user.setAuthority(authority);
 			users.save(user);
 			UserDetails userDetails = customUserDetailsSvc.loadUserByUsername(user.getUsername());
+			
 			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), userDetails.getAuthorities());
 			authMgr.authenticate(auth);
 			SecurityContextHolder.getContext().setAuthentication(auth);

@@ -3,6 +3,8 @@ package booking.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import booking.model.Comment;
+import booking.model.CustomUserDetail;
 import booking.model.Hotel;
+import booking.model.User;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;
@@ -31,12 +35,13 @@ public class CommentController {
 	
 	@RequestMapping(value="/{id}/comments/{comment_id}/reply", method = RequestMethod.POST)
 	public String createReply(@ModelAttribute Comment reply, @PathVariable("id") long id, 
-			Model model, @PathVariable("comment_id") long comment_id){
+			Model model, @PathVariable("comment_id") long comment_id){      	 
 		
 		Hotel hotel = hotels.findOne(id);
 		Comment comment = comments.findOne(comment_id);		
 		Date date = new Date();
     	reply.setDate(date);
+    	reply.setUser(getCurrentUser());
     	reply.setHotel(hotel);
     	reply.setAnswer(true);
     	reply.setStatus(true);
@@ -49,8 +54,10 @@ public class CommentController {
     @RequestMapping(value="/{id}/comments/", method = RequestMethod.POST)
     public String createComment(@ModelAttribute Comment comment, @PathVariable("id") long id, Model model){
     	Hotel hotel = hotels.findOne(id);
+    	
     	Date date = new Date();
     	comment.setDate(date);
+    	comment.setUser(getCurrentUser());
     	comment.setHotel(hotel);
     	comments.save(comment);    	
     	return "redirect:/hotels/{id}";
@@ -105,5 +112,11 @@ public class CommentController {
     	comment.setStatus(true);
     	comments.save(comment);
     	return "redirect:/hotels/{id}/comments/";
+    }
+    
+    private User getCurrentUser(){
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
+		CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal(); 
+		return myUser.getUser();
     }
 }
