@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
@@ -36,17 +37,17 @@ public class User {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="manager", orphanRemoval = true)
 	private Set<Hotel> hotels = new HashSet<Hotel>();
 	
-	private String role;
-
+	@ManyToOne
+	private Authority authority;
+	
 	public User() {}
 
-	public User(long id, String name, String username, String password, String email, String role) {
+	public User(long id, String name, String username, String password, String email) {
 		this.name = name;
 		this.id = id;
 		this.username = username;
 		this.setPassword(password);
 		this.setEmail(email);
-		this.role = role;
 	}
 	
 	public Iterable<Comment> getComments() {
@@ -71,10 +72,6 @@ public class User {
 
     public String getPassword() {
 		return password;
-	}
-
-    public String getRole() {
-		return role;
 	}
 
 	public String getUsername() {
@@ -105,8 +102,12 @@ public class User {
 		this.password = password;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
 	}
 
 	public void setUsername(String username) {

@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String name) throws UserNotFoundException{
         // returns the get(0) of the user list obtained from the db
         User domainUser = userRepository.findByUsername(name);
-        String role = domainUser.getRole();
+        String role = domainUser.getAuthority().getRole();
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         
         authorities.add(new SimpleGrantedAuthority(role));

@@ -13,11 +13,18 @@ VALUES
 (3, 'Presidential Suite', 6),
 (4, 'Studio', 2);
 
-INSERT INTO `user`(id, email, name, password, username, role)
+INSERT INTO authority (id, role)
+VALUE
+(1, "ROLE_USER"),
+(2, "ROLE_ADMIN"),
+(3, "ROLE_COMMENT_MODERATOR"),
+(4, "ROLE_HOTEL_MANAGER");
+
+INSERT INTO `user`(id, email, name, password, username, authority_id)
 VALUES
-(1, 'pedro@email.com','Pedro', 'pass', 'pedro', 'ROLE_ADMIN'),
-(2, 'manuel@email.com','Manuel', 'pass', 'manuel', 'ROLE_USER'),
-(3, 'tiago@email.com','Tiago', 'pass', 'tiago', 'ROLE_USER');
+(1, 'pedro@email.com','Pedro', 'pass', 'pedro', 2),
+(2, 'manuel@email.com','Manuel', 'pass', 'manuel', 1),
+(3, 'tiago@email.com','Tiago', 'pass', 'tiago', 1);
 
 INSERT INTO hotel (id, address, name, rating, category_id, manager_id)
 VALUES
@@ -64,11 +71,3 @@ VALUES
 (1, '2015-11-03 14:00:00', '2015-11-05 11:00:00', TRUE, 1, 1),
 (2, '2015-11-24 14:00:00', '2015-11-29 11:00:00', TRUE, 4, 1),
 (3, '2015-11-29 14:00:00', '2015-12-02 11:00:00', TRUE, 7, 1);
-
-INSERT INTO authority (id, username, role)
-VALUE
-(1, 'pedro', "ROLE_USER"),
-(2, 'manuel', "ROLE_ADMIN"),
-(3, 'tiago', "ROLE_USER"),
-(4, 'pedro', "ROLE_COMMENT_MODERATOR"),
-(5, 'tiago', "ROLE_HOTEL_MANAGER");

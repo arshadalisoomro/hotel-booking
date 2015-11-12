@@ -30,9 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(customUserDetailsService);
 		
 				auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select username, password, true from user where username=?")
-				.authoritiesByUsernameQuery("select username, role from authority where username=?");
-
+				.usersByUsernameQuery("select username, password, true from user where username=?");
 //		auth.inMemoryAuthentication()
 //			.withUser("admin").password("p").roles("ADMIN").and()
 //			.withUser("user").password("p").roles("USER").and()

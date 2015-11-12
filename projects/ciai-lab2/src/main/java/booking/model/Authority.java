@@ -1,5 +1,6 @@
 package booking.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,15 +13,15 @@ public class Authority {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	@Column(unique = true)
 	private String role;
-	private String username;
-		
-	protected Authority() {}
 	
-	public Authority(long id, String role, String username) {
+		
+	public Authority() {}
+	
+	public Authority(long id, String role) {
 		this.id = id;
 		this.role = role;
-		this.username = username;
 	}
 
 	public long getId() {
@@ -37,14 +38,6 @@ public class Authority {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	
 }
