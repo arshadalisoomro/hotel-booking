@@ -35,7 +35,6 @@ import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
 import booking.util.BookingNotFoundException;
 import booking.util.RoomNotFoundException;
-import booking.util.UserNotFoundException;
 
 @Controller
 @RequestMapping(value="/bookings")
@@ -158,7 +157,6 @@ public class BookingController {
     
     @RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
     public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
-    	System.out.println("Remove");
     	Booking booking = bookings.findOne(booking_id);
     	
     	if(booking == null)
