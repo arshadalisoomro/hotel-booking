@@ -61,13 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests().
 		anyRequest().permitAll() // remove this line to activate security again
 		.antMatchers("/bookings").hasAnyRole("ADMIN")
-		.antMatchers("/hotels/new").hasAnyRole("ADMIN")
+		.antMatchers("/hotels/new").hasAnyRole("ADMIN", "HOTEL_MANAGER")
 		.antMatchers("/hotels/*/upload").hasAnyRole("ADMIN", "HOTEL_MANAGER")
 		.antMatchers("/hotels/*/edit").hasAnyRole("ADMIN", "HOTEL_MANAGER")
 		.antMatchers("/hotels/*/remove").hasAnyRole("ADMIN", "HOTEL_MANAGER")
 		.antMatchers("/hotels/*/comments/*/approve").hasAnyRole("ADMIN", "COMMENT_MODERATOR")
 		.antMatchers("/hotels/*/comments/*/remove").hasAnyRole("ADMIN", "COMMENT_MODERATOR")
-		.antMatchers("/hotels/*/remove_image/*").hasAnyRole("ADMIN")		
+		.antMatchers("/hotels/*/remove_image/*").hasAnyRole("ADMIN", "HOTEL_MANAGER")		
 		.anyRequest().permitAll();
 	}	
 }
