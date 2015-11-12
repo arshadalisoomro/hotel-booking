@@ -25,7 +25,11 @@
 				<p class="panel-heading">
 					<span><i class="glyphicon glyphicon-comment"></i></span>
 					<span th:text="${comment.user.name}"></span>
-					<span class="pull-right" th:text="${comment.date}"></span></p>
+					<span class="pull-right">
+							<i class="glyphicon glyphicon-time"></i> 
+							<span th:text="${#dates.monthNameShort(comment.date)}"></span>
+							<span th:text="${#dates.year(comment.date)}"></span>
+						</span>
 		 	   	<div class="panel-body">
 		 	   		<p th:text="${comment.text}"></p> 	   	
 		 	   		<p>
