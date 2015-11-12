@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import booking.model.Booking;
+import booking.model.CustomUserDetail;
 import booking.model.Hotel;
 import booking.model.Room;
 import booking.model.RoomType;
@@ -63,11 +66,7 @@ public class BookingController {
 	@RequestMapping(value="/new/{room_id}", method=RequestMethod.GET)
 	public String bookRoom(Model model, @PathVariable("room_id") long room_id, @ModelAttribute("booking") Booking booking){
 		
-		User user = users.findOne((long) 2);
-		
-		if(user == null)
-			throw new UserNotFoundException();
-		booking.setUser(user);
+		booking.setUser(getCurrentUser());
 		
 		Room room = rooms.findOne(room_id);
 		
@@ -178,6 +177,12 @@ public class BookingController {
     	
     	bookings.delete(booking);
     	return "redirect:/bookings/";
+    }
+    
+    private User getCurrentUser(){
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
+		CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal(); 
+		return myUser.getUser();
     }
 	
 }
