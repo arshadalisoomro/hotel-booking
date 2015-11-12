@@ -89,6 +89,7 @@ public class HotelController {
 	public String newHotel(Model model) {
 		model.addAttribute("hotel", new Hotel());
 		model.addAttribute("categories", categories.findAll());
+		model.addAttribute("users", users.findAll());
 		return "hotels/create";
 	}
 
@@ -129,6 +130,7 @@ public class HotelController {
 		Hotel hotel = hotels.findOne(id);
 		model.addAttribute("hotel", hotel);    	
 		model.addAttribute("categories", categories.findAll());
+		model.addAttribute("users", users.findAll());
 		return "hotels/edit";
 	}
 

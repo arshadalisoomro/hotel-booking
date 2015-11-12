@@ -58,7 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.permitAll();
 		
 		http
-		.authorizeRequests()
+		.authorizeRequests().
+		anyRequest().permitAll() // remove this line to activate security again
 		.antMatchers("/bookings").hasAnyRole("ADMIN")
 		.antMatchers("/hotels/new").hasAnyRole("ADMIN")
 		.antMatchers("/hotels/*/upload").hasAnyRole("ADMIN", "HOTEL_MANAGER")

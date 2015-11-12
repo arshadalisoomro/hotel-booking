@@ -73,7 +73,7 @@
 				</div>
 
 				<p>
-					<span><a class="btn btn-default"
+					<span sec:authorize="hasAnyRole('ADMIN', 'USER')"><a class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a
 							comment</a></span> <span><a class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>

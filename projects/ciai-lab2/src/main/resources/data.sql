@@ -15,23 +15,25 @@ VALUES
 
 INSERT INTO authority (id, role)
 VALUE
-(1, "ROLE_USER"),
-(2, "ROLE_ADMIN"),
-(3, "ROLE_COMMENT_MODERATOR"),
-(4, "ROLE_HOTEL_MANAGER");
+(1, 'ROLE_USER'),
+(2, 'ROLE_COMMENT_MODERATOR'),
+(3, 'ROLE_HOTEL_MANAGER'),
+(4, 'ROLE_ADMIN');
 
 INSERT INTO `user`(id, email, name, password, username, authority_id)
 VALUES
-(1, 'pedro@email.com','Pedro', 'pass', 'pedro', 2),
-(2, 'manuel@email.com','Manuel', 'pass', 'manuel', 1),
-(3, 'tiago@email.com','Tiago', 'pass', 'tiago', 1);
+(1, 'pedro@email.com','Pedro Carvalho', 'pass', 'pedro', 4),
+(2, 'manuel@email.com','Manuel Bastos', 'pass', 'manuel', 2),
+(3, 'tiago@email.com','Tiago Pereira', 'pass', 'tiago', 1),
+(4, 'rui@email.com','Rui Abreu', 'pass', 'rui', 3),
+(5, 'luis@email.com','Luis Piedade', 'pass', 'luis', 3);
 
 INSERT INTO hotel (id, address, name, rating, category_id, manager_id)
 VALUES
-(1, 'Rua Castilho 149, Lisbon','Intercontinental', 5, 1, 1),
-(2, 'Av. D. Joao II, Lisbon','Tryp', 4, 2, 1),
-(3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3, 1),
-(4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5, 1);
+(1, 'Rua Castilho 149, Lisbon','Intercontinental', 5, 1, 4),
+(2, 'Av. D. Joao II, Lisbon','Tryp', 4, 2, 4),
+(3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3, 5),
+(4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5, 5);
 
 INSERT INTO room (id, floor, room_number, hotel_id, type_id, price)
 VALUES
