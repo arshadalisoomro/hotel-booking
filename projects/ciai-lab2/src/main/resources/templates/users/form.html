@@ -10,15 +10,19 @@
 	<h1>User Form</h1>
 		<div th:fragment="userform(url)">
 	    	<form action="#" th:action="${url}" th:object="${user}" method="post">
-	    		<p>
+	    		<div>
 			    	<input type="hidden" th:field="*{id}" />		        	
 		        	<p><label>Name</label><input class="form-control" placeholder="Name" type="text" th:field="*{name}" /></p>
 		        	<p><label>Username</label><input class="form-control" placeholder="Username" type="text" th:field="*{username}" /></p>
-		        	<p><label>User email</label><input class="form-control" placeholder="Email" type="email" th:field="*{email}" /></p>
-		        	<p><label>User Password</label><input class="form-control" placeholder="Password" type="password" th:field="*{password}" /></p>		        			        	
-	        	</p>
+		        	<p><label>E-mail</label><input class="form-control" placeholder="Email" type="email" th:field="*{email}" /></p>
+		        	<p><label>Password</label><input class="form-control" placeholder="Password" type="text" th:field="*{password}" /></p>	
+		        	<label>Role</label>
+					<select class="form-control" th:field="*{authority}">
+						<option th:each="a : ${authorities}" th:text="${a.role}" th:value="${a.id}"></option>
+					</select>					        			        
+	        	</div>
+	        	<br>
 	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
-	    	   
 		    </form>
 	    </div>
     </div>

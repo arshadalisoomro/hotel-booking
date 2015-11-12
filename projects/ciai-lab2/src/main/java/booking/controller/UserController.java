@@ -94,7 +94,8 @@ public class UserController {
 		User user = users.findOne(id);
 		if( user == null )
 			throw new HotelNotFoundException();    	
-		model.addAttribute("user", user);    	    	    	
+		model.addAttribute("user", user);    
+		model.addAttribute("bookings", getUserBookings(user.getId()));   
 		return "users/show";
 	}
 
@@ -139,6 +140,7 @@ public class UserController {
 	public String edit(@PathVariable("id") long id, Model model) { 	
 		User user = users.findOne(id);
 		model.addAttribute("user", user);    	
+		model.addAttribute("authorities", authorities.findAll());
 		return "users/edit";
 	}
 

@@ -9,10 +9,7 @@
 	<div th:include="fragments/header"></div>
 	<div class="container">
 		<h1>Editing User <span th:text="${user.username}"></span></h1>
-	
 		<div th:include="users/form :: userform(@{|/users/${user.id}|})"></div>
-		
-	    <p><a href="@{|/users/|}">Back</a></p>
     </div>
 </body>
 </html>

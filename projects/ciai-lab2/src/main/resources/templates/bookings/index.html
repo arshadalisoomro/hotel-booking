@@ -32,11 +32,11 @@
 		<tr th:class="${!booking.state} ? 'warning' : 'success'" th:each="booking : ${bookings}">
 			<td><span th:text="${booking.id}"></span></td>
 			<td><span th:text="${booking.user.name}"></span></td>
-			<td><i class="glyphicon glyphicon-time"></i> 
+			<td> 
 							<span th:text="${#dates.day(booking.begin_date)}"></span>
 							<span th:text="${#dates.monthNameShort(booking.begin_date)}"></span>
 							<span th:text="${#dates.year(booking.begin_date)}"></span></td>
-  	   		<td><i class="glyphicon glyphicon-time"></i> 
+  	   		<td> 
 							<span th:text="${#dates.day(booking.end_date)}"></span>
 							<span th:text="${#dates.monthNameShort(booking.end_date)}"></span>
 							<span th:text="${#dates.year(booking.end_date)}"></span></td>

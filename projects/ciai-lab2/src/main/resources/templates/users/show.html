@@ -37,7 +37,8 @@
 						<p>
 							<i class="glyphicon glyphicon-time"></i> <span
 								th:text="${#dates.monthNameShort(comment.date)}"></span> <span
-								th:text="${#dates.year(comment.date)}"></span>
+								th:text="${#dates.year(comment.date)}"></span> - <b><a
+								th:text="${comment.hotel.name}" th:href="@{|/hotels/${comment.hotel.id}|}"></a></b>
 						</p>
 						<p th:text="${comment.text}"></p>
 					</div>
@@ -51,7 +52,7 @@
 				<h4>Registered hotels</h4>
 				<div th:if="${!#sets.isEmpty(user.hotels)}">
 					<div th:each="hotel : ${user.hotels}">
-						<p th:text="${hotel.name}"></p>
+						<a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a>
 					</div>
 				</div>
 				<p th:if="${#sets.isEmpty(user.hotels)}">
@@ -77,9 +78,13 @@
 						</tr>
 					</thead>
 					<tr th:if="${booking.state}" th:each="booking : ${bookings}">
-						<td><span th:text="${booking.begin_date}"></span></td>
-						<td><span th:text="${booking.end_date}"></span></td>
-						<td><span th:text="${booking.room.hotel.name}"></span></td>
+						<td><span th:text="${#dates.day(booking.begin_date)}"></span>
+							<span th:text="${#dates.monthName(booking.begin_date)}"></span>
+							<span th:text="${#dates.year(booking.begin_date)}"></span></td>
+						<td><span th:text="${#dates.day(booking.end_date)}"></span> <span
+							th:text="${#dates.monthName(booking.end_date)}"></span> <span
+							th:text="${#dates.year(booking.end_date)}"></span></td>
+						<td><a th:text="${booking.room.hotel.name}" th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
 						<td><span th:text="${booking.room.type}"></span></td>
 						<td><span th:text="${booking.room.room_number}"></span></td>
 					</tr>
