@@ -6,6 +6,9 @@
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet" media="screen" />
+<script th:src="@{|/js/jquery.js|}"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div th:include="fragments/header"></div>
@@ -20,81 +23,83 @@
 			</h4>
 		</div>
 
-		<div class="row">
-			<div class="col-md-6">
-				<h4>Details</h4>
-				<p>
-					<label>E-mail: </label> <span th:text="${user.email}"></span>
-				</p>
-				<p>...</p>
-			</div>
+		<div class="tabbable-panel">
+			<div class="tabbable-line">
+				<ul class="nav nav-tabs nav-justified">
+					<li class="active"><a href="#tab_default_1" data-toggle="tab">
+							Reviews & Hotels</a></li>
+					<li><a href="#tab_default_2" data-toggle="tab">Bookings</a></li>					
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_default_1">
+						<div class="col-md-6">
+							<h4>Registered hotels</h4>
+							<div th:if="${!#sets.isEmpty(user.hotels)}">
+								<div th:each="hotel : ${user.hotels}">
+									<a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a>
+									<a class="pull-right" th:href="@{|/hotels/${hotel.id}/remove|}"><i
+										class="glyphicon glyphicon-trash"></i></a>
+								</div>
+							</div>
+							<p th:if="${#sets.isEmpty(user.hotels)}">
+								<i>No registered hotels</i>
+							</p>
+						</div>
+						<div class="col-md-6">
+							<h4>Written reviews</h4>
+							<div th:if="${!#sets.isEmpty(user.comments)}">
+								<div th:each="comment : ${user.comments}">
+									<p>
+										<i class="glyphicon glyphicon-time"></i> <span
+											th:text="${#dates.monthNameShort(comment.date)}"></span> <span
+											th:text="${#dates.year(comment.date)}"></span> - <b><a
+											th:text="${comment.hotel.name}"
+											th:href="@{|/hotels/${comment.hotel.id}|}"></a></b>
+									</p>
+									<p th:text="${comment.text}"></p>
+								</div>
+							</div>
+							<p th:if="${#sets.isEmpty(user.comments)}">
+								<i>No reviews written</i>
+							</p>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_default_2">						
+						<h4>Approved bookings</h4>
+						<div th:if="${!#lists.isEmpty(bookings)}">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Check-in</th>
+										<th>Check-out</th>
+										<th>Hotel</th>
+										<th>Room Type</th>
+										<th>Room Number</th>
 
-			<div class="col-md-6">
-
-				<h4>Written reviews</h4>
-				<div th:if="${!#sets.isEmpty(user.comments)}">
-					<div th:each="comment : ${user.comments}">
-						<p>
-							<i class="glyphicon glyphicon-time"></i> <span
-								th:text="${#dates.monthNameShort(comment.date)}"></span> <span
-								th:text="${#dates.year(comment.date)}"></span> - <b><a
-								th:text="${comment.hotel.name}" th:href="@{|/hotels/${comment.hotel.id}|}"></a></b>
+									</tr>
+								</thead>
+								<tr th:if="${booking.state}" th:each="booking : ${bookings}">
+									<td><span th:text="${#dates.day(booking.begin_date)}"></span>
+										<span th:text="${#dates.monthName(booking.begin_date)}"></span>
+										<span th:text="${#dates.year(booking.begin_date)}"></span></td>
+									<td><span th:text="${#dates.day(booking.end_date)}"></span>
+										<span th:text="${#dates.monthName(booking.end_date)}"></span>
+										<span th:text="${#dates.year(booking.end_date)}"></span></td>
+									<td><a th:text="${booking.room.hotel.name}"
+										th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
+									<td><span th:text="${booking.room.type}"></span></td>
+									<td><span th:text="${booking.room.room_number}"></span></td>
+								</tr>
+							</table>
+						</div>
+						<p th:if="${#lists.isEmpty(bookings)}">
+							<i>No bookings</i>
 						</p>
-						<p th:text="${comment.text}"></p>
 					</div>
 				</div>
-				<p th:if="${#sets.isEmpty(user.comments)}">
-					<i>No reviews written</i>
-				</p>
-
-				<hr>
-
-				<h4>Registered hotels</h4>
-				<div th:if="${!#sets.isEmpty(user.hotels)}">
-					<div th:each="hotel : ${user.hotels}">
-						<a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a>
-						<a class="pull-right" th:href="@{|/hotels/${hotel.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>
-					</div>
-				</div>
-				<p th:if="${#sets.isEmpty(user.hotels)}">
-					<i>No registered hotels</i>
-				</p>
-
 			</div>
-		</div>
-		<hr>
-		<div>
-			<h4>Approved bookings</h4>
-
-			<div th:if="${!#lists.isEmpty(bookings)}">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Check-in</th>
-							<th>Check-out</th>
-							<th>Hotel</th>
-							<th>Room Type</th>
-							<th>Room Number</th>
-
-						</tr>
-					</thead>
-					<tr th:if="${booking.state}" th:each="booking : ${bookings}">
-						<td><span th:text="${#dates.day(booking.begin_date)}"></span>
-							<span th:text="${#dates.monthName(booking.begin_date)}"></span>
-							<span th:text="${#dates.year(booking.begin_date)}"></span></td>
-						<td><span th:text="${#dates.day(booking.end_date)}"></span> <span
-							th:text="${#dates.monthName(booking.end_date)}"></span> <span
-							th:text="${#dates.year(booking.end_date)}"></span></td>
-						<td><a th:text="${booking.room.hotel.name}" th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
-						<td><span th:text="${booking.room.type}"></span></td>
-						<td><span th:text="${booking.room.room_number}"></span></td>
-					</tr>
-				</table>
-			</div>
-			<p th:if="${#lists.isEmpty(bookings)}">
-				<i>No bookings</i>
-			</p>
 		</div>
 	</div>
+
 </body>
 </html>
