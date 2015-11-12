@@ -33,20 +33,18 @@
 				<div class="reviews">
 					<h4>Written reviews</h4>
 					<div>
-						<p th:each="comment : ${user.comments}">
-							<!-- <b>Text:</b> <p th:text="${comment.text}"></p>
-							<b>Date:</b> <p th:text="${comment.date}"></p> -->
-							Comment text
-						</p>
+						<div th:each="comment : ${user.comments}">
+							<p th:text="${comment.date}"></p>
+							<p th:text="${comment.text}"></p>							
+						</div>
 					</div>
 				</div>
 				<hr>
 				<h4>Registered hotels</h4>
 				<div>
-					<p th:each="hotel : ${user.hotels}">
-						<!-- <p th:text="${hotel.name}"></p> -->
-						Hotel name
-					</p>
+					<div th:each="hotel : ${user.hotels}">
+						<p th:text="${hotel.name}"></p>						
+					</div>
 				</div>
 			</div>
 		</div>
@@ -76,4 +74,3 @@
 	</div>
 </body>
 </html>
-

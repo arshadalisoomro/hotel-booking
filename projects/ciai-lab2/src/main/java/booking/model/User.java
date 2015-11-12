@@ -49,8 +49,8 @@ public class User {
 		this.role = role;
 	}
 	
-	public Map<Long, Comment> getComments() {
-		return comments;
+	public Iterable<Comment> getComments() {
+		return comments.values();
 	}
 
 	public String getEmail() {

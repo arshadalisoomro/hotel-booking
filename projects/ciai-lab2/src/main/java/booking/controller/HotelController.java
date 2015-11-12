@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import booking.model.Booking;
 import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;

@@ -66,8 +66,8 @@ public class UserController {
     public String show(@PathVariable("id") long id, Model model) {
     	User user = users.findOne(id);
     	if( user == null )
-    		throw new HotelNotFoundException();
-    	model.addAttribute("user", user);    	    	
+    		throw new HotelNotFoundException();    	
+    	model.addAttribute("user", user);    	    	    	
     	return "users/show";
     }
     
