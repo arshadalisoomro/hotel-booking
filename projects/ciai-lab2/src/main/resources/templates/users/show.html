@@ -30,46 +30,64 @@
 			</div>
 
 			<div class="col-md-6">
-				<div class="reviews">
-					<h4>Written reviews</h4>
-					<div>
-						<div th:each="comment : ${user.comments}">
-							<p th:text="${comment.date}"></p>
-							<p th:text="${comment.text}"></p>							
-						</div>
+
+				<h4>Written reviews</h4>
+				<div th:if="${!#sets.isEmpty(user.comments)}">
+					<div th:each="comment : ${user.comments}">
+						<p>
+							<i class="glyphicon glyphicon-time"></i> <span
+								th:text="${#dates.monthNameShort(comment.date)}"></span> <span
+								th:text="${#dates.year(comment.date)}"></span>
+						</p>
+						<p th:text="${comment.text}"></p>
 					</div>
 				</div>
+				<p th:if="${#sets.isEmpty(user.comments)}">
+					<i>No reviews written</i>
+				</p>
+
 				<hr>
+
 				<h4>Registered hotels</h4>
-				<div>
+				<div th:if="${!#sets.isEmpty(user.hotels)}">
 					<div th:each="hotel : ${user.hotels}">
-						<p th:text="${hotel.name}"></p>						
+						<p th:text="${hotel.name}"></p>
 					</div>
 				</div>
+				<p th:if="${#sets.isEmpty(user.hotels)}">
+					<i>No registered hotels</i>
+				</p>
+
 			</div>
 		</div>
 		<hr>
 		<div>
 			<h4>Approved bookings</h4>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Check-in</th>
-						<th>Check-out</th>
-						<th>Hotel</th>
-						<th>Room Type</th>
-						<th>Room Number</th>
 
+			<div th:if="${!#lists.isEmpty(bookings)}">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Check-in</th>
+							<th>Check-out</th>
+							<th>Hotel</th>
+							<th>Room Type</th>
+							<th>Room Number</th>
+
+						</tr>
+					</thead>
+					<tr th:if="${booking.state}" th:each="booking : ${bookings}">
+						<td><span th:text="${booking.begin_date}"></span></td>
+						<td><span th:text="${booking.end_date}"></span></td>
+						<td><span th:text="${booking.room.hotel.name}"></span></td>
+						<td><span th:text="${booking.room.type}"></span></td>
+						<td><span th:text="${booking.room.room_number}"></span></td>
 					</tr>
-				</thead>
-				<tr th:if="${booking.state}" th:each="booking : ${bookings}">
-					<td><span th:text="${booking.begin_date}"></span></td>
-					<td><span th:text="${booking.end_date}"></span></td>
-					<td><span th:text="${booking.room.hotel.name}"></span></td>
-					<td><span th:text="${booking.room.type}"></span></td>
-					<td><span th:text="${booking.room.room_number}"></span></td>
-				</tr>
-			</table>
+				</table>
+			</div>
+			<p th:if="${#lists.isEmpty(bookings)}">
+				<i>No bookings</i>
+			</p>
 		</div>
 	</div>
 </body>
