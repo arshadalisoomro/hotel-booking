@@ -7,9 +7,9 @@
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet" media="screen" />
-	<script th:src="@{|/js/jquery.js|}"></script>
-	
-	<script
+<script th:src="@{|/js/jquery.js|}"></script>
+
+<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" th:href="@{|/css/general.css|}" />
@@ -44,14 +44,13 @@
 
 		<div class="row">
 			<div class="col-md-6">
-
-
 				<div class="tabbable-panel">
 					<div class="tabbable-line">
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active"><a href="#tab_default_1"
 								data-toggle="tab">Photos</a></li>
-							<li><a onclick="displayMap()" href="#tab_default_2" data-toggle="tab">Map</a></li>
+							<li><a onclick="displayMap()" href="#tab_default_2"
+								data-toggle="tab">Map</a></li>
 						</ul>
 						<br>
 						<div class="tab-content">
@@ -60,16 +59,16 @@
 									<img th:each="img : ${hotel.images}"
 										th:src="${'/static/' + img.value.path}"
 										class="img-responsive img-rounded" alt="Hotel photo" />
-								</div>								
-								
+								</div>
 							</div>
 							<div class="tab-pane" id="tab_default_2">
 								<div class="" id="map"></div>
-							</div>	
+							</div>
 						</div>
 					</div>
 				</div>
-
+				<br> <a class="btn btn-default"
+					th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a>
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-primary"
@@ -88,7 +87,6 @@
 						<p th:text="${comment.text}"></p>
 					</div>
 				</div>
-
 				<p>
 					<span sec:authorize="hasAnyRole('ADMIN', 'USER')"><a
 						class="btn btn-default"
