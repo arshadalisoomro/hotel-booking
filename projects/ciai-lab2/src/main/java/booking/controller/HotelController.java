@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;
+import booking.model.Room;
+import booking.model.RoomType;
 import booking.repository.CategoryRepository;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
@@ -114,6 +118,16 @@ public class HotelController {
 		model.addAttribute("reply", new Comment());
 		model.addAttribute("users", users.findAll());
 		model.addAttribute("roomTypes", roomTypes.findAll());
+		
+		Map<Long, Room> rmap = hotel.getRooms();
+		Map<RoomType, Room> rttemp = new HashMap<RoomType, Room>();
+		
+		for(Room r : rmap.values())
+		{
+			rttemp.put(r.getType(), r);
+		}
+		
+		model.addAttribute("hotelRoomTypes", rttemp);		
 		return "hotels/show";
 	}
 
