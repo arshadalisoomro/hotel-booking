@@ -75,7 +75,7 @@
 					th:each="comment, iterStat : ${comments.?[status]}"
 					th:unless="${iterStat.count > 2}">
 					<p class="panel-heading">
-						<span><i class="glyphicon glyphicon-comment"></i></span> <a
+						<span><i class="glyphicon glyphicon-user"></i></span> <a
 							th:href="@{|/users/${comment.user.id}/|}"><span
 							style="color: white" th:text="${comment.user.name}"></span></a> <span
 							class="pull-right"> <i class="glyphicon glyphicon-time"></i>

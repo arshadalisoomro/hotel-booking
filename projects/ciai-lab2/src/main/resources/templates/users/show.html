@@ -33,7 +33,7 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_default_1">
 						<div class="col-md-6">
-							<h4>Registered hotels</h4>
+							<h4><i class="glyphicon glyphicon-home"></i> Registered hotels</h4>
 							<div th:if="${!#sets.isEmpty(user.hotels)}">
 								<div th:each="hotel : ${user.hotels}">
 									<a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.id}|}"></a>
@@ -46,7 +46,7 @@
 							</p>
 						</div>
 						<div class="col-md-6">
-							<h4>Written reviews</h4>
+							<h4><i class="glyphicon glyphicon-comment"></i> Written reviews</h4>
 							<div th:if="${!#sets.isEmpty(user.comments)}">
 								<div th:each="comment : ${user.comments}">
 									<p>
@@ -65,7 +65,7 @@
 						</div>
 					</div>
 					<div class="tab-pane" id="tab_default_2">						
-						<h4>Approved bookings</h4>
+						<h4><i class="glyphicon glyphicon-th-list"></i> Approved bookings</h4>
 						<div th:if="${!#lists.isEmpty(bookings)}">
 							<table class="table">
 								<thead>
