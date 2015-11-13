@@ -19,19 +19,13 @@ function geocodeAddress(geocoder, resultsMap)
     }
   });
 }
-		
-function displayMap(){
-    $('#map').toggleClass('hidden');
-    initialize();
-    $('.slider').toggleClass('hidden');
 
-    var actualText = $('#showMap').text();
-    
-    if(actualText == 'Show map')
-    	$('#showMap').text('Show photos');
-    else
-    	$('#showMap').text('Show map');
-    
+var initialized = false;
+		
+function displayMap(){	
+	if(!initialized)
+		initialize();
+	initialized = true;
 }
 
 function initialize() {

@@ -7,12 +7,16 @@
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
 	rel="stylesheet" media="screen" />
+	<script th:src="@{|/js/jquery.js|}"></script>
+	
+	<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" th:href="@{|/css/general.css|}" />
-<script th:src="@{|/js/jquery.js|}"></script>
 <script th:src="@{|/js/app.js|}"></script>
 <script th:src="@{|/js/sss.js|}"></script>
-<link rel="stylesheet" th:href="@{|/css/sss.css|}" type="text/css" media="all" />
+<link rel="stylesheet" th:href="@{|/css/sss.css|}" type="text/css"
+	media="all" />
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 </head>
 
@@ -23,16 +27,15 @@
 			<h1>
 				<span th:text="${hotel.name}"></span> <small> <span
 					th:each="i : ${#numbers.sequence(1, hotel.rating)}"><i
-						class="glyphicon glyphicon-star"></i></span>
-						
-						<span sec:authorize="hasAnyRole('ADMIN')" class="pull-right">
-							<a th:href="@{|/hotels/${hotel.id}/upload|}"><i class="glyphicon glyphicon-picture"></i></a>
-							·
-							<a th:href="@{|/hotels/${hotel.id}/edit|}">
-								<i class="glyphicon glyphicon-pencil"></i>
-							</a>													
-						</span>
-						
+						class="glyphicon glyphicon-star"></i></span> <span
+					sec:authorize="hasAnyRole('ADMIN')" class="pull-right"> <a
+						th:href="@{|/hotels/${hotel.id}/upload|}"><i
+							class="glyphicon glyphicon-picture"></i></a> · <a
+						th:href="@{|/hotels/${hotel.id}/edit|}"> <i
+							class="glyphicon glyphicon-pencil"></i>
+					</a>
+				</span>
+
 				</small> <br /> <small> <span th:text="${hotel.category}"></span> ·
 					<span id="address" th:text="${hotel.address}"></span>
 				</small>
@@ -41,39 +44,54 @@
 
 		<div class="row">
 			<div class="col-md-6">
-				<div class="hidden" id="map"></div>
-				<div class="slider">
-					<img th:each="img : ${hotel.images}" th:src="${'/static/' + img.value.path}"
-						class="img-responsive img-rounded" alt="Hotel photo" />
+
+
+				<div class="tabbable-panel">
+					<div class="tabbable-line">
+						<ul class="nav nav-tabs nav-justified">
+							<li class="active"><a href="#tab_default_1"
+								data-toggle="tab">Photos</a></li>
+							<li><a onclick="displayMap()" href="#tab_default_2" data-toggle="tab">Map</a></li>
+						</ul>
+						<br>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab_default_1">
+								<div class="slider">
+									<img th:each="img : ${hotel.images}"
+										th:src="${'/static/' + img.value.path}"
+										class="img-responsive img-rounded" alt="Hotel photo" />
+								</div>								
+								
+							</div>
+							<div class="tab-pane" id="tab_default_2">
+								<div class="" id="map"></div>
+							</div>	
+						</div>
+					</div>
 				</div>
-				<p></p>
-				<p>
-					<a class="btn btn-default"
-						th:href="@{|/hotels/${hotel.id}/rooms/|}">View rooms</a> <a
-						id="showMap" onclick="displayMap()" class="btn btn-default">Show map</a>
-				</p>
+
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-primary"
 					th:each="comment, iterStat : ${comments.?[status]}"
 					th:unless="${iterStat.count > 2}">
 					<p class="panel-heading">
-						<span><i class="glyphicon glyphicon-comment"></i></span>  <a
+						<span><i class="glyphicon glyphicon-comment"></i></span> <a
 							th:href="@{|/users/${comment.user.id}/|}"><span
-								style="color: white" th:text="${comment.user.name}"></span></a>
-						<span class="pull-right">
-							<i class="glyphicon glyphicon-time"></i> 
-							<span th:text="${#dates.monthNameShort(comment.date)}"></span>
-							<span th:text="${#dates.year(comment.date)}"></span>
+							style="color: white" th:text="${comment.user.name}"></span></a> <span
+							class="pull-right"> <i class="glyphicon glyphicon-time"></i>
+							<span th:text="${#dates.monthNameShort(comment.date)}"></span> <span
+							th:text="${#dates.year(comment.date)}"></span>
 						</span>
 					</p>
 					<div class="panel-body">
-						<p th:text="${comment.text}"></p>						
+						<p th:text="${comment.text}"></p>
 					</div>
 				</div>
 
 				<p>
-					<span sec:authorize="hasAnyRole('ADMIN', 'USER')"><a class="btn btn-default"
+					<span sec:authorize="hasAnyRole('ADMIN', 'USER')"><a
+						class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a
 							comment</a></span> <span><a class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>
