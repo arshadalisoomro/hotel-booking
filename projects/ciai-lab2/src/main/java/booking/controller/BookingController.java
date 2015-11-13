@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -94,7 +95,7 @@ public class BookingController {
     }
     
     @RequestMapping(value="/search", method=RequestMethod.POST)
-    public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType) {
+    public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType, @RequestParam("numberRooms") int numberRooms) {
     	
     	RoomType rt = roomTypes.findOne(roomType);
     	List<Room> rooms_available = new ArrayList<Room>();
@@ -118,19 +119,12 @@ public class BookingController {
     					break;
     				}
     			}	
-    			if(!found && r.getType() == rt){
-    		    	boolean flag = false;
-    				Iterator<Room> it = rooms_available.iterator();
-    				while(it.hasNext()){
-    					Room current_room = it.next();
-    					if(current_room.getHotel().getName().equals(r.getHotel().getName()))
-    						flag = true;
-    				}
-    				if(!flag)
-    					rooms_available.add(r);
-    			}
+    			if(!found && r.getType() == rt)
+    				rooms_available.add(r);     					
+    			
     		}
     	}
+    	
     	model.addAttribute("rooms", rooms_available);
     	model.addAttribute("booking", booking);
     	model.addAttribute("room_type", rt.getDescription());
