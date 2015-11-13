@@ -26,4 +26,11 @@ public class ApplicationController {
 		return "landing-page";
 	}
 	
+	@RequestMapping(value="/comments/moderation")
+	public String moderateComments(Model model)
+	{
+		model.addAttribute("hotels", hotels.findAll());
+		return "comments/comment-moderating";
+	}
+	
 }
