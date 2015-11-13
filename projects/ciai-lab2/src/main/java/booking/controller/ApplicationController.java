@@ -19,6 +19,7 @@ public class ApplicationController {
 	@RequestMapping(value="/")
 	public String root(Model model, Authentication authentication) {
 		if(authentication != null){
+			@SuppressWarnings("unused")
 			CustomUserDetail principal = (CustomUserDetail) authentication.getPrincipal();
 		}
 
@@ -32,5 +33,4 @@ public class ApplicationController {
 		model.addAttribute("hotels", hotels.findAll());
 		return "comments/comment-moderating";
 	}
-	
 }

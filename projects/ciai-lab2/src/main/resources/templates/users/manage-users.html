@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Hotel List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+	<script th:src="@{|/js/jquery.js|}"></script>
+<style type="text/css">table tr th {
+  width: 20%;
+}</style>	
+</head>
+<body>
+
+	<div th:include="fragments/header"></div>
+	<div class="container">
+
+		<div class="page-header">
+			<h1>Manager Users</h1>
+		</div>
+		
+		<h4>Comment Moderators</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th>E-mail</th>								
+					<th></th>
+				</tr>
+			</thead>
+			<tr th:each="user : ${users.?[authority.role == 'ROLE_COMMENT_MODERATOR']}">
+				<td><span th:text="${user.name}"></span></td>
+				<td><a th:href="@{|/users/${user.id}|}"><span
+						th:text="${user.username}"></span></a></td>
+				<td><span th:text="${user.email}"></span></td>			
+				<td><a th:href="@{|/users/${user.id}/edit|}"><i
+						class="glyphicon glyphicon-pencil"></i></a>  <a th:href="@{|/users/${user.id}/remove|}"><i
+						class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</table>
+		
+		<hr>
+		
+		<h4>Hotel Managers</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th>E-mail</th>								
+					<th></th>
+				</tr>
+			</thead>
+			<tr th:each="user : ${users.?[authority.role == 'ROLE_HOTEL_MANAGER']}">
+				<td><span th:text="${user.name}"></span></td>
+				<td><a th:href="@{|/users/${user.id}|}"><span
+						th:text="${user.username}"></span></a></td>
+				<td><span th:text="${user.email}"></span></td>			
+				<td><a th:href="@{|/users/${user.id}/edit|}"><i
+						class="glyphicon glyphicon-pencil"></i></a>  <a th:href="@{|/users/${user.id}/remove|}"><i
+						class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</table>
+		
+		<hr>
+		
+		<h4>Web Admin</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th>E-mail</th>								
+					<th></th>
+				</tr>
+			</thead>
+			<tr th:each="user : ${users.?[authority.role == 'ROLE_ADMIN']}">
+				<td><span th:text="${user.name}"></span></td>
+				<td><a th:href="@{|/users/${user.id}|}"><span
+						th:text="${user.username}"></span></a></td>
+				<td><span th:text="${user.email}"></span></td>			
+				<td><a th:href="@{|/users/${user.id}/edit|}"><i
+						class="glyphicon glyphicon-pencil"></i></a>  <a th:href="@{|/users/${user.id}/remove|}"><i
+						class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</table>
+		
+		<hr>
+		
+		<h4>Users</h4>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th>E-mail</th>								
+					<th></th>
+				</tr>
+			</thead>
+			<tr th:each="user : ${users.?[authority.role == 'ROLE_USER']}">
+				<td><span th:text="${user.name}"></span></td>
+				<td><a th:href="@{|/users/${user.id}|}"><span
+						th:text="${user.username}"></span></a></td>
+				<td><span th:text="${user.email}"></span></td>			
+				<td><a th:href="@{|/users/${user.id}/edit|}"><i
+						class="glyphicon glyphicon-pencil"></i></a>  <a th:href="@{|/users/${user.id}/remove|}"><i
+						class="glyphicon glyphicon-trash"></i></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
+
