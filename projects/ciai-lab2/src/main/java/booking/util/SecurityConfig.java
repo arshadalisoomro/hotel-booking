@@ -29,12 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder);
 		auth.userDetailsService(customUserDetailsService);
 		
-				auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("select username, password, true from user where username=?");
-//		auth.inMemoryAuthentication()
-//			.withUser("admin").password("p").roles("ADMIN").and()
-//			.withUser("user").password("p").roles("USER").and()
-//			.withUser("cm").password("p").roles("COMMENT_MODERATOR");
 	}
 
 	@Override

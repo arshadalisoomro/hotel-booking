@@ -1,5 +1,12 @@
 package booking.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,20 +54,25 @@ public class RoomController {
     	return "redirect:/hotels/"+id+"/rooms/";
     }
     
-    // GET  /hotels/{id}/rooms/{id} - show a room
-    @RequestMapping(value="{id}/rooms/{id_room}", method=RequestMethod.GET)
-    public String showRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model) {
-    	Hotel hotel = hotels.findOne(id);
-    	model.addAttribute("hotel", hotel);
-    	model.addAttribute("room", rooms.findOne(id_room));
-    	return "rooms/show";
-    }
-    
     // GET  /hotels/{id}/rooms/ - show the list of rooms of the hotel
     @RequestMapping(value="{id}/rooms/", method=RequestMethod.GET)
     public String showRooms(@PathVariable("id") long id, Model model) {
     	Hotel hotel = hotels.findOne(id);
+    	Map<Long, Room> hotel_rooms = hotel.getRooms();
+    	Map<Integer, Room> rooms = new HashMap<Integer, Room>();
+    	
+    	for(Long entry : hotel_rooms.keySet()){
+    		Room r = hotel_rooms.get(entry);
+    		rooms.put(Integer.parseInt(r.getRoom_number()), r);
+    	}
+    	List<Room> orderedRooms = new ArrayList<Room>();
+    	SortedSet<Integer> orderedSet = new TreeSet<Integer>(rooms.keySet());
+    	for(Integer key : orderedSet)
+    		orderedRooms.add(rooms.get(key));
+    	
+    	
     	model.addAttribute("hotel", hotel);
+    	model.addAttribute("orderedRooms",orderedRooms);
     	return "rooms/hotel-rooms";
     }
     

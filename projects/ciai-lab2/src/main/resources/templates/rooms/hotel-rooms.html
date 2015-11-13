@@ -21,13 +21,13 @@
 					<i>No existing rooms</i>
 				</p>
 			</div>
-			<div th:each="room : ${hotel.rooms}">
+			<div th:each="room : ${orderedRooms}">
 				<div class="well">
 					<span
-						th:text="${room.value.room_number + ' - ' + room.value.type.description + ' - ' +
- 		 	room.value.price + ' €/night'}"></span><a
+						th:text="${room.room_number + ' - ' + room.type.description + ' - ' +
+ 		 	room.price + ' €/night'}"></span><a
 						class="pull-right"
-						th:href="@{|/hotels/${hotel.id}/rooms/${room.value.id}/remove|}"><i
+						th:href="@{|/hotels/${hotel.id}/rooms/${room.id}/remove|}"><i
 						class="glyphicon glyphicon-trash"></i></a>
 				</div>
 			</div>
