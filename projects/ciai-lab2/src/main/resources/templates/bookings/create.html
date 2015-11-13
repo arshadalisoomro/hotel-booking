@@ -6,16 +6,14 @@
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     <script src="../js/jquery.js"></script>
     <link rel="stylesheet" href="../css/pikaday.css"/>
-    
+    <script src="../js/pikaday.js"></script> 
 </head>
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
 		<div class="page-header"><h1>Book a Room</h1></div>
-		<div th:include="bookings/form :: bookingform(@{/bookings/})"></div>		
-    </div>
-    <script src="../js/pikaday.js"></script>
-    <script type="text/javascript">
+		<div th:include="bookings/form :: bookingform(@{/bookings/})"></div>	
+		<script type="text/javascript">
     var startDate,
         endDate,
         updateStartDate = function() {
@@ -58,7 +56,8 @@
             endDate = _endDate;
             updateEndDate();
         }
-    </script>  
+    </script> 	
+    </div>
 </body>
 </html>
 

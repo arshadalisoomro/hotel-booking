@@ -113,6 +113,7 @@ public class HotelController {
 		model.addAttribute("hotel", hotel );
 		model.addAttribute("reply", new Comment());
 		model.addAttribute("users", users.findAll());
+		model.addAttribute("roomTypes", roomTypes.findAll());
 		return "hotels/show";
 	}
 

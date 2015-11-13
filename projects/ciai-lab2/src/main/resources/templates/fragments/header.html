@@ -25,7 +25,8 @@
 		        <li><a href="/users">Users</a></li>
 		        <li><a href="/bookings">Bookings</a></li>
 		        <li><a href="/bookings/new">Book a room</a></li>
-		        <li><a href="/comments/moderation">Moderate comments</a></li>		        		        	       
+		        <li><a href="/comments/moderation">Moderate comments</a></li>
+		        <li><a href="/users/manage">Manage users</a></li>		        		        	       
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">	
 			      <li th:if="${#httpServletRequest.remoteUser} != null"><span class="navbar-text" th:utext="'Logged in as <b>' + '<a href=/users/me>' + ${#authentication.principal.user.name} + '</a>' + '</b>'"></span></b></li>
