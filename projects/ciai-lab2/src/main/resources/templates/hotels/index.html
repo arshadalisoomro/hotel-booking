@@ -21,7 +21,7 @@
 		</div>
 		
 		<div class="list-group" th:each="hotel : ${hotels}">
-			<a class="list-group-item" th:text="${hotel.name}"
+			<a class="list-group-item" th:if="${hotel.status}" th:text="${hotel.name}"
 				th:href="@{|/hotels/${hotel.id}|}"></a>
 		</div>
 		

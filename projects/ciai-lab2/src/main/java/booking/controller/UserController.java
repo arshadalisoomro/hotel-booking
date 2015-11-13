@@ -153,11 +153,4 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "redirect:/users/";
 	}	
-	
-	@RequestMapping(value="/manage")
-	public String manageUsers(Model model)
-	{
-		model.addAttribute("users", users.findAll());
-		return "users/manage-users";
-	}
 }

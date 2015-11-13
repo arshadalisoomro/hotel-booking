@@ -8,13 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import booking.model.CustomUserDetail;
 import booking.repository.HotelRepository;
+import booking.repository.UserRepository;
 
 @Controller
 public class ApplicationController {
 
 	@Autowired
 	HotelRepository hotels;
-
+	
+	@Autowired
+	UserRepository users;
 
 	@RequestMapping(value="/")
 	public String root(Model model, Authentication authentication) {
@@ -32,5 +35,13 @@ public class ApplicationController {
 	{
 		model.addAttribute("hotels", hotels.findAll());
 		return "comments/comment-moderating";
+	}
+	
+	@RequestMapping(value="/admin")
+	public String manageUsers(Model model)
+	{
+		model.addAttribute("users", users.findAll());
+		model.addAttribute("hotels", hotels.findAll());
+		return "admin-dashboard";
 	}
 }

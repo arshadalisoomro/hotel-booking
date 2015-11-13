@@ -28,12 +28,12 @@ VALUES
 (4, 'rui@email.com','Rui Abreu', 'pass', 'rui', 3),
 (5, 'luis@email.com','Luis Piedade', 'pass', 'luis', 3);
 
-INSERT INTO hotel (id, address, name, rating, category_id, manager_id)
+INSERT INTO hotel (id, address, name, rating, category_id, manager_id, status)
 VALUES
-(1, 'Rua Castilho 149, Lisbon','Intercontinental', 5, 1, 4),
-(2, 'Av. D. Joao II, Lisbon','Tryp', 4, 2, 4),
-(3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3, 5),
-(4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5, 5);
+(1, 'Rua Castilho 149, Lisbon','Intercontinental', 5, 1, 4, true),
+(2, 'Av. D. Joao II, Lisbon','Tryp', 4, 2, 4, true),
+(3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3, 5, true),
+(4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5, 5, false);
 
 INSERT INTO room (id, floor, room_number, hotel_id, type_id, price)
 VALUES

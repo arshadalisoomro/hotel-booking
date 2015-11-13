@@ -161,6 +161,14 @@ public class HotelController {
 	public String remove(@PathVariable("id") long id, Model model) {
 		hotels.delete(hotels.findOne(id));
 		return "redirect:/hotels";
+	} 
+	
+	@RequestMapping(value="{id}/approve", method=RequestMethod.GET)
+	public String approve(@PathVariable("id") long id, Model model) {
+		Hotel h = hotels.findOne(id);
+		h.setStatus(true);
+		hotels.save(h);
+		return "redirect:/admin";
 	}  
 
 	@RequestMapping(value="{id}/upload", method=RequestMethod.POST)

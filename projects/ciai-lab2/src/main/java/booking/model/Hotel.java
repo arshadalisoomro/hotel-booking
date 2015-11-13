@@ -22,6 +22,7 @@ public class Hotel {
     private String name;    
     private String address;
     private int rating;
+    private boolean status;
     
     @ManyToOne
     private Category category;
@@ -43,12 +44,13 @@ public class Hotel {
  
     public Hotel() {}
     
-    public Hotel(long id, String name, String address, int rating, Category category) {    	
+    public Hotel(long id, String name, String address, int rating, Category category, boolean status) {    	
     	this.id = id;
     	this.name = name;
     	this.address = address;
     	this.rating = rating;
     	this.category = category;
+    	this.status = false;
     }
     
     public String getAddress() {
@@ -128,5 +130,12 @@ public class Hotel {
     	return "Id: " + getId() + "\nName: " + getName() + "\nAddress: " + getAddress() + "\nRating: " + getRating() + "\nCategory: " + category.getName() + "\n";
     }
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 }
 
