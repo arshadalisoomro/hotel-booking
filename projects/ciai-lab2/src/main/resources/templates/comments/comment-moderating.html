@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Hotel List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+<script src="../../../js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div th:include="fragments/header"></div>
+	<div class="container">
+		<div class="page-header">
+			<h1>Moderate comments</h1>
+		</div>
+		<div class="tabbable-panel">
+			<div class="tabbable-line">
+				<ul class="nav nav-tabs nav-justified">
+					<li class="active"><a href="#tab_default_1" data-toggle="tab">Approved
+							comments</a></li>
+					<li><a href="#tab_default_2" data-toggle="tab">Pending
+							comments</a></li>
+				</ul>
+				<br>
+				<div class="tab-content">
+					<div class="tab-pane active" id="tab_default_1">
+						<div>
+							<div th:each="h : ${hotels}"
+								th:if="${!#maps.isEmpty(h.comments.?[value.status == true])}">
+								<h4 th:text="${h.name}"></h4>
+								<div class="panel panel-success" th:each="c : ${h.comments}"
+									th:if="${c.value.status}">
+									<div th:text="${c.value.user.name}" class="panel-heading"></div>
+									<div class="panel-body">
+										<p th:text="${c.value.text}"></p>
+										<a
+											th:href="@{|/hotels/${h.id}/comments/${c.value.id}/remove|}">
+											<i class="glyphicon glyphicon-trash"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_default_2">
+						<div class="">
+							<div th:each="h : ${hotels}">
+								<div
+									th:if="${!#maps.isEmpty(h.comments.?[value.status == false])}">
+									<h4 th:text="${h.name}"></h4>
+									<div class="panel panel-warning" th:each="c : ${h.comments}"
+										th:if="${!c.value.status}">
+										<div th:text="${c.value.user.name}" class="panel-heading"></div>
+										<div class="panel-body">
+											<p th:text="${c.value.text}"></p>
+											<a
+												th:href="@{|/hotels/${h.id}/comments/${c.value.id}/approve|}">
+												<i class="glyphicon glyphicon-ok"></i>
+											</a> · <a
+												th:href="@{|/hotels/${h.id}/comments/${c.value.id}/remove|}">
+												<i class="glyphicon glyphicon-trash"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
