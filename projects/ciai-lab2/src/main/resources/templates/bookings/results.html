@@ -21,28 +21,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr><td><span th:text="${booking.begin_date}"></span></td><td><span th:text="${booking.end_date}"></span></td></tr>
+			<tr><td><i class="glyphicon glyphicon-time"></i>
+							<span th:text="${#dates.day(booking.begin_date)}"></span> 
+							<span th:text="${#dates.monthNameShort(booking.begin_date)}"></span>
+							<span th:text="${#dates.year(booking.begin_date)}"></span></td>
+				<td><i class="glyphicon glyphicon-time"></i>
+							<span th:text="${#dates.day(booking.end_date)}"></span> 
+							<span th:text="${#dates.monthNameShort(booking.end_date)}"></span>
+							<span th:text="${#dates.year(booking.end_date)}"></span></td></tr>
 		</tbody>
 		</table>
-
+		
+		<p>Type of room: <span th:text="${room_type}"></span></p>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Hotel</th>
-					<th>Floor</th>
-					<th>Room Number</th>
-					<th>Room type</th>
-					<th>Price (€)</th>
+					<th>Price (€/night)</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tr th:each="room : ${rooms}">
-				<td><a th:href="@{|/hotels/${room.value.id}|}" th:text="${room.value.name}"></a></td>
-				<td><span th:text="${room.key.floor}"></span></td>
-				<td><span th:text="${room.key.room_number}"></span></td>
-				<td><span th:text="${room.key.type.description}"></span></td>
-				<td><span th:text="${room.key.price}"></span></td>
-				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.key.id}/|}"></a></td>
+				<td><a th:href="@{|/hotels/${room.hotel.id}|}" th:text="${room.hotel.name}"></a></td>
+				<td><span th:text="${room.price}"></span></td>
+				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.id}/|}"></a></td>
 			</tr>
 		</table>		
 	</div>

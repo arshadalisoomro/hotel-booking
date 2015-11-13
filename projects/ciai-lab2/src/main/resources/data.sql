@@ -44,7 +44,8 @@ VALUES
 (5, 5, '25', 2, 2, 100),
 (6, 1, '111', 3, 2, 100),
 (7, 3, '321', 3, 1, 50),
-(8, 2, '226', 4, 4, 75);
+(8, 2, '226', 4, 4, 75),
+(9,2,'218',1,1,50);
 
 INSERT INTO comment (id, `date`, status, text, hotel_id, user_id, is_answer)
 VALUES
