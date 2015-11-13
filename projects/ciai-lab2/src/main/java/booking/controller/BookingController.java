@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,147 +42,152 @@ public class BookingController {
 
 	@Autowired
 	BookingRepository bookings;
-	
+
 	@Autowired
 	HotelRepository hotels;
-	
+
 	@Autowired
 	RoomRepository rooms;
-	
+
 	@Autowired
 	UserRepository users;
-	
+
 	@Autowired
 	RoomTypeRepository roomTypes;
-	
+
 	@RequestMapping(method=RequestMethod.GET)
-    public String index(Model model) {
-        model.addAttribute("bookings", bookings.findAll());
-        return "bookings/index";
-    }
-	
+	public String index(Model model) {
+		model.addAttribute("bookings", bookings.findAll());
+		return "bookings/index";
+	}
+
 	@RequestMapping(value="/new/{room_id}", method=RequestMethod.GET)
 	public String bookRoom(Model model, @PathVariable("room_id") long room_id, @ModelAttribute("booking") Booking booking){
-		
+
 		booking.setUser(getCurrentUser());
-		
+
 		Room room = rooms.findOne(room_id);
-		
+
 		if(room == null)
 			throw new RoomNotFoundException();
-		
+
 		booking.setRoom(room);
-		
+
 		Map<Date, Long> days_reserved = room.getDays_reserved();
-		
+
 		List<Date> dates_list = getDates(booking);
-		
+
 		for(Date date: dates_list)
 			days_reserved.put(date, booking.getId());
-				
+
 		bookings.save(booking);
-		
+
 		model.addAttribute("bookings", bookings.findAll());
 		return "redirect:/bookings/";
 	}
-	
-    @RequestMapping(value="/new", method=RequestMethod.GET)
-    public String newBooking(Model model) {
-    	model.addAttribute("booking", new Booking());
-    	model.addAttribute("roomTypes", roomTypes.findAll());
-    	return "bookings/create";
-    }
-    
-    @RequestMapping(value="/search", method=RequestMethod.POST)
-    public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType, @RequestParam("numberRooms") int numberRooms) {
-    	
-    	RoomType rt = roomTypes.findOne(roomType);
-    	List<Room> rooms_available = new ArrayList<Room>();
-    	List<Date> dates = getDates(booking);
-    	
-    	Iterator<Hotel> ithotels = hotels.findAll().iterator();
-    	
-    	while(ithotels.hasNext()){
-    		Hotel hotel = ithotels.next();
-    		Map<Long, Room> rooms = hotel.getRooms();
-    		for(Entry<Long, Room> room : rooms.entrySet()){
-    			Room r = room.getValue();
-    			Map<Date, Long> room_bookings = r.getDays_reserved();
-    			boolean found = false;
-    			Iterator<Date> itDates = dates.iterator();
 
-    			while(itDates.hasNext()){
-    				Date day = itDates.next();
-    				if(room_bookings.get(day) != null){
-    					found = true;
-    					break;
-    				}
-    			}	
-    			if(!found && r.getType() == rt)
-    				rooms_available.add(r);     					
-    			
-    		}
-    	}
-    	
-    	model.addAttribute("rooms", rooms_available);
-    	model.addAttribute("booking", booking);
-    	model.addAttribute("room_type", rt.getDescription());
-    	return "bookings/results";
-    }
-    
-    private List<Date> getDates(Booking booking){
-    	
-    	List<Date> dates = new ArrayList<Date>();
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(booking.getBegin_date());
+	@RequestMapping(value="/new", method=RequestMethod.GET)
+	public String newBooking(Model model) {
+		model.addAttribute("booking", new Booking());
+		model.addAttribute("roomTypes", roomTypes.findAll());
+		return "bookings/create";
+	}
 
-        while (calendar.getTime().getTime() <= booking.getEnd_date().getTime()){
-            Date result = calendar.getTime();
-            dates.add(result);
-            calendar.add(Calendar.DATE, 1);       
-        }      
-        return dates;
-    }
-    
-    @RequestMapping(value="/{booking_id}/approve", method=RequestMethod.GET)
-    public String approveBooking(Model model, @PathVariable("booking_id") long booking_id){
-    	
-    	Booking booking = bookings.findOne(booking_id);
-    	
-    	if(booking == null)
-    		throw new BookingNotFoundException();
-    	
-    	booking.setState(true);
-    	bookings.save(booking);
-    	return "redirect:/bookings/";
-    }
-    
-    @RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
-    public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
-    	Booking booking = bookings.findOne(booking_id);
-    	
-    	if(booking == null)
-    		throw new BookingNotFoundException();
-    	
-    	Room room = booking.getRoom();
-    	
-    	Map<Date, Long> daysReserved = room.getDays_reserved();
-    	
-    	List<Date> dates = getDates(booking);
-    	
-    	for (Date d : dates)
-    		daysReserved.remove(d);
-    	
-    	room.setDays_reserved(daysReserved);
-    	
-    	bookings.delete(booking);
-    	return "redirect:/bookings/";
-    }
-    
-    private User getCurrentUser(){
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
+	@RequestMapping(value="/search", method=RequestMethod.POST)
+	public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType, @RequestParam("numberRooms") int numberRooms) {
+
+		RoomType rt = roomTypes.findOne(roomType);
+		List<Room> rooms_available = new ArrayList<Room>();
+		List<Date> dates = getDates(booking);
+		Iterator<Hotel> ithotels = hotels.findAll().iterator();
+
+		while(ithotels.hasNext()){
+			Hotel hotel = ithotels.next();
+			Map<Long, Room> rooms = hotel.getRooms();
+			int counter = 0;
+			Room currentRoom = null;
+			for(Entry<Long, Room> room : rooms.entrySet()){
+				Room r = room.getValue();
+				Map<Date, Long> room_bookings = r.getDays_reserved();
+				boolean found = false;
+				Iterator<Date> itDates = dates.iterator();
+
+				while(itDates.hasNext()){
+					Date day = itDates.next();
+					if(room_bookings.get(day) != null){
+						found = true;
+						break;
+					}
+				}	
+				if(!found && r.getType() == rt)
+				{						
+					counter++;
+					currentRoom = r;
+				}
+			}
+			if(counter >= numberRooms)
+				rooms_available.add(currentRoom);
+		}
+
+		model.addAttribute("rooms", rooms_available);
+		model.addAttribute("booking", booking);
+		model.addAttribute("room_type", rt.getDescription());
+		return "bookings/results";
+	}
+
+	private List<Date> getDates(Booking booking){
+
+		List<Date> dates = new ArrayList<Date>();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(booking.getBegin_date());
+
+		while (calendar.getTime().getTime() <= booking.getEnd_date().getTime()){
+			Date result = calendar.getTime();
+			dates.add(result);
+			calendar.add(Calendar.DATE, 1);       
+		}      
+		return dates;
+	}
+
+	@RequestMapping(value="/{booking_id}/approve", method=RequestMethod.GET)
+	public String approveBooking(Model model, @PathVariable("booking_id") long booking_id){
+
+		Booking booking = bookings.findOne(booking_id);
+
+		if(booking == null)
+			throw new BookingNotFoundException();
+
+		booking.setState(true);
+		bookings.save(booking);
+		return "redirect:/bookings/";
+	}
+
+	@RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
+	public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
+		Booking booking = bookings.findOne(booking_id);
+
+		if(booking == null)
+			throw new BookingNotFoundException();
+
+		Room room = booking.getRoom();
+
+		Map<Date, Long> daysReserved = room.getDays_reserved();
+
+		List<Date> dates = getDates(booking);
+
+		for (Date d : dates)
+			daysReserved.remove(d);
+
+		room.setDays_reserved(daysReserved);
+
+		bookings.delete(booking);
+		return "redirect:/bookings/";
+	}
+
+	private User getCurrentUser(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
 		CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal(); 
 		return myUser.getUser();
-    }
-	
+	}
+
 }

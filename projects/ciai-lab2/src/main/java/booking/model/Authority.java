@@ -19,8 +19,7 @@ public class Authority {
 		
 	public Authority() {}
 	
-	public Authority(long id, String role) {
-		this.id = id;
+	public Authority(String role) {
 		this.role = role;
 	}
 
