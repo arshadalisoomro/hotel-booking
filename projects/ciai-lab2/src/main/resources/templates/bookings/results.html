@@ -29,10 +29,10 @@
 							<span th:text="${#dates.day(booking.end_date)}"></span> 
 							<span th:text="${#dates.monthNameShort(booking.end_date)}"></span>
 							<span th:text="${#dates.year(booking.end_date)}"></span></td></tr>
+							<tr><td colspan="2"><b><span th:text="${room_type}"></span></b></td></tr>
 		</tbody>
 		</table>
-		
-		<p>Type of room: <span th:text="${room_type}"></span></p>
+				
 		<table class="table table-striped">
 			<thead>
 				<tr>

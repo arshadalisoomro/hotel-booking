@@ -176,12 +176,12 @@ VALUES
 (3, '2015-11-29 14:00:00', '2015-12-02 11:00:00', TRUE, 7, 3);
 
 insert into booking (id, begin_date, end_date, state, room_id, user_id) values (4, '2015-10-23 02:16:13', '2015-10-25 05:30:55', false, 1, 3);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (5, '2015-12-05 16:53:12', '2015-12-07 14:04:27', false, 5, 6);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (6, '2015-12-21 15:43:32', '2015-12-23 21:49:40', false, 1, 8);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (7, '2015-11-23 20:22:39', '2014-11-24 16:22:16', true, 4, 9);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (5, '2015-12-05 16:53:12', '2015-12-07 14:04:27', false, 27, 6);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (6, '2015-12-21 15:43:32', '2015-12-23 21:49:40', false, 70, 8);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (7, '2015-11-23 20:22:39', '2014-11-24 16:22:16', true, 49, 9);
 insert into booking (id, begin_date, end_date, state, room_id, user_id) values (8, '2015-12-01 08:12:25', '2015-12-03 05:40:48', true, 5, 11);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (9, '2015-12-23 08:48:20', '2015-12-25 10:16:14', false, 2, 4);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (10, '2015-11-27 01:27:44', '2015-11-28 05:31:19', false, 8, 3);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (11, '2015-11-14 09:44:00', '2014-11-17 00:10:38', true, 7, 12);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (12, '2015-11-30 21:35:09', '2015-12-02 10:18:16', true, 4, 13);
-insert into booking (id, begin_date, end_date, state, room_id, user_id) values (13, '2015-11-17 20:26:30', '2015-11-20 05:10:56', true, 8, 14);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (9, '2015-12-23 08:48:20', '2015-12-25 10:16:14', false, 35, 4);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (10, '2015-11-27 01:27:44', '2015-11-28 05:31:19', false, 65, 3);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (11, '2015-11-14 09:44:00', '2014-11-17 00:10:38', true, 26, 12);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (12, '2015-11-30 21:35:09', '2015-12-02 10:18:16', true, 79, 13);
+insert into booking (id, begin_date, end_date, state, room_id, user_id) values (13, '2015-11-17 20:26:30', '2015-11-20 05:10:56', true, 51, 14);
