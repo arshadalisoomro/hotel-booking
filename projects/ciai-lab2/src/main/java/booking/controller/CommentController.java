@@ -95,7 +95,7 @@ public class CommentController {
     @RequestMapping(value="{id}/comments/{id_comment}/remove", method=RequestMethod.GET)
     public String removeComment(@PathVariable("id") long id, @PathVariable("id_comment") long id_comment, Model model){    	
     	comments.delete(id_comment);
-		return "redirect:/hotels/{id}/comments/";	
+		return "redirect:/comments/moderation";	
     }
     
     @RequestMapping(value="{id}/comments/{id_comment}/approve", method=RequestMethod.GET)
@@ -103,7 +103,7 @@ public class CommentController {
     	Comment comment = comments.findOne(id_comment);
     	comment.setStatus(true);
     	comments.save(comment);
-    	return "redirect:/hotels/{id}/comments/";
+    	return "redirect:/comments/moderation";
     }
     
     private User getCurrentUser(){
