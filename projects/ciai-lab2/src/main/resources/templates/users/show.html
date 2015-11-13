@@ -9,6 +9,9 @@
 <script th:src="@{|/js/jquery.js|}"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<style type="text/css">table tr th {
+  width: 18%;
+}</style>
 </head>
 <body>
 	<div th:include="fragments/header"></div>
@@ -75,7 +78,7 @@
 										<th>Hotel</th>
 										<th>Room Type</th>
 										<th>Room Number</th>
-
+										<th></th>
 									</tr>
 								</thead>
 								<tr th:if="${booking.state}" th:each="booking : ${bookings}">
@@ -89,9 +92,45 @@
 										th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
 									<td><span th:text="${booking.room.type}"></span></td>
 									<td><span th:text="${booking.room.room_number}"></span></td>
+									<td><a href="#"><i class="glyphicon glyphicon-pencil"></i></a> <a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></td>
 								</tr>
 							</table>
-						</div>
+						</div>										
+						<p th:if="${#lists.isEmpty(bookings)}">
+							<i>No bookings</i>
+						</p>
+						
+						<h4><i class="glyphicon glyphicon-th-list"></i> Pending bookings</h4>
+						<div th:if="${!#lists.isEmpty(bookings)}">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Check-in</th>
+										<th>Check-out</th>
+										<th>Hotel</th>
+										<th>Room Type</th>
+										<th>Room Number</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tr th:if="${!booking.state}" th:each="booking : ${bookings}">
+									<td><span th:text="${#dates.day(booking.begin_date)}"></span>
+										<span th:text="${#dates.monthName(booking.begin_date)}"></span>
+										<span th:text="${#dates.year(booking.begin_date)}"></span></td>
+									<td><span th:text="${#dates.day(booking.end_date)}"></span>
+										<span th:text="${#dates.monthName(booking.end_date)}"></span>
+										<span th:text="${#dates.year(booking.end_date)}"></span></td>
+									<td><a th:text="${booking.room.hotel.name}"
+										th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
+									<td><span th:text="${booking.room.type}"></span></td>
+									<td><span th:text="${booking.room.room_number}"></span></td>
+									<td>
+										<a href="#"><i class="glyphicon glyphicon-pencil"></i></a>
+										<a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>										
+									</td>
+								</tr>
+							</table>
+						</div>						
 						<p th:if="${#lists.isEmpty(bookings)}">
 							<i>No bookings</i>
 						</p>
