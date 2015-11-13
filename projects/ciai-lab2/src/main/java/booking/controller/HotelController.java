@@ -151,7 +151,8 @@ public class HotelController {
 
 	// POST /hotels/{id} 	 	- update the hotel with identifier {id}
 	@RequestMapping(value="{id}", method=RequestMethod.POST)
-	public String editSave(@PathVariable("id") long id, @ModelAttribute("hotel") Hotel hotel) {    	
+	public String editSave(@PathVariable("id") long id, @ModelAttribute("hotel") Hotel hotel) {
+		hotel.setStatus(false);
 		hotels.save(hotel);
 		return "redirect:/hotels/{id}";
 	}
