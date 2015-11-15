@@ -29,7 +29,7 @@
 							<span th:text="${#dates.day(booking.end_date)}"></span> 
 							<span th:text="${#dates.monthNameShort(booking.end_date)}"></span>
 							<span th:text="${#dates.year(booking.end_date)}"></span></td></tr>
-							<tr><td colspan="2"><b><span th:text="${room_type}"></span></b></td></tr>
+							<tr><td colspan="2"><b><span th:text="${roomType.description}"></span></b></td></tr>
 		</tbody>
 		</table>
 				
@@ -44,7 +44,7 @@
 			<tr th:each="room : ${rooms}">
 				<td><a th:href="@{|/hotels/${room.hotel.id}|}" th:text="${room.hotel.name}"></a></td>
 				<td><span th:text="${room.price}"></span></td>
-				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.id}/|}"></a></td>
+				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.hotel.id}/|}"></a></td>
 			</tr>
 		</table>		
 	</div>

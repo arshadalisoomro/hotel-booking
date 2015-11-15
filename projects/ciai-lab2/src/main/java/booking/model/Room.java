@@ -2,17 +2,17 @@ package booking.model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Room {
@@ -35,23 +35,22 @@ public class Room {
 	@ElementCollection
 	private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
 	
-	 @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="room")
-	 @MapKeyColumn(name="id")
-	 private Map<Long, Booking> bookings = new HashMap<Long, Booking>();
+	@ManyToMany(mappedBy="rooms")
+	 private Set<Booking> bookings = new HashSet<Booking>();
 	
-	public Map<Long, Booking> getBookings() {
+	public Set<Booking> getBookings() {
 		return bookings;
 	}
 
-	public void setBookings(Map<Long, Booking> bookings) {
+	public void setBookings(Set<Booking> bookings) {
 		this.bookings = bookings;
 	}
 
 	public Room() {}
 	
 	public Room (long id, int floor, String room_number, RoomType type, Hotel hotel, int price) {
-		this.id = id;
 		this.floor = floor;
+		this.id = id;
 		this.room_number = room_number;	
 		this.type = type;
 		this.hotel = hotel;

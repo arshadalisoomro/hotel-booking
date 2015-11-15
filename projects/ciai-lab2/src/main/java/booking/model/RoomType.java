@@ -16,8 +16,7 @@ public class RoomType {
 	
 	protected RoomType() {}
 	
-	public RoomType(long id, String description, int occupancy) {
-		this.id = id;
+	public RoomType(String description, int occupancy) {
 		this.description = description;
 		this.occupancy = occupancy;
 	}

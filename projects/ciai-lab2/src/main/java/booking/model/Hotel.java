@@ -44,8 +44,7 @@ public class Hotel {
  
     public Hotel() {}
     
-    public Hotel(long id, String name, String address, int rating, Category category, boolean status) {    	
-    	this.id = id;
+    public Hotel(String name, String address, int rating, Category category, boolean status) {    	
     	this.name = name;
     	this.address = address;
     	this.rating = rating;

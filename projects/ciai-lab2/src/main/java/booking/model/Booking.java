@@ -1,11 +1,14 @@
 package booking.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -21,18 +24,18 @@ public class Booking {
 	@ManyToOne
 	private User user;
 
-	@ManyToOne
-	private Room room;
+	
+	@ManyToMany
+	private Set<Room> rooms = new HashSet<Room>();
 	
 	public Booking(){}
 	
-	public Booking(long id, Date begin_date, Date end_date, boolean state, User user, Room room){
+	public Booking(long id, Date begin_date, Date end_date, boolean state, User user){
 		this.id = id;
 		this.begin_date = begin_date;
 		this.end_date = end_date;
 		this.user = user;
 		this.state = state;
-		this.room = room;
 	}
 
 	public long getId() {
@@ -74,13 +77,13 @@ public class Booking {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	public Room getRoom() {
-		return room;
+
+	public Set<Room> getRooms() {
+		return rooms;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
 	}
 	
 }

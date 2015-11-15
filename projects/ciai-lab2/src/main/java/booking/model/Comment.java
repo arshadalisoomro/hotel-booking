@@ -32,8 +32,7 @@ public class Comment {
 
 	public Comment() {}
 
-	public Comment(long id, String text, Date date, User user, boolean status, Hotel hotel) {
-		this.id = id;
+	public Comment(String text, Date date, User user, boolean status, Hotel hotel) {
 		this.text = text;
 		this.date = date;
 		this.user = user;

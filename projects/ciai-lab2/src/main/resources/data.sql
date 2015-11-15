@@ -168,7 +168,7 @@ VALUES
 (7, '2015-10-22 15:00:00', 3, 'inn2.jpg'),
 (8, '2015-10-22 15:00:00', 4, 'marriott.jpg'),
 (9, '2015-10-22 15:00:00', 4, 'marriott2.jpg');
-
+/*
 INSERT INTO booking (id, begin_date, end_date, state, room_id, user_id)
 VALUES
 (1, '2015-11-03 14:00:00', '2015-11-05 11:00:00', TRUE, 1, 15),
@@ -185,3 +185,4 @@ insert into booking (id, begin_date, end_date, state, room_id, user_id) values (
 insert into booking (id, begin_date, end_date, state, room_id, user_id) values (11, '2015-11-14 09:44:00', '2014-11-17 00:10:38', true, 26, 12);
 insert into booking (id, begin_date, end_date, state, room_id, user_id) values (12, '2015-11-30 21:35:09', '2015-12-02 10:18:16', true, 79, 13);
 insert into booking (id, begin_date, end_date, state, room_id, user_id) values (13, '2015-11-17 20:26:30', '2015-11-20 05:10:56', true, 51, 14);
+*/

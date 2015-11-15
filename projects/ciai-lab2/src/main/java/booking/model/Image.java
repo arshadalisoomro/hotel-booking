@@ -24,11 +24,10 @@ public class Image {
 	
 	public Image(){}
 	
-	public Image(long id, String path, Hotel hotel, Date insertion_date){
+	public Image(String path, Hotel hotel, Date insertion_date){
 		this.path = path;
 		this.hotel = hotel;
 		this.insertion_date = insertion_date;
-		this.setId(id);
 	}
 
 	public String getPath() {
