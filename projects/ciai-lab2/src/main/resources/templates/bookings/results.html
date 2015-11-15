@@ -21,15 +21,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr><td><i class="glyphicon glyphicon-time"></i>
-							<span th:text="${#dates.day(booking.begin_date)}"></span> 
-							<span th:text="${#dates.monthNameShort(booking.begin_date)}"></span>
-							<span th:text="${#dates.year(booking.begin_date)}"></span></td>
+			<tr>
 				<td><i class="glyphicon glyphicon-time"></i>
-							<span th:text="${#dates.day(booking.end_date)}"></span> 
-							<span th:text="${#dates.monthNameShort(booking.end_date)}"></span>
-							<span th:text="${#dates.year(booking.end_date)}"></span></td></tr>
-							<tr><td colspan="2"><b><span th:text="${roomType.description}"></span></b></td></tr>
+					<span th:text="${#dates.day(booking.begin_date)}"></span> 
+					<span th:text="${#dates.monthNameShort(booking.begin_date)}"></span>
+					<span th:text="${#dates.year(booking.begin_date)}"></span>
+				</td>
+				<td><i class="glyphicon glyphicon-time"></i>
+					<span th:text="${#dates.day(booking.end_date)}"></span> 
+					<span th:text="${#dates.monthNameShort(booking.end_date)}"></span>
+					<span th:text="${#dates.year(booking.end_date)}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><b><span th:text="${roomType.description}"></span></b></td>
+			</tr>
+			<tr><td><span th:text="${numberRooms}"></span></td></tr>
 		</tbody>
 		</table>
 				
@@ -43,7 +50,7 @@
 			</thead>
 			<tr th:each="room : ${rooms}">
 				<td><a th:href="@{|/hotels/${room.hotel.id}|}" th:text="${room.hotel.name}"></a></td>
-				<td><span th:text="${room.price}"></span></td>
+				<td><span th:text="${room.price}"></span> x <span th:text="${numberRooms}"></span></td>
 				<td><a th:text="Book" class="btn btn-default" th:href="@{|/bookings/new/${room.hotel.id}/|}"></a></td>
 			</tr>
 		</table>		
