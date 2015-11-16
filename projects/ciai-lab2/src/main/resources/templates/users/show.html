@@ -30,7 +30,7 @@
 			<div class="tabbable-line">
 				<ul class="nav nav-tabs nav-justified">
 					<li class="active"><a href="#tab_default_1" data-toggle="tab">
-							Reviews & Hotels</a></li>
+							Reviews and Hotels</a></li>
 					<li><a href="#tab_default_2" data-toggle="tab">Bookings</a></li>					
 				</ul>
 				<div class="tab-content">
@@ -88,10 +88,16 @@
 									<td><span th:text="${#dates.day(booking.end_date)}"></span>
 										<span th:text="${#dates.monthName(booking.end_date)}"></span>
 										<span th:text="${#dates.year(booking.end_date)}"></span></td>
-									<td><a th:text="${booking.room.hotel.name}"
-										th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
-									<td><span th:text="${booking.room.type}"></span></td>
-									<td><span th:text="${booking.room.room_number}"></span></td>
+									 <td>
+										 <a th:text="${booking.hotel.name}"
+											th:href="@{|/hotels/${booking.hotel.id}|}"></a>
+									</td>
+									<td><span th:text="${booking.roomType}"></span></td>
+									<td>
+										<div th:each="r : ${booking.rooms}">
+											<span th:text="${r.room_number}"></span><br>
+										</div>
+									</td>
 									<td><a href="#"><i class="glyphicon glyphicon-pencil"></i></a> <a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></td>
 								</tr>
 							</table>
@@ -120,10 +126,16 @@
 									<td><span th:text="${#dates.day(booking.end_date)}"></span>
 										<span th:text="${#dates.monthName(booking.end_date)}"></span>
 										<span th:text="${#dates.year(booking.end_date)}"></span></td>
-									<td><a th:text="${booking.room.hotel.name}"
-										th:href="@{|/hotels/${booking.room.hotel.id}|}"></a></td>
-									<td><span th:text="${booking.room.type}"></span></td>
-									<td><span th:text="${booking.room.room_number}"></span></td>
+									<td>
+										 <a th:text="${booking.hotel.name}"
+											th:href="@{|/hotels/${booking.hotel.id}|}"></a>
+									</td>
+									<td><span th:text="${booking.roomType}"></span></td>
+									<td>
+										<div th:each="r : ${booking.rooms}">
+											<span th:text="${r.room_number}"></span><br>
+										</div>
+									</td>
 									<td>
 										<a href="#"><i class="glyphicon glyphicon-pencil"></i></a>
 										<a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>										

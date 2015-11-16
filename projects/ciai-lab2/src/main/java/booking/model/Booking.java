@@ -23,7 +23,6 @@ public class Booking {
 	
 	@ManyToOne
 	private User user;
-
 	
 	@ManyToMany
 	private Set<Room> rooms = new HashSet<Room>();
@@ -36,6 +35,16 @@ public class Booking {
 		this.end_date = end_date;
 		this.user = user;
 		this.state = state;
+	}
+	
+	public Hotel getHotel()
+	{
+		return rooms.iterator().next().getHotel();
+	}
+	
+	public String getRoomType()
+	{
+		return rooms.iterator().next().getType().toString();
 	}
 
 	public long getId() {
