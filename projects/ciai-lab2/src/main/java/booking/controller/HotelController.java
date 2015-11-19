@@ -254,7 +254,7 @@ public class HotelController {
 		model.addAttribute("begin_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 20).getTime());
 		model.addAttribute("end_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime());
 		model.addAttribute("hotel", hotels.findOne(id));		
-		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 20).getTime(), new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime()));
+		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime(), new GregorianCalendar(2015, Calendar.NOVEMBER, 29).getTime()));
     	return "hotels/map";
 	}
 
@@ -284,14 +284,21 @@ public class HotelController {
 				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 				String date = fmt.format(d);
 				
-				for(Date day_reserved : days_reserved.keySet()){
+				for(Date day_reserved : days_reserved.keySet())
+				{
 					String day = fmt.format(day_reserved);
-					if(date.equals(day))
+//					System.out.println("Date: " + date);
+//					System.out.println("Day: " + day);
+					if(date.equals(day)){
 						roomOcc.put(d, true);
+					}
+//						System.out.println("TRUE");
 					
 					else
 						roomOcc.put(d, false);
 				}
+				if(days_reserved.isEmpty())
+					roomOcc.put(d, false);
 			}
 			
 //			for(Date di : days_reserved.keySet())
