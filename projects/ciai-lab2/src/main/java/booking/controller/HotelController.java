@@ -3,6 +3,7 @@ package booking.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -261,6 +262,7 @@ public class HotelController {
 	{		
 		List<Date> dates = new LinkedList<Date>();
 		Calendar calendar = new GregorianCalendar();
+		
 		calendar.setTime(begining);
 
 		while (calendar.getTime().getTime() <= end.getTime()){
@@ -279,18 +281,21 @@ public class HotelController {
 			
 			for (Date d : dates)
 			{
-				if (days_reserved.containsKey(d))
-				{					
-					roomOcc.put(d, true);
+				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+				String date = fmt.format(d);
+				
+				for(Date day_reserved : days_reserved.keySet()){
+					String day = fmt.format(day_reserved);
+					if(date.equals(day))
+						roomOcc.put(d, true);
+					
+					else
+						roomOcc.put(d, false);
 				}
-				else
-				{
-					roomOcc.put(d, false);
-				}	
 			}
 			
-			for(Date di : days_reserved.keySet())
-				System.out.println("Reserved days: " + di);
+//			for(Date di : days_reserved.keySet())
+//				System.out.println("Reserved days: " + di);
 
 			result.put(r, roomOcc);
 		}

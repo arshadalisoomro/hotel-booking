@@ -1,5 +1,6 @@
 package booking;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -68,20 +69,23 @@ public class Application implements CommandLineRunner {
 			Date begin = book.getBegin_date();
 			Date end = book.getEnd_date();
 			
-			System.out.println("BEGIN: " + begin);
-			System.out.println("END: " + end);
-			
+//			System.out.println("BEGIN: " + begin);
+//			System.out.println("END: " + end);
+//			
 			List<Date> dates = new ArrayList<Date>();
 			Calendar calendar = new GregorianCalendar();
 			calendar.setTime(begin);
 			
-			System.out.println("Formato default do Java: " + new Date());
+//			System.out.println("Formato default do Java: " + new Date());
 
 			while (calendar.getTime().getTime() <= end.getTime())
 			{
 				Date result = calendar.getTime();
-
-				System.out.println("RESULT - Inserido no array: " + result);
+		
+				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+				String date = fmt.format(result);
+//				System.out.println("NEW FORMAT: " + date);
+//				System.out.println("RESULT - Inserido no array: " + result);
 				
 				dates.add(result);				
 				calendar.add(Calendar.DATE, 1);       
