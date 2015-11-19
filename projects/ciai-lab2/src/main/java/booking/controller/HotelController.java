@@ -266,22 +266,32 @@ public class HotelController {
 		while (calendar.getTime().getTime() <= end.getTime()){
 			Date result = calendar.getTime();
 			dates.add(result);
-			calendar.add(Calendar.DATE, 1);       
+			calendar.add(Calendar.DATE, 1);  
 		}
 		
 		Map<Room, Map<Date, Boolean>> result = new TreeMap<Room, Map<Date, Boolean>>();
 		
-		for (Room r : hotel.getRooms().values()) {
+		for (Room r : hotel.getRooms().values())
+		{
 			Map<Date, Long> days_reserved = r.getDays_reserved();
 			Map<Date, Boolean> roomOcc = new TreeMap<Date, Boolean>();
-			for (Date d : dates) {
-				if (days_reserved.containsKey(d)) {
+			
+			
+			for (Date d : dates)
+			{
+				if (days_reserved.containsKey(d))
+				{					
 					roomOcc.put(d, true);
 				}
-				else {
+				else
+				{
 					roomOcc.put(d, false);
-				}
+				}	
 			}
+			
+			for(Date di : days_reserved.keySet())
+				System.out.println("Reserved days: " + di);
+
 			result.put(r, roomOcc);
 		}
 		

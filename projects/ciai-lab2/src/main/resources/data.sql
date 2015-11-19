@@ -47,26 +47,26 @@ VALUES
 (3, 'Rua da Madalena 96, Lisbon','Holiday Inn', 2, 3, 5, true),
 (4, 'Avenida dos Combatentes, Lisbon', 'Marriott', 5, 5, 5, false);
 
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (1, 1, '108', 1, 1, 50);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (2, 1, '101', 1, 2, 75);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (3, 1, '104', 1, 3, 100);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (4, 1, '101', 1, 4, 200);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (5, 1, '109', 1, 1, 50);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (6, 2, '202', 1, 2, 75);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (7, 2, '207', 1, 3, 100);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (1, 1, '101', 1, 1, 50);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (2, 1, '102', 1, 2, 75);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (3, 1, '103', 1, 3, 100);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (4, 1, '104', 1, 4, 200);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (5, 1, '105', 1, 1, 50);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (6, 2, '201', 1, 2, 75);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (7, 2, '202', 1, 3, 100);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (8, 2, '203', 1, 4, 200);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (9, 2, '204', 1, 1, 50);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (10, 2, '200', 1, 2, 75);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (11, 3, '300', 1, 3, 100);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (10, 2, '205', 1, 2, 75);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (11, 3, '301', 1, 3, 100);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (12, 3, '302', 1, 4, 200);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (13, 3, '300', 1, 1, 50);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (14, 3, '303', 1, 2, 75);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (15, 3, '304', 1, 3, 100);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (16, 4, '403', 1, 4, 200);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (17, 4, '406', 1, 1, 50);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (13, 3, '303', 1, 1, 50);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (14, 3, '304', 1, 2, 75);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (15, 3, '305', 1, 3, 100);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (16, 4, '401', 1, 4, 200);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (17, 4, '402', 1, 1, 50);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (18, 4, '403', 1, 2, 75);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (19, 4, '402', 1, 3, 100);
-insert into room (id, floor, room_number, hotel_id, type_id, price) values (20, 4, '407', 1, 4, 200);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (19, 4, '404', 1, 3, 100);
+insert into room (id, floor, room_number, hotel_id, type_id, price) values (20, 4, '405', 1, 4, 200);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (21, 1, '100', 2, 1, 50);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (22, 1, '109', 2, 2, 75);
 insert into room (id, floor, room_number, hotel_id, type_id, price) values (23, 1, '108', 2, 3, 100);
@@ -170,8 +170,8 @@ VALUES
 (8, '2015-10-22 15:00:00', 4, 'marriott.jpg'),
 (9, '2015-10-22 15:00:00', 4, 'marriott2.jpg');
 
-insert into booking (id, begin_date, end_date, state, user_id) values (1, '2015-11-03 14:00:00', '2015-11-05 11:00:00', TRUE, 15);
-insert into booking (id, begin_date, end_date, state, user_id) values (2, '2015-11-24 14:00:00', '2015-11-29 11:00:00', TRUE, 9);
+insert into booking (id, begin_date, end_date, state, user_id) values (1, '2015-11-25 12:00:00', '2015-11-27 12:00:00', TRUE, 15);
+insert into booking (id, begin_date, end_date, state, user_id) values (2, '2015-11-24 12:00:00', '2015-11-29 12:00:00', TRUE, 9);
 insert into booking (id, begin_date, end_date, state, user_id) values (3, '2015-11-29 14:00:00', '2015-12-02 11:00:00', TRUE, 3);
 insert into booking (id, begin_date, end_date, state, user_id) values (4, '2015-10-23 02:16:13', '2015-10-25 05:30:55', false, 3);
 insert into booking (id, begin_date, end_date, state, user_id) values (5, '2015-12-05 16:53:12', '2015-12-07 14:04:27', false, 6);
@@ -184,8 +184,8 @@ insert into booking (id, begin_date, end_date, state, user_id) values (11, '2015
 insert into booking (id, begin_date, end_date, state, user_id) values (12, '2015-11-30 21:35:09', '2015-12-02 10:18:16', true, 13);
 insert into booking (id, begin_date, end_date, state, user_id) values (13, '2015-11-17 20:26:30', '2015-11-20 05:10:56', true, 14);
 
-insert into booking_rooms (bookings_id, rooms_id) values (1, 1);
-insert into booking_rooms (bookings_id, rooms_id) values (2, 22);
+insert into booking_rooms (bookings_id, rooms_id) values (1, 3);
+insert into booking_rooms (bookings_id, rooms_id) values (2, 2);
 insert into booking_rooms (bookings_id, rooms_id) values (3, 24);
 insert into booking_rooms (bookings_id, rooms_id) values (4, 44);
 insert into booking_rooms (bookings_id, rooms_id) values (5, 75);
