@@ -1,7 +1,5 @@
 package booking.controller;
 
-import java.util.Iterator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import booking.model.Authority;
 import booking.model.CustomUserDetail;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;

@@ -96,7 +96,7 @@
 							comment</a></span> <span><a class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>
 					<a sec:authorize="hasAnyRole('HOTEL_MANAGER')" class="btn btn-default"
-						th:href="@{|/hotels/${hotel.id}/rooms/|}">Manage rooms</a> <a
+						th:href="@{|/hotels/${hotel.id}/rooms|}">Manage rooms</a> <a
 						class="btn btn-default" href="#" data-toggle="modal"
 						data-target="#myModal">Book a room</a> <a class="btn btn-default"
 						href="#" data-toggle="modal" data-target="#myModalTypes">Room
