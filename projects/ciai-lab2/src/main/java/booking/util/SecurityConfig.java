@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -22,12 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	UserDetailsService customUserDetailsService;
 	
 	@Autowired
+	public static PasswordEncoder encoder = new BCryptPasswordEncoder();
+	
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		
-//		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-//		auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder);
-		auth.userDetailsService(customUserDetailsService);
+		auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder);
 		
 	}
 
@@ -52,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.permitAll();
 		
 		http
-		.authorizeRequests().
-		anyRequest().permitAll() // remove this line to activate security again
+		.authorizeRequests()
+//		.anyRequest().permitAll() // remove this line to activate security again
 		.antMatchers("/bookings").hasAnyRole("ADMIN")
 		.antMatchers("/hotels/new").hasAnyRole("ADMIN", "HOTEL_MANAGER")
 		.antMatchers("/hotels/*/upload").hasAnyRole("ADMIN", "HOTEL_MANAGER")

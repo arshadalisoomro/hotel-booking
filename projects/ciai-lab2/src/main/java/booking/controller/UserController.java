@@ -26,6 +26,7 @@ import booking.repository.AuthorityRepository;
 import booking.repository.BookingRepository;
 import booking.repository.UserRepository;
 import booking.util.HotelNotFoundException;
+import booking.util.SecurityConfig;
 import booking.util.UserNotFoundException;
 
 @Controller
@@ -68,10 +69,12 @@ public class UserController {
 		try{
 			Authority authority = authorities.findByRole("ROLE_USER");
 			user.setAuthority(authority);
+			String pass = user.getPassword();
+			user.setPassword(SecurityConfig.encoder.encode(user.getPassword()));
 			users.save(user);
 			UserDetails userDetails = customUserDetailsSvc.loadUserByUsername(user.getUsername());
 			
-			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), userDetails.getAuthorities());
+			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, pass, userDetails.getAuthorities());
 			authMgr.authenticate(auth);
 			SecurityContextHolder.getContext().setAuthentication(auth);
 			return "redirect:/users/me";
