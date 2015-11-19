@@ -74,7 +74,6 @@ public class HotelController {
 	@Autowired
 	CommentRepository comments;
 
-
 	// GET  /hotels 			- the list of hotels
 	@RequestMapping(method=RequestMethod.GET)
 	public String index(Model model) {

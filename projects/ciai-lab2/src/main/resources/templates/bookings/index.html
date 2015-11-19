@@ -31,7 +31,7 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tr th:class="${!booking.state} ? 'warning' : 'success'"
+			<tr th:if="${booking.hotel.manager.username == #authentication.principal.user.username}" th:class="${!booking.state} ? 'warning' : 'success'"
 				th:each="booking : ${bookings}">
 				<td><span th:text="${booking.id}"></span></td>
 				<td><span th:text="${booking.user.name}"></span></td>

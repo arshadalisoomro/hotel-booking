@@ -27,10 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public static PasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		
-		auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder);
-		
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+	{
+		auth.userDetailsService(customUserDetailsService).passwordEncoder(encoder);		
 	}
 
 	@Override
@@ -55,15 +54,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 		.authorizeRequests()
-//		.anyRequest().permitAll() // remove this line to activate security again
-		.antMatchers("/bookings").hasAnyRole("ADMIN")
-		.antMatchers("/hotels/new").hasAnyRole("ADMIN", "HOTEL_MANAGER")
-		.antMatchers("/hotels/*/upload").hasAnyRole("ADMIN", "HOTEL_MANAGER")
-		.antMatchers("/hotels/*/edit").hasAnyRole("ADMIN", "HOTEL_MANAGER")
+		
+		// Web admin
+		.antMatchers("/admin").hasAnyRole("ADMIN")
+		.antMatchers("/users").hasAnyRole("ADMIN")		
+		
+		// Comment moderator
+		.antMatchers("/comments/moderation").hasAnyRole("COMMENT_MODERATOR")
+		.antMatchers("/hotels/*/comments/*/approve").hasAnyRole("COMMENT_MODERATOR")
+		.antMatchers("/hotels/*/comments/*/remove").hasAnyRole("COMMENT_MODERATOR")
+			
+		// Hotel Manager
+		/* Filtrar bookings para so mostrar os do manager
+		   Falta adicionar resposta a comment */		 
+		.antMatchers("/bookings").hasAnyRole("HOTEL_MANAGER")
+		.antMatchers("/bookings/*/approve").hasAnyRole("HOTEL_MANAGER")
+		.antMatchers("/bookings/*/remove").hasAnyRole("HOTEL_MANAGER")
+		.antMatchers("/hotels/new").hasAnyRole("HOTEL_MANAGER")
+		.antMatchers("/hotels/*/rooms/*").hasRole("HOTEL_MANAGER")
+		.antMatchers("/hotels/*/upload").hasAnyRole("HOTEL_MANAGER")
+		.antMatchers("/hotels/*/edit").hasAnyRole("HOTEL_MANAGER")
 		.antMatchers("/hotels/*/remove").hasAnyRole("ADMIN", "HOTEL_MANAGER")
-		.antMatchers("/hotels/*/comments/*/approve").hasAnyRole("ADMIN", "COMMENT_MODERATOR")
-		.antMatchers("/hotels/*/comments/*/remove").hasAnyRole("ADMIN", "COMMENT_MODERATOR")
-		.antMatchers("/hotels/*/remove_image/*").hasAnyRole("ADMIN", "HOTEL_MANAGER")		
-		.anyRequest().permitAll();
+		.antMatchers("/hotels/*/remove_image/*").hasAnyRole("HOTEL_MANAGER")
+		
+		.antMatchers("/users/me").authenticated();
+//		.anyRequest().permitAll();
 	}	
 }

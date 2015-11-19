@@ -22,11 +22,11 @@
 		      
 		      <ul class="nav navbar-nav">
 		        <li><a href="/hotels">Hotels <span class="sr-only">(current)</span></a></li>
-		        <li><a href="/users">Users</a></li>
-		        <li><a href="/bookings">Bookings</a></li>
+		        <li sec:authorize="hasAnyRole('ADMIN')"><a href="/users">Users</a></li>
+		        <li sec:authorize="hasAnyRole('HOTEL_MANAGER')"><a href="/bookings">Bookings</a></li>		      
 		        <li><a href="/bookings/new">Book a room</a></li>
-		        <li><a href="/comments/moderation">Moderate comments</a></li>
-		        <li><a href="/admin">Dashboard (admin)</a></li>		        		        	       
+		        <li sec:authorize="hasAnyRole('COMMENT_MODERATOR')"><a href="/comments/moderation">Moderate comments</a></li>
+		        <li sec:authorize="hasAnyRole('ADMIN')"><a href="/admin">Dashboard (admin)</a></li>		        		        	       
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">	
 			      <li th:if="${#httpServletRequest.remoteUser} != null"><span class="navbar-text" th:utext="'Logged in as <b>' + '<a href=/users/me>' + ${#authentication.principal.user.name} + '</a>' + '</b>'"></span></b></li>
