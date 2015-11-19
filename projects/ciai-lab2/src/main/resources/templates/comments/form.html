@@ -10,7 +10,7 @@
 	<h1>Hotel Form</h1>
 	<h2><label>Hotel Name</label> <span th:text="${hotel.name}"></span></h2>
 		<div th:fragment="commentform(url)">
-	    	<form action="#" th:action="@{|/hotels/${hotel.id}/comments/|}" th:object="${comment}" method="post">
+	    	<form action="#" th:action="@{|/hotels/${hotel.id}/comments|}" th:object="${comment}" method="post">
 	    		<p>
 			    	<input type="hidden" th:field="*{id}" />		        	
 		        	<p><textarea  rows="10" class="form-control" placeholder="Comment" th:field="*{text}" ></textarea></p>		        	

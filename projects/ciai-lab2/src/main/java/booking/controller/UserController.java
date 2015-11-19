@@ -25,6 +25,8 @@ import booking.model.User;
 import booking.repository.AuthorityRepository;
 import booking.repository.BookingRepository;
 import booking.repository.UserRepository;
+import booking.security.AllowedForAdmin;
+import booking.security.AllowedForManageUser;
 import booking.security.SecurityConfig;
 import booking.util.HotelNotFoundException;
 import booking.util.UserNotFoundException;
@@ -50,6 +52,7 @@ public class UserController {
 
 	// GET  /users 			- the list of users
 	@RequestMapping(method=RequestMethod.GET)
+	@AllowedForAdmin
 	public String index(Model model) {
 		model.addAttribute("users", users.findAll());
 		return "users/index";
@@ -93,6 +96,7 @@ public class UserController {
 
 	// GET  /users/{id} 		- the user with identifier {id}
 	@RequestMapping(value="{id}", method=RequestMethod.GET) 
+	@AllowedForManageUser
 	public String show(@PathVariable("id") long id, Model model) {
 		User user = users.findOne(id);
 		if( user == null )
@@ -130,6 +134,7 @@ public class UserController {
 
 	// GET  /users/{id}/remove 	- removes the user with identifier {id}
 	@RequestMapping(value="{id}/remove", method=RequestMethod.GET)
+	@AllowedForManageUser
 	public String remove(@PathVariable("id") long id, Model model) {
 		User user = users.findOne(id);    	
 		if( user == null )
