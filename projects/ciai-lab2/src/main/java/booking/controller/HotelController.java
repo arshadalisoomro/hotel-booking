@@ -4,7 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -241,5 +243,16 @@ public class HotelController {
     	
     	model.addAttribute("hotels", hotelsList);
     	return "hotels/index";
+	}
+	
+	@RequestMapping(value="{id}/map", method=RequestMethod.GET)
+	public String hotelMap(@PathVariable("id") long id, Model model)
+	{
+		
+		
+		model.addAttribute("hotel", hotels.findOne(id));		
+//		model.addAttribute("occupancy", occupancyMap);
+		
+    	return "hotels/map";
 	}
 }
