@@ -3,10 +3,12 @@ package booking.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import booking.model.Booking;
 import booking.model.Comment;
 import booking.model.CustomUserDetail;
 import booking.model.Hotel;
 import booking.model.User;
+import booking.repository.BookingRepository;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;
@@ -22,6 +24,9 @@ public class MySecurityService {
 	
 	@Autowired
 	CommentRepository comments;
+	
+	@Autowired
+	BookingRepository bookings;
 	
 	public boolean canEditHotel(long hotel_id, CustomUserDetail user){
 		
@@ -47,5 +52,17 @@ public class MySecurityService {
 		Comment comment = comments.findOne(comment_id);
 		return comment != null && user != null && comment.getStatus() 
 				&& !comment.getIsAnswer() && hotel != null && hotel.getManager().getId() == user.getUser().getId();
+	}
+	
+	public boolean canApproveBooking(long booking_id, CustomUserDetail user){
+		Booking booking = bookings.findOne(booking_id);
+		return booking != null && user != null && booking.getHotel().getManager().getId() == user.getUser().getId();
+	}
+	public boolean canRemoveBooking(long booking_id, CustomUserDetail user){
+		Booking booking = bookings.findOne(booking_id);
+		return booking != null && user != null 
+				&& (booking.getHotel().getManager().getId() == user.getUser().getId()
+				|| booking.getUser().getId() == user.getUser().getId());
+		
 	}
 }

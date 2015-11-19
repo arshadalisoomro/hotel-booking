@@ -34,6 +34,11 @@ import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
+import booking.security.AllowedForAdmin;
+import booking.security.AllowedForApprovedComments;
+import booking.security.AllowedForApprovingBookings;
+import booking.security.AllowedForRemovingBookings;
+import booking.security.AllowedForSystemUsers;
 import booking.util.BookingNotFoundException;
 
 @Controller
@@ -57,12 +62,14 @@ public class BookingController {
 	RoomTypeRepository roomTypes;
 
 	@RequestMapping(method=RequestMethod.GET)
+	@AllowedForAdmin
 	public String index(Model model) {
 		model.addAttribute("bookings", bookings.findAll());
 		return "bookings/index";
 	}
 
 	@RequestMapping(value="/new/{hotel_id}", method=RequestMethod.GET)
+	@AllowedForSystemUsers
 	public String bookRoom(Model model, @PathVariable("hotel_id") long hotel_id, @ModelAttribute("booking") Booking booking, @ModelAttribute("numberRooms") int numberRooms,
 			@ModelAttribute("roomType") long roomType){
 
@@ -113,6 +120,7 @@ public class BookingController {
 	}
 
 	@RequestMapping(value="/search", method=RequestMethod.POST)
+	@AllowedForSystemUsers
 	public String searchRooms(@ModelAttribute Booking booking, Model model, @RequestParam("roomType") long roomType, @RequestParam("numberRooms") int numberRooms) {
 
 		RoomType rt = roomTypes.findOne(roomType);
@@ -171,6 +179,7 @@ public class BookingController {
 	}
 
 	@RequestMapping(value="/{booking_id}/approve", method=RequestMethod.GET)
+	@AllowedForApprovingBookings
 	public String approveBooking(Model model, @PathVariable("booking_id") long booking_id){
 
 		Booking booking = bookings.findOne(booking_id);
@@ -184,6 +193,7 @@ public class BookingController {
 	}
 
 	@RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
+	@AllowedForRemovingBookings
 	public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
 		Booking booking = bookings.findOne(booking_id);
 
