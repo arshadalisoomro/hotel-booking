@@ -37,7 +37,7 @@
 				<tr th:each="ocDates, oStat : ${occupancy}" th:if="${oStat.index < 1}">
 					<th>Room Number</th>
 					<th th:each="o : ${ocDates.value}">
-						<span th:text="${o.key}"></span>
+						<span th:text="${#dates.day(o.key) + ' ' + #dates.monthNameShort(o.key) + ' ' + #dates.year(o.key)}"></span>
 					</th>
 				<tr>
 			</thead>
@@ -45,7 +45,7 @@
 				<tr th:each="oc : ${occupancy}">
 					<td th:text="${oc.key.room_number}"></td>
 					<td th:each="date : ${oc.value}">						
-						<p th:class="${date.value} ? 'btn btn-success' : 'btn btn-danger'" th:text="Status"></p>
+						<p th:class="${date.value} ? 'btn btn-danger' : 'btn btn-success'" th:text="${date.value} ? 'Booked' : 'Free'"></p>
 					</td>
 				</tr>		
 			</tbody>
