@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -249,6 +250,8 @@ public class HotelController {
 	@RequestMapping(value="{id}/map", method=RequestMethod.GET)
 	public String hotelMap(@PathVariable("id") long id, Model model)
 	{		
+		model.addAttribute("begin_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 20).getTime());
+		model.addAttribute("end_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime());
 		model.addAttribute("hotel", hotels.findOne(id));		
 		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 20).getTime(), new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime()));
     	return "hotels/map";
@@ -266,13 +269,13 @@ public class HotelController {
 			calendar.add(Calendar.DATE, 1);       
 		}
 		
-		Map<Room, Map<Date, Boolean>> result = new HashMap<Room, Map<Date, Boolean>>();
+		Map<Room, Map<Date, Boolean>> result = new TreeMap<Room, Map<Date, Boolean>>();
 		
 		for (Room r : hotel.getRooms().values()) {
-			Map<Date, Long> days_reserverd = r.getDays_reserved();
-			Map<Date, Boolean> roomOcc = new HashMap<Date, Boolean>();
+			Map<Date, Long> days_reserved = r.getDays_reserved();
+			Map<Date, Boolean> roomOcc = new TreeMap<Date, Boolean>();
 			for (Date d : dates) {
-				if (days_reserverd.containsKey(d)) {
+				if (days_reserved.containsKey(d)) {
 					roomOcc.put(d, true);
 				}
 				else {

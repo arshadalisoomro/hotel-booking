@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Room {
+public class Room implements Comparable<Object>{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -111,5 +111,10 @@ public class Room {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	@Override
+	public int compareTo(Object o) {		
+		return getRoom_number().compareTo(((Room) o).getRoom_number());
 	}
 }

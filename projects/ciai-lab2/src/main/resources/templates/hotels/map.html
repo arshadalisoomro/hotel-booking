@@ -27,27 +27,49 @@
 	<div class="container">
 		<div th:fragment="hotel-header" class="page-header">
 			<h1>
-				<span th:text="${hotel.name}"></span>
-				<small>Occupancy Map</small>
+				<span th:text="${hotel.name}"></span> <small>Occupancy Map</small>
 			</h1>
 		</div>
 
+		<table class="table table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th><i class="glyphicon glyphicon-calendar"></i> Check-in</th>
+					<th><i class="glyphicon glyphicon-calendar"></i> Check-out</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><i class="glyphicon glyphicon-time"></i> <span
+						th:text="${#dates.day(begin_date)}"></span> <span
+						th:text="${#dates.monthNameShort(begin_date)}"></span> <span
+						th:text="${#dates.year(begin_date)}"></span></td>
+					<td><i class="glyphicon glyphicon-time"></i> <span
+						th:text="${#dates.day(end_date)}"></span> <span
+						th:text="${#dates.monthNameShort(end_date)}"></span> <span
+						th:text="${#dates.year(end_date)}"></span></td>
+				</tr>			
+			</tbody>
+		</table>
+
 		<table class="table">
 			<thead>
-				<tr th:each="ocDates, oStat : ${occupancy}" th:if="${oStat.index < 1}">
+				<tr th:each="ocDates, oStat : ${occupancy}"
+					th:if="${oStat.index < 1}">
 					<th>Room Number</th>
-					<th th:each="o : ${ocDates.value}">
-						<span th:text="${#dates.day(o.key) + ' ' + #dates.monthNameShort(o.key) + ' ' + #dates.year(o.key)}"></span>
+					<th th:each="o : ${ocDates.value}"><span
+						th:text="${#dates.day(o.key) + ' ' + #dates.monthNameShort(o.key) + ' ' + #dates.year(o.key)}"></span>
 					</th>
 				<tr>
 			</thead>
 			<tbody>
 				<tr th:each="oc : ${occupancy}">
 					<td th:text="${oc.key.room_number}"></td>
-					<td th:each="date : ${oc.value}">						
-						<p th:class="${date.value} ? 'btn btn-danger' : 'btn btn-success'" th:text="${date.value} ? 'Booked' : 'Free'"></p>
+					<td th:each="date : ${oc.value}">
+						<p th:class="${date.value} ? 'btn btn-danger' : 'btn btn-success'"
+							th:text="${date.value} ? 'Booked' : 'Free'"></p>
 					</td>
-				</tr>		
+				</tr>
 			</tbody>
 		</table>
 

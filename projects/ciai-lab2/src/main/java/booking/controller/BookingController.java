@@ -34,9 +34,8 @@ import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
-import booking.security.AllowedForAdmin;
-import booking.security.AllowedForApprovedComments;
 import booking.security.AllowedForApprovingBookings;
+import booking.security.AllowedForHotelManager;
 import booking.security.AllowedForRemovingBookings;
 import booking.security.AllowedForSystemUsers;
 import booking.util.BookingNotFoundException;
@@ -62,7 +61,7 @@ public class BookingController {
 	RoomTypeRepository roomTypes;
 
 	@RequestMapping(method=RequestMethod.GET)
-	@AllowedForAdmin
+	@AllowedForHotelManager
 	public String index(Model model) {
 		model.addAttribute("bookings", bookings.findAll());
 		return "bookings/index";
