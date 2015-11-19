@@ -34,6 +34,8 @@ import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
 import booking.util.HotelNotFoundException;
+import security.AllowedForAdmin;
+import security.AllowedForManageHotel;
 
 /*
  * Mapping
@@ -89,6 +91,7 @@ public class HotelController {
 
 	// GET  /hotels/new			- the form to fill the data for a new hotel
 	@RequestMapping(value="/new", method=RequestMethod.GET)
+	@AllowedForManageHotel
 	public String newHotel(Model model) {
 		model.addAttribute("hotel", new Hotel());
 		model.addAttribute("categories", categories.findAll());
@@ -98,6 +101,7 @@ public class HotelController {
 
 	// POST /hotels         	- creates a new hotel
 	@RequestMapping(method=RequestMethod.POST)
+	@AllowedForManageHotel
 	public String saveIt(@ModelAttribute Hotel hotel, Model model) {
 		hotels.save(hotel);
 		model.addAttribute("hotel", hotel);
@@ -105,7 +109,7 @@ public class HotelController {
 	}
 
 	// GET  /hotels/{id} 		- the hotel with identifier {id}
-	@RequestMapping(value="{id}", method=RequestMethod.GET) 
+	@RequestMapping(value="{id}", method=RequestMethod.GET) 	
 	public String show(@PathVariable("id") long id, Model model) {
 		Hotel hotel = hotels.findOne(id);
 		if( hotel == null )
@@ -140,6 +144,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(value="{id}/edit", method=RequestMethod.GET)
+	@AllowedForManageHotel
 	public String edit(@PathVariable("id") long id, Model model) { 	
 		Hotel hotel = hotels.findOne(id);
 		model.addAttribute("hotel", hotel);    	
@@ -148,8 +153,9 @@ public class HotelController {
 		return "hotels/edit";
 	}
 
-	// POST /hotels/{id} 	 	- update the hotel with identifier {id}
+	// POST /hotels/{id} 	 	- update the hotel with identifier {id}	
 	@RequestMapping(value="{id}", method=RequestMethod.POST)
+	@AllowedForManageHotel
 	public String editSave(@PathVariable("id") long id, @ModelAttribute("hotel") Hotel hotel) {
 		hotel.setStatus(false);
 		hotels.save(hotel);
@@ -158,12 +164,14 @@ public class HotelController {
 
 	// GET  /hotels/{id}/remove 	- removes the hotel with identifier {id}
 	@RequestMapping(value="{id}/remove", method=RequestMethod.GET)
+	@AllowedForManageHotel
 	public String remove(@PathVariable("id") long id, Model model) {
 		hotels.delete(hotels.findOne(id));
 		return "redirect:/hotels";
 	} 
 	
 	@RequestMapping(value="{id}/approve", method=RequestMethod.GET)
+	@AllowedForAdmin
 	public String approve(@PathVariable("id") long id, Model model) {
 		Hotel h = hotels.findOne(id);
 		h.setStatus(true);
@@ -172,6 +180,7 @@ public class HotelController {
 	}  
 
 	@RequestMapping(value="{id}/upload", method=RequestMethod.POST)
+	@AllowedForManageHotel
 	public String uploadImage(@PathVariable("id") long id, Model model,@RequestParam("files") MultipartFile files[] ){
 	
 		if(files.length > 0)
@@ -202,6 +211,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="{id}/upload", method=RequestMethod.GET)
+	@AllowedForManageHotel
 	public String uploadForm(@PathVariable("id") long id, Model model) { 	
 		Hotel hotel = hotels.findOne(id);
 		model.addAttribute("hotel", hotel);    			
@@ -209,6 +219,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="{id}/remove_image/{id_image}", method=RequestMethod.GET)
+	@AllowedForManageHotel
 	public String deleteImage(@PathVariable("id") long id, @PathVariable("id_image") long id_image, Model model) { 	
 		Image image = images.findOne(id_image);
 		images.delete(image);
