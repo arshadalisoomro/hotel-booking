@@ -24,10 +24,16 @@ public class ApplicationController {
 	UserRepository users;
 
 	@RequestMapping(value="/")
-	public String root(Model model, Authentication authentication) {
+	public String root(Model model) {
+		model.addAttribute("hotels", hotels.findAll());
+		return "landing-page";
+	}
+	
+	@RequestMapping(value="/signedin")
+	public String signedIn(Model model, Authentication authentication) {
 		
 		CustomUserDetail principal = (authentication != null) ? (CustomUserDetail) authentication.getPrincipal() : null;
-		
+
 		if (principal != null) {
 			String a = ((SimpleGrantedAuthority) principal.getAuthorities().iterator().next()).getAuthority();
 			if (a.equals(("ROLE_ADMIN")))
@@ -39,9 +45,8 @@ public class ApplicationController {
 			else if (a.equals("ROLE_HOTEL_MANAGER"))
 				return "redirect:/bookings";
 		}
-
-		model.addAttribute("hotels", hotels.findAll());
-		return "landing-page";
+		
+		return "/"; // fallback
 	}
 	
 	@RequestMapping(value="/comments/moderation")
