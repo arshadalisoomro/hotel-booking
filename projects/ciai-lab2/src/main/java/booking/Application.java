@@ -1,15 +1,24 @@
 package booking;
 
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import booking.model.Booking;
 import booking.model.User;
 import booking.repository.AuthorityRepository;
+import booking.repository.BookingRepository;
 import booking.repository.UserRepository;
 import booking.security.SecurityConfig;
 
@@ -28,6 +37,10 @@ public class Application implements CommandLineRunner {
 	
 	@Autowired
 	AuthorityRepository authorities;
+	
+	@Autowired
+	BookingRepository bookings;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 		
@@ -43,6 +56,31 @@ public class Application implements CommandLineRunner {
 			String pass = u1.getPassword();
 			u1.setPassword(SecurityConfig.encoder.encode(pass));
 			users.save(u1);
+		}
+		
+		Iterator<Booking> books = bookings.findAll().iterator();
+		
+		while(books.hasNext()){
+			Booking book = books.next();
+			Date begin = book.getBegin_date();
+			Date end = book.getEnd_date();
+			
+			List<Date> dates = new ArrayList<Date>();
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(begin);
+
+			while (calendar.getTime().getTime() <= end.getTime()){
+				Date result = calendar.getTime();
+				dates.add(result);
+				calendar.add(Calendar.DATE, 1);       
+			}  
+			
+			Map<Date, Long> tmpMap = new HashMap<Date, Long>();
+			
+			for(Date d : dates){
+				tmpMap.put(d, book.getId());
+			}
+			bookings.save(book);
 		}
 		
 	}
