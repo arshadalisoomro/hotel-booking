@@ -1,4 +1,4 @@
-package security;
+package booking.security;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;

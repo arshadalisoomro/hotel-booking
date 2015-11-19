@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import booking.model.User;
 import booking.repository.AuthorityRepository;
 import booking.repository.UserRepository;
-import security.SecurityConfig;
+import booking.security.SecurityConfig;
 
 
 @SpringBootApplication

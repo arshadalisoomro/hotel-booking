@@ -1,4 +1,4 @@
-package security;
+package booking.security;
 
 import javax.sql.DataSource;
 

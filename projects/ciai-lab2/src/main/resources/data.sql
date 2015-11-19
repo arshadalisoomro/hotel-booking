@@ -14,7 +14,7 @@ VALUES
 (4, 'Presidential Suite', 6);
 
 INSERT INTO authority (id, role)
-VALUE
+VALUES
 (1, 'ROLE_USER'),
 (2, 'ROLE_COMMENT_MODERATOR'),
 (3, 'ROLE_HOTEL_MANAGER'),

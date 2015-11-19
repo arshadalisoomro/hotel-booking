@@ -33,9 +33,9 @@ import booking.repository.ImageRepository;
 import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
+import booking.security.AllowedForAdmin;
+import booking.security.AllowedForManageHotel;
 import booking.util.HotelNotFoundException;
-import security.AllowedForAdmin;
-import security.AllowedForManageHotel;
 
 /*
  * Mapping

@@ -25,9 +25,9 @@ import booking.model.User;
 import booking.repository.AuthorityRepository;
 import booking.repository.BookingRepository;
 import booking.repository.UserRepository;
+import booking.security.SecurityConfig;
 import booking.util.HotelNotFoundException;
 import booking.util.UserNotFoundException;
-import security.SecurityConfig;
 
 @Controller
 @RequestMapping(value="/users")
