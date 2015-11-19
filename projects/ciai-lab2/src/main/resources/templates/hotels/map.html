@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Hotel</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+<script th:src="@{|/js/jquery.js|}"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script th:src="@{|/js/pikaday.js|}"></script>
+<link rel="stylesheet" th:href="@{|/css/pikaday.css|}" />
+<link rel="stylesheet" type="text/css" th:href="@{|/css/general.css|}" />
+
+<script th:src="@{|/js/app.js|}"></script>
+<script th:src="@{|/js/sss.js|}"></script>
+
+<link rel="stylesheet" th:href="@{|/css/sss.css|}" type="text/css"
+	media="all" />
+
+</head>
+
+<body>
+	<div th:include="fragments/header"></div>
+	<div class="container">
+		<div th:fragment="hotel-header" class="page-header">
+			<h1>
+				<span th:text="${hotel.name}"></span>
+				<small>Occupancy Map</small>
+			</h1>
+		</div>
+
+		<table class="table">
+			<thead>
+				<tr th:each="ocDates, oStat : ${occupancy}" th:if="${oStat.index < 1}">
+					<th>Room Number</th>
+					<th th:each="o : ${ocDates.value}">
+						<span th:text="${o.key}"></span>
+					</th>
+				<tr>
+			</thead>
+			<tbody>
+				<tr th:each="oc : ${occupancy}">
+					<td th:text="${oc.key.room_number}"></td>
+					<td th:each="date : ${oc.value}">						
+						<p th:class="${date.value} ? 'btn btn-success' : 'btn btn-danger'" th:text="Status"></p>
+					</td>
+				</tr>		
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>
+

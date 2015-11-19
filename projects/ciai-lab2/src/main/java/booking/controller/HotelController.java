@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import booking.model.Booking;
 import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;
@@ -248,8 +246,16 @@ public class HotelController {
     	return "hotels/index";
 	}
 	
-	public Map<Room, Map<Date, Boolean>> getOccupancy(Hotel hotel, Date begining, Date end) {
-		
+	@RequestMapping(value="{id}/map", method=RequestMethod.GET)
+	public String hotelMap(@PathVariable("id") long id, Model model)
+	{		
+		model.addAttribute("hotel", hotels.findOne(id));		
+		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 20).getTime(), new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime()));
+    	return "hotels/map";
+	}
+
+	public Map<Room, Map<Date, Boolean>> getOccupancy(Hotel hotel, Date begining, Date end)
+	{		
 		List<Date> dates = new LinkedList<Date>();
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(begining);
