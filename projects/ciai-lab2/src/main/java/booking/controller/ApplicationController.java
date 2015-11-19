@@ -1,11 +1,15 @@
 package booking.controller;
 
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import booking.model.Authority;
 import booking.model.CustomUserDetail;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;
@@ -21,9 +25,19 @@ public class ApplicationController {
 
 	@RequestMapping(value="/")
 	public String root(Model model, Authentication authentication) {
-		if(authentication != null){
-			@SuppressWarnings("unused")
-			CustomUserDetail principal = (CustomUserDetail) authentication.getPrincipal();
+		
+		CustomUserDetail principal = (authentication != null) ? (CustomUserDetail) authentication.getPrincipal() : null;
+		
+		if (principal != null) {
+			String a = ((SimpleGrantedAuthority) principal.getAuthorities().iterator().next()).getAuthority();
+			if (a.equals(("ROLE_ADMIN")))
+				return "redirect:/admin";
+			else if (a.equals("ROLE_COMMENT_MODERATOR"))
+				return "redirect:/comments/moderation";
+			else if (a.equals(("ROLE_USER")))
+				return "redirect:/users/me";
+			else if (a.equals("ROLE_HOTEL_MANAGER"))
+				return "redirect:/bookings";
 		}
 
 		model.addAttribute("hotels", hotels.findAll());
