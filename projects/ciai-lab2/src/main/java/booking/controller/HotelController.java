@@ -5,10 +5,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+<<<<<<< HEAD
+=======
+import java.util.Collection;
+>>>>>>> a1b7f703420ecc768f3571222a48e85947a62988
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import booking.model.Booking;
 import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;
@@ -245,6 +251,7 @@ public class HotelController {
     	return "hotels/index";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value="{id}/map", method=RequestMethod.GET)
 	public String hotelMap(@PathVariable("id") long id, Model model)
 	{
@@ -256,3 +263,36 @@ public class HotelController {
     	return "hotels/map";
 	}
 }
+=======
+	public Map<Room, Map<Date, Boolean>> getOccupancy(Hotel hotel, Date begining, Date end) {
+		
+		List<Date> dates = new LinkedList<Date>();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(begining);
+
+		while (calendar.getTime().getTime() <= end.getTime()){
+			Date result = calendar.getTime();
+			dates.add(result);
+			calendar.add(Calendar.DATE, 1);       
+		}
+		
+		Map<Room, Map<Date, Boolean>> result = new HashMap<Room, Map<Date, Boolean>>();
+		
+		for (Room r : hotel.getRooms().values()) {
+			Map<Date, Long> days_reserverd = r.getDays_reserved();
+			Map<Date, Boolean> roomOcc = new HashMap<Date, Boolean>();
+			for (Date d : dates) {
+				if (days_reserverd.containsKey(d)) {
+					roomOcc.put(d, true);
+				}
+				else {
+					roomOcc.put(d, false);
+				}
+			}
+			result.put(r, roomOcc);
+		}
+		
+		return result;
+	}
+}
+>>>>>>> a1b7f703420ecc768f3571222a48e85947a62988
