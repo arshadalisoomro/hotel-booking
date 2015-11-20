@@ -71,7 +71,7 @@ public class BookingController {
 	@RequestMapping(value="/new/{hotel_id}", method=RequestMethod.GET)
 	@AllowedForSystemUsers
 	public String bookRoom(Model model, @PathVariable("hotel_id") long hotel_id, @ModelAttribute("booking") Booking booking, @ModelAttribute("numberRooms") int numberRooms,
-			@ModelAttribute("roomType") long roomType){
+			@ModelAttribute("roomType") long roomType, Authentication authentication){
 
 		RoomType rt = roomTypes.findOne(roomType);
 		List<Date> dates = getDates(booking);
@@ -109,11 +109,22 @@ public class BookingController {
 		booking.setRooms(roomsBooking);
 		bookings.save(booking);
 		model.addAttribute("bookings", bookings.findAll());
-		return "redirect:/bookings/";
+		
+		CustomUserDetail principal = (authentication != null) ? (CustomUserDetail) authentication.getPrincipal() : null;
+		if(principal != null)
+		{
+			String a = ((SimpleGrantedAuthority) principal.getAuthorities().iterator().next()).getAuthority();
+			
+			if (a.equals(("ROLE_USER")))
+				return "redirect:/users/me";
+		}
+		
+		return "redirect:/bookings";
 	}
 
 	@RequestMapping(value="/new", method=RequestMethod.GET)
-	public String newBooking(Model model) {
+	public String newBooking(Model model)
+	{
 		model.addAttribute("booking", new Booking());
 		model.addAttribute("roomTypes", roomTypes.findAll());
 		return "bookings/create";
