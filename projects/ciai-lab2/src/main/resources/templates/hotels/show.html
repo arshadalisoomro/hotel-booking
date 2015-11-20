@@ -43,6 +43,8 @@
 				</small>
 			</h1>
 		</div>
+		
+		<div th:if="${!hotel.status}" class="alert alert-warning" role="alert">This hotel wasn't approved yet by an admin.</div>
 
 		<div class="row">
 			<div class="col-md-6">

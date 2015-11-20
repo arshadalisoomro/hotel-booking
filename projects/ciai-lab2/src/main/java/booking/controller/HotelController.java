@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,10 +30,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import booking.model.Booking;
 import booking.model.Comment;
+import booking.model.CustomUserDetail;
 import booking.model.Hotel;
 import booking.model.Image;
 import booking.model.Room;
 import booking.model.RoomType;
+import booking.model.User;
 import booking.repository.CategoryRepository;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
@@ -102,7 +106,6 @@ public class HotelController {
 	public String newHotel(Model model) {
 		model.addAttribute("hotel", new Hotel());
 		model.addAttribute("categories", categories.findAll());
-		model.addAttribute("users", users.findAll());
 		return "hotels/create";
 	}
 
@@ -110,6 +113,7 @@ public class HotelController {
 	@RequestMapping(method=RequestMethod.POST)
 	@AllowedForHotelManager
 	public String saveIt(@ModelAttribute Hotel hotel, Model model) {
+		hotel.setManager(getCurrentUser());
 		hotels.save(hotel);
 		model.addAttribute("hotel", hotel);
 		return "redirect:/hotels";
@@ -311,4 +315,10 @@ public class HotelController {
 		
 		return result;
 	}
+	
+	 private User getCurrentUser(){
+	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();    	    
+			CustomUserDetail myUser= (CustomUserDetail) auth.getPrincipal(); 
+			return myUser.getUser();
+	    }
 }

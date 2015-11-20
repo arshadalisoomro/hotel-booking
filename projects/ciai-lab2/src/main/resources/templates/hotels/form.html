@@ -35,14 +35,6 @@
 								th:value="${c.id}"></option>
 						</select>
 					</p>
-					<p>
-						<label>Hotel Manager</label> <select class="form-control"
-							th:field="*{manager}">
-							<option th:each="u : ${users.?[authority.role == 'ROLE_HOTEL_MANAGER']}" th:text="${u.name}"
-								th:value="${u.id}"></option>
-						</select>
-					</p>
-
 				</div>
 				<p>
 					<input class="btn btn-primary" type="submit" value="Submit" /> <input
