@@ -29,19 +29,20 @@ public class MySecurityService {
 	BookingRepository bookings;
 	
 	public boolean canEditHotel(long hotel_id, CustomUserDetail user){
-		
 		Hotel hotel = hotels.findOne(hotel_id);
 		return hotel != null && hotel.getManager() != null && user.getUser().getId() == hotel.getManager().getId();
 	}
 	
+	public boolean canEditHotel(long hotel_id, String s){
+		return false;
+	}
+	
 	public boolean canEditUser(long user_id, CustomUserDetail user){
-		
 		User userTmp = users.findOne(user_id);
 		return userTmp != null && user.getUser() != null && user.getUser().getId() == userTmp.getId();
 	}
 	
 	public boolean canEditComment(long comment_id, CustomUserDetail user){
-		
 		Comment comment = comments.findOne(comment_id);
 		return comment != null && user != null &&  comment.getUser().getId() == user.getUser().getId();
 		

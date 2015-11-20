@@ -98,7 +98,7 @@
 											<span th:text="${r.room_number}"></span><br>
 										</div>
 									</td>
-									<td><a href="#"><i class="glyphicon glyphicon-pencil"></i></a> <a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></td>
+									<td><a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a></td>
 								</tr>
 							</table>
 						</div>										
@@ -137,7 +137,6 @@
 										</div>
 									</td>
 									<td>
-										<a href="#"><i class="glyphicon glyphicon-pencil"></i></a>
 										<a th:href="@{|/bookings/${booking.id}/remove|}"><i class="glyphicon glyphicon-trash"></i></a>										
 									</td>
 								</tr>

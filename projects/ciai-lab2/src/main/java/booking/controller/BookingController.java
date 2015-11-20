@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -193,7 +194,7 @@ public class BookingController {
 
 	@RequestMapping(value="/{booking_id}/remove", method=RequestMethod.GET)
 	@AllowedForRemovingBookings
-	public String removeBooking(Model model, @PathVariable("booking_id") long booking_id){
+	public String removeBooking(Model model, @PathVariable("booking_id") long booking_id, Authentication authentication){
 		Booking booking = bookings.findOne(booking_id);
 
 		if(booking == null)
@@ -215,7 +216,18 @@ public class BookingController {
 		}
 		
 		bookings.delete(booking);
-		return "redirect:/bookings/";
+		
+		CustomUserDetail principal = (authentication != null) ? (CustomUserDetail) authentication.getPrincipal() : null;
+		
+		if(principal != null)
+		{
+			String a = ((SimpleGrantedAuthority) principal.getAuthorities().iterator().next()).getAuthority();
+			
+			if (a.equals(("ROLE_USER")))
+				return "redirect:/users/me";
+		}
+		
+		return "redirect:/bookings";
 	}
 
 	private User getCurrentUser(){

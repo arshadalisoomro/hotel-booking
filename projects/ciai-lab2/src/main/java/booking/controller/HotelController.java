@@ -40,6 +40,7 @@ import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
 import booking.repository.UserRepository;
 import booking.security.AllowedForAdmin;
+import booking.security.AllowedForHotelManager;
 import booking.security.AllowedForManageHotel;
 import booking.util.HotelNotFoundException;
 
@@ -251,6 +252,7 @@ public class HotelController {
 	}
 	
 	@RequestMapping(value="{id}/map", method=RequestMethod.POST)
+	@AllowedForHotelManager
 	public String hotelMap(@PathVariable("id") long id, Model model, @ModelAttribute Booking booking)
 	{		
 		model.addAttribute("begin_date", booking.getBegin_date());

@@ -24,7 +24,7 @@
 		        <li><a href="/hotels">Hotels <span class="sr-only">(current)</span></a></li>
 		        <li sec:authorize="hasAnyRole('ADMIN')"><a href="/users">Users</a></li>
 		        <li sec:authorize="hasAnyRole('HOTEL_MANAGER')"><a href="/bookings">Bookings</a></li>		      
-		        <li><a href="/bookings/new">Book a room</a></li>
+		        <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER','ROLE_COMMENT_MODERATOR','ROLE_HOTEL_MANAGER')"><a href="/bookings/new">Book a room</a></li>
 		        <li sec:authorize="hasAnyRole('COMMENT_MODERATOR')"><a href="/comments/moderation">Moderate comments</a></li>
 		        <li sec:authorize="hasAnyRole('ADMIN')"><a href="/admin">Dashboard (admin)</a></li>		        		        	       
 		      </ul>

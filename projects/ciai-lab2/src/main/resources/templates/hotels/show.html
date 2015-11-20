@@ -30,7 +30,7 @@
 				<span th:text="${hotel.name}"></span> <small> <span
 					th:each="i : ${#numbers.sequence(1, hotel.rating)}"><i
 						class="glyphicon glyphicon-star"></i></span> <span
-					sec:authorize="hasAnyRole('ADMIN')" class="pull-right"> <a
+					sec:authorize="${#authorization.expression(T(booking.security.AllowedForManageHotel).condition2)}" class="pull-right"> <a
 						th:href="@{|/hotels/${hotel.id}/upload|}"><i
 							class="glyphicon glyphicon-picture"></i></a> · <a
 						th:href="@{|/hotels/${hotel.id}/edit|}"> <i
@@ -88,17 +88,30 @@
 					</div>
 				</div>
 				<p>
-					<span sec:authorize="hasAnyRole('ADMIN', 'USER')"><a
+					<span sec:authorize="hasAnyRole('USER')">
+						<a
 						class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/comments/new|}">Leave a
-							comment</a></span> <span><a class="btn btn-default"
-						th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a></span>
-					<a sec:authorize="hasAnyRole('HOTEL_MANAGER')" class="btn btn-default"
-						th:href="@{|/hotels/${hotel.id}/rooms|}">Manage rooms</a> <a
-						class="btn btn-default" href="#" data-toggle="modal"
-						data-target="#myModal">See occupancy map</a> <a class="btn btn-default"
+							comment</a>
+					</span>
+					<span>
+						<a class="btn btn-default"
+						th:href="@{|/hotels/${hotel.id}/comments/|}">View all comments</a>
+					</span>
+					<span>
+						<a class="btn btn-default"
 						href="#" data-toggle="modal" data-target="#myModalTypes">Room
 						types available</a>
+					</span>
+					<br><br>
+					<span>
+						<a sec:authorize="${#authorization.expression(T(booking.security.AllowedForManageHotel).condition2)}" class="btn btn-primary"
+						th:href="@{|/hotels/${hotel.id}/rooms|}">Manage rooms</a>
+					</span>						
+					<span><a
+						class="btn btn-primary" sec:authorize="${#authorization.expression(T(booking.security.AllowedForManageHotel).condition2)}" href="#" data-toggle="modal"
+						data-target="#myModal">See occupancy map</a>
+					</span>
 				</p>
 			</div>
 		</div>

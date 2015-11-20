@@ -28,7 +28,6 @@ VALUES
 (4, 'rui@email.com','Rui Abreu', 'pass', 'rui', 3),
 (5, 'luis@email.com','Luis Piedade', 'pass', 'luis', 3);
 
-
 insert into `user` (id, email, name, password, username, authority_id) values (6, 'dhill0@bloglines.com', 'Deborah Hill', 'UKtpJgDr', 'dhill0', 1);
 insert into `user` (id, email, name, password, username, authority_id) values (7, 'sbradley1@microsoft.com', 'Sandra Bradley', 'tSOTgV', 'sbradley1', 3);
 insert into `user` (id, email, name, password, username, authority_id) values (8, 'jmurray2@gizmodo.com', 'John Murray', 'Rnjon0', 'jmurray2', 1);
