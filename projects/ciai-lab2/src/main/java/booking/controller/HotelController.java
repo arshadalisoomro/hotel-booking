@@ -251,10 +251,10 @@ public class HotelController {
 	@RequestMapping(value="{id}/map", method=RequestMethod.GET)
 	public String hotelMap(@PathVariable("id") long id, Model model)
 	{		
-		model.addAttribute("begin_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 20).getTime());
-		model.addAttribute("end_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime());
+		model.addAttribute("begin_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 27).getTime());
+		model.addAttribute("end_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 9).getTime());
 		model.addAttribute("hotel", hotels.findOne(id));		
-		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 25).getTime(), new GregorianCalendar(2015, Calendar.NOVEMBER, 29).getTime()));
+		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 27).getTime(), new GregorianCalendar(2015, Calendar.DECEMBER, 9).getTime()));
     	return "hotels/map";
 	}
 
@@ -278,7 +278,6 @@ public class HotelController {
 			Map<Date, Long> days_reserved = r.getDays_reserved();
 			Map<Date, Boolean> roomOcc = new TreeMap<Date, Boolean>();
 			
-			
 			for (Date d : dates)
 			{
 				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -287,24 +286,30 @@ public class HotelController {
 				for(Date day_reserved : days_reserved.keySet())
 				{
 					String day = fmt.format(day_reserved);
-//					System.out.println("Date: " + date);
-//					System.out.println("Day: " + day);
-					if(date.equals(day)){
-						roomOcc.put(d, true);
-					}
-//						System.out.println("TRUE");
 					
+					if(date.equals(day))
+					{
+						roomOcc.put(d, true);
+//						System.out.println("Entrei no true a comparar: " + date + " / " + day);
+					}
 					else
-						roomOcc.put(d, false);
+					{
+						if(!(roomOcc.containsKey(d) && roomOcc.get(d)))
+							roomOcc.put(d, false);
+					}
 				}
+				
 				if(days_reserved.isEmpty())
 					roomOcc.put(d, false);
 			}
-			
-//			for(Date di : days_reserved.keySet())
-//				System.out.println("Reserved days: " + di);
 
 			result.put(r, roomOcc);
+			
+//			System.out.println("Room " + r.getRoom_number());
+//			for(Date d : roomOcc.keySet())
+//			{
+//				System.out.println(d + " / " +roomOcc.get(d));
+//			}	
 		}
 		
 		return result;

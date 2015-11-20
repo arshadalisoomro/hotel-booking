@@ -20,6 +20,11 @@
 <link rel="stylesheet" th:href="@{|/css/sss.css|}" type="text/css"
 	media="all" />
 
+<style type="text/css">
+	.booked { background-color: #D32F2F; }
+	.free { background-color: #388E3C; }
+</style>
+
 </head>
 
 <body>
@@ -52,22 +57,21 @@
 			</tbody>
 		</table>
 
-		<table class="table">
+		<table class="table table-bordered table-hover">
 			<thead>
 				<tr th:each="ocDates, oStat : ${occupancy}"
 					th:if="${oStat.index < 1}">
 					<th>Room Number</th>
 					<th th:each="o : ${ocDates.value}"><span
-						th:text="${#dates.day(o.key) + ' ' + #dates.monthNameShort(o.key) + ' ' + #dates.year(o.key)}"></span>
+						th:text="${#dates.day(o.key) + ' ' + #dates.monthNameShort(o.key)}"></span>
 					</th>
 				<tr>
 			</thead>
 			<tbody>
 				<tr th:each="oc : ${occupancy}">
 					<td th:text="${oc.key.room_number}"></td>
-					<td th:each="date : ${oc.value}">
-						<p th:class="${date.value} ? 'btn btn-danger' : 'btn btn-success'"
-							th:text="${date.value} ? 'Booked' : 'Free'"></p>
+					<td th:each="date : ${oc.value}" th:class="${date.value} ? 'booked' : 'free'">
+						<p > </p>
 					</td>
 				</tr>
 			</tbody>
