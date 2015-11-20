@@ -98,7 +98,7 @@ public class HotelController {
 
 	// GET  /hotels/new			- the form to fill the data for a new hotel
 	@RequestMapping(value="/new", method=RequestMethod.GET)
-	@AllowedForManageHotel
+	@AllowedForHotelManager
 	public String newHotel(Model model) {
 		model.addAttribute("hotel", new Hotel());
 		model.addAttribute("categories", categories.findAll());
@@ -108,7 +108,7 @@ public class HotelController {
 
 	// POST /hotels         	- creates a new hotel
 	@RequestMapping(method=RequestMethod.POST)
-	@AllowedForManageHotel
+	@AllowedForHotelManager
 	public String saveIt(@ModelAttribute Hotel hotel, Model model) {
 		hotels.save(hotel);
 		model.addAttribute("hotel", hotel);

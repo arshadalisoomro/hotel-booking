@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import booking.model.CustomUserDetail;
 import booking.repository.HotelRepository;
 import booking.repository.UserRepository;
+import booking.security.AllowedForAdmin;
+import booking.security.AllowedForCommentModerator;
 
 @Controller
 public class ApplicationController {
@@ -40,13 +42,14 @@ public class ApplicationController {
 			else if (a.equals(("ROLE_USER")))
 				return "redirect:/users/me";
 			else if (a.equals("ROLE_HOTEL_MANAGER"))
-				return "redirect:/bookings";
+				return "redirect:/users/me";
 		}
 		
 		return "/"; // fallback
 	}
 	
 	@RequestMapping(value="/comments/moderation")
+	@AllowedForCommentModerator
 	public String moderateComments(Model model)
 	{
 		model.addAttribute("hotels", hotels.findAll());
@@ -54,6 +57,7 @@ public class ApplicationController {
 	}
 	
 	@RequestMapping(value="/admin")
+	@AllowedForAdmin
 	public String manageUsers(Model model)
 	{
 		model.addAttribute("users", users.findAll());
