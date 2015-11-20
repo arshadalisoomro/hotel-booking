@@ -22,8 +22,6 @@
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 </head>
 
-
-
 <body>
 	<div th:include="fragments/header"></div>
 	<div class="container">
@@ -98,7 +96,7 @@
 					<a sec:authorize="hasAnyRole('HOTEL_MANAGER')" class="btn btn-default"
 						th:href="@{|/hotels/${hotel.id}/rooms|}">Manage rooms</a> <a
 						class="btn btn-default" href="#" data-toggle="modal"
-						data-target="#myModal">Book a room</a> <a class="btn btn-default"
+						data-target="#myModal">See occupancy map</a> <a class="btn btn-default"
 						href="#" data-toggle="modal" data-target="#myModalTypes">Room
 						types available</a>
 				</p>
@@ -118,36 +116,28 @@
 					</div>
 					<div class="modal-body">
 
-						<form action="#" th:action="@{|/bookings/search|}" method="post">
+						<form th:object="${booking}" th:action="@{|/hotels/${hotel.id}/map|}" method="post">
 							<p>
 								<input type="hidden" th:field="*{id}" />
 							<div style="display: inline-block">
 								<label for="start"><i
 									class='glyphicon glyphicon-calendar'></i> Check-in:</label> <input
-									type="text" class="form-control" id="start"></input>
+									type="text" class="form-control" id="start" th:field="*{begin_date}"></input>
 							</div>
 
 							<p></p>
 
 							<div style="display: inline-block">
 								<label for="end"><i class='glyphicon glyphicon-calendar'></i>
-									Check-out:</label> <input type="text" class="form-control" id="end" />
+									Check-out:</label> <input type="text" class="form-control" id="end" th:field="*{end_date}" />
 							</div>
 							<p></p>
-							<div>
-								<label><i class="glyphicon glyphicon-user"></i> Room
-									Type</label> <select class="form-control" th:name="roomType">
-									<option th:each="rt : ${roomTypes}"
-										th:text="${rt.description + ' - ' +rt.occupancy}"
-										th:value="${rt.id}"></option>
-								</select>
-							</div>
+							<input class="btn btn-primary" type="submit" value="See occupancy map" />
 						</form>
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input class="btn btn-primary" type="submit" value="Submit" />
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>						
 					</div>
 				</div>
 			</div>

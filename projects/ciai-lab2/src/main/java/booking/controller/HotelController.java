@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import booking.model.Booking;
 import booking.model.Comment;
 import booking.model.Hotel;
 import booking.model.Image;
@@ -121,6 +122,7 @@ public class HotelController {
 			throw new HotelNotFoundException();
 		Iterable<Comment> hotel_comments = comments.getComments(id);
     	
+		model.addAttribute("booking", new Booking());
     	model.addAttribute("comments", hotel_comments);
 		model.addAttribute("hotel", hotel );
 		model.addAttribute("reply", new Comment());
@@ -248,13 +250,13 @@ public class HotelController {
     	return "hotels/index";
 	}
 	
-	@RequestMapping(value="{id}/map", method=RequestMethod.GET)
-	public String hotelMap(@PathVariable("id") long id, Model model)
+	@RequestMapping(value="{id}/map", method=RequestMethod.POST)
+	public String hotelMap(@PathVariable("id") long id, Model model, @ModelAttribute Booking booking)
 	{		
-		model.addAttribute("begin_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 27).getTime());
-		model.addAttribute("end_date", new GregorianCalendar(2015, Calendar.NOVEMBER, 9).getTime());
+		model.addAttribute("begin_date", booking.getBegin_date());
+		model.addAttribute("end_date", booking.getEnd_date());
 		model.addAttribute("hotel", hotels.findOne(id));		
-		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), new GregorianCalendar(2015, Calendar.NOVEMBER, 27).getTime(), new GregorianCalendar(2015, Calendar.DECEMBER, 9).getTime()));
+		model.addAttribute("occupancy", getOccupancy(hotels.findOne(id), booking.getBegin_date(), booking.getEnd_date()));
     	return "hotels/map";
 	}
 
@@ -290,7 +292,6 @@ public class HotelController {
 					if(date.equals(day))
 					{
 						roomOcc.put(d, true);
-//						System.out.println("Entrei no true a comparar: " + date + " / " + day);
 					}
 					else
 					{
@@ -304,12 +305,6 @@ public class HotelController {
 			}
 
 			result.put(r, roomOcc);
-			
-//			System.out.println("Room " + r.getRoom_number());
-//			for(Date d : roomOcc.keySet())
-//			{
-//				System.out.println(d + " / " +roomOcc.get(d));
-//			}	
 		}
 		
 		return result;
