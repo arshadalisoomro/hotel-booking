@@ -64,7 +64,16 @@ public class BookingController {
 	@RequestMapping(method=RequestMethod.GET)
 	@AllowedForHotelManager
 	public String index(Model model) {
-		model.addAttribute("bookings", bookings.findAll());
+		User user = getCurrentUser();
+		List<Booking> books = new ArrayList<Booking>();
+		Iterator<Booking> it = bookings.findAll().iterator();
+		while(it.hasNext()){
+			Booking book = it.next();
+			if(book.getHotel().getManager().getId() == user.getId()){
+				books.add(book);
+			}
+		}
+		model.addAttribute("bookings", books);
 		return "bookings/index";
 	}
 
