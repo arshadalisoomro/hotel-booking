@@ -1,0 +1,19 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<title>Hello AngularJS</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    	<script th:src="@{|/js/hello.js|}"></script>
+	</head>
+
+	<body>
+		<div ng-controller="Hotels">
+		<ul>
+			<li ng-repeat="hotel in hotels">
+				<span>The ID is {{hotel.id}}</span>
+				<span> The name is {{hotel.name}}</span>
+			</li>
+		</ul>			
+		</div>
+	</body>
+</html>
