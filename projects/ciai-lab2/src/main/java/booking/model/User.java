@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class User {
 	
@@ -30,10 +32,12 @@ public class User {
 	private String password;
 	private String email;
 	
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="user", orphanRemoval = true)
 	@MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
 	
+	@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="manager", orphanRemoval = true)
 	private Set<Hotel> hotels = new HashSet<Hotel>();
 	

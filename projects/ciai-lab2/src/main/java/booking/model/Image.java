@@ -8,11 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Image {
 	
 	private String path;
 	
+	@JsonBackReference
 	@ManyToOne
 	private Hotel hotel;
 	

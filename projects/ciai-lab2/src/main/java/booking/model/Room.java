@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Room implements Comparable<Object>{
 
@@ -24,9 +27,11 @@ public class Room implements Comparable<Object>{
 	private int floor;	
 	private String room_number;	
 	
+	@JsonManagedReference
 	@ManyToOne
 	private RoomType type;
 	
+	@JsonBackReference
 	@ManyToOne
 	private Hotel hotel;
 	
@@ -35,6 +40,7 @@ public class Room implements Comparable<Object>{
 	@ElementCollection
 	private Map<Date, Long> days_reserved = new HashMap<Date, Long>();
 	
+	@JsonBackReference
 	@ManyToMany(mappedBy="rooms")
 	 private Set<Booking> bookings = new HashSet<Booking>();
 	

@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Hotel {
 
@@ -27,17 +30,21 @@ public class Hotel {
     @ManyToOne
     private Category category;
     
+    @JsonBackReference
     @ManyToOne
     private User manager;
     
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
     @MapKeyColumn(name="id")
     private Map<Long, Room> rooms = new HashMap<Long, Room>();
 
+    @JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
     @MapKeyColumn(name="id")
     private Map<Long, Comment> comments = new HashMap<Long, Comment>();
 
+    @JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
     @MapKeyColumn(name="id")
     private Map<Long, Image> images = new HashMap<Long, Image>();

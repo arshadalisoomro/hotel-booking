@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Booking {
 	
@@ -25,6 +27,7 @@ public class Booking {
 	@ManyToOne
 	private User user;
 	
+	@JsonManagedReference
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Room> rooms = new HashSet<Room>();
 	

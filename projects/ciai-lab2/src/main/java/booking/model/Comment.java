@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Comment {
 
@@ -24,9 +26,11 @@ public class Comment {
 	@OneToOne
 	private Comment reply;
 		
+	@JsonBackReference
 	@ManyToOne
 	private Hotel hotel;
 	
+	@JsonBackReference
 	@ManyToOne
 	private User user;
 
