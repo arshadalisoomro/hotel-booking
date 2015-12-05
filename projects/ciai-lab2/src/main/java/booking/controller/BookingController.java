@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import booking.model.Booking;
@@ -75,6 +76,54 @@ public class BookingController {
 		}
 		model.addAttribute("bookings", books);
 		return "bookings/index";
+	}
+	
+	@RequestMapping(value="/new/{hotel_id}", method=RequestMethod.GET, produces={"text/plain","application/json"})
+	public @ResponseBody Booking bookRoomJSON(@PathVariable("hotel_id") long hotel_id){
+
+		int numberRooms = 2;
+		long roomType = 1;
+		Booking booking = new Booking();
+		booking.setBegin_date(new Date(1448713320000L));
+		booking.setEnd_date(new Date(1449145320000L));
+		
+		RoomType rt = roomTypes.findOne(roomType);
+		List<Date> dates = getDates(booking);
+		
+		booking.setUser(users.findOne((long)1));
+		Hotel hotel = hotels.findOne(hotel_id);		
+		Map<Long,Room> roomsFromHotel = hotel.getRooms();
+		List<Room> rooms_available = new ArrayList<Room>();
+		int counter = 1;
+		for(Long entry : roomsFromHotel.keySet())
+		{
+			Room r = roomsFromHotel.get(entry);
+			Map<Date, Long> room_bookings = r.getDays_reserved();
+			boolean found = false;
+			Iterator<Date> itDates = dates.iterator();
+
+			while(itDates.hasNext()){
+				Date day = itDates.next();
+				if(room_bookings.get(day) != null){
+					found = true;
+					break;
+				}
+			}	
+			if(!found && r.getType() == rt && counter <= numberRooms)
+			{						
+				rooms_available.add(r);
+				for(Date date: dates)
+					room_bookings.put(date, booking.getId());
+				counter++;
+			}
+			else if(counter > numberRooms)
+				break;
+		}
+		Set<Room> roomsBooking = new HashSet<Room>(rooms_available);
+		booking.setRooms(roomsBooking);
+		bookings.save(booking);
+		
+		return booking;
 	}
 
 	@RequestMapping(value="/new/{hotel_id}", method=RequestMethod.GET)
@@ -182,6 +231,52 @@ public class BookingController {
 		model.addAttribute("roomType", rt);
 		model.addAttribute("numberRooms", numberRooms);
 		return "bookings/results";
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.GET, produces={"text/plain","application/json"})
+	public @ResponseBody Iterable<Room> searchRoomsJSON()
+	{		
+		int numberRooms = 2;
+		long roomType = 1;
+		Booking booking = new Booking();
+		booking.setBegin_date(new Date(1448713320000L));
+		booking.setEnd_date(new Date(1449145320000L));
+		
+		RoomType rt = roomTypes.findOne(roomType);
+		List<Room> rooms_available = new ArrayList<Room>();
+		List<Date> dates = getDates(booking);
+		Iterator<Hotel> ithotels = hotels.findAll().iterator();
+
+		while(ithotels.hasNext()){
+			Hotel hotel = ithotels.next();
+			Map<Long, Room> rooms = hotel.getRooms();
+			int counter = 0;
+			Room currentRoom = null;
+			for(Entry<Long, Room> room : rooms.entrySet()){
+				Room r = room.getValue();
+				Map<Date, Long> room_bookings = r.getDays_reserved();
+				boolean found = false;
+				Iterator<Date> itDates = dates.iterator();
+
+				while(itDates.hasNext()){
+					Date day = itDates.next();
+					if(room_bookings.get(day) != null){
+						found = true;
+						break;
+					}
+				}	
+				
+				if(!found && r.getType().getDescription().equals(rt.getDescription()))
+				{						
+					counter++;
+					currentRoom = r;
+				}
+			}
+			if(counter >= numberRooms)
+				rooms_available.add(currentRoom);
+		}
+		
+		return rooms_available;
 	}
 
 	private List<Date> getDates(Booking booking){

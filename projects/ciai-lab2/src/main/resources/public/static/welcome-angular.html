@@ -1,0 +1,9 @@
+<div ng-repeat="hotel in hotels" ng-if="hotel.status">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h1>{{hotel.name}}<small><span> <i ng-repeat="n in range(1, hotel.rating)" class="glyphicon glyphicon-star"></i></span></small></h1>
+		</div>
+	</div>
+</div>
+
+<a class="btn btn-success btn-lg" href="#/chooseinfo">Book a room!</a>

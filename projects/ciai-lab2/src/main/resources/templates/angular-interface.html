@@ -1,19 +1,31 @@
 <!doctype html>
-<html ng-app>
-	<head>
-		<title>Hello AngularJS</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    	<script th:src="@{|/js/hello.js|}"></script>
-	</head>
+<html ng-app="hello">
+<head>
+<meta charset="UTF-8">
+<title>Hello AngularJS</title>
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet" media="screen" />
+	<script th:src="@{|/js/jquery.js|}"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
+	<script src="https://code.angularjs.org/1.2.2/angular-route.js"></script>
+    <script th:src="@{|/js/pikaday.js|}"></script>
+    <link rel="stylesheet" th:href="@{|/css/pikaday.css|}"/>
 
-	<body>
-		<div ng-controller="Hotels">
-		<ul>
-			<li ng-repeat="hotel in hotels">
-				<span>The ID is {{hotel.id}}</span>
-				<span> The name is {{hotel.name}}</span>
-			</li>
-		</ul>			
+<script th:src="@{|/js/hello.js|}"></script>
+<script th:src="@{|/js/bookControllers.js|}"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Welcome to Booking</h1>
+			<a class="btn btn-primary" href="#/login">Log in</a>
 		</div>
-	</body>
+		<hr/>
+		<div ng-view></div>
+		<hr/>		
+	</div>
+</body>
 </html>

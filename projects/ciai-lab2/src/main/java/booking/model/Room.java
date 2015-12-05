@@ -31,7 +31,7 @@ public class Room implements Comparable<Object>{
 	@ManyToOne
 	private RoomType type;
 	
-	@JsonBackReference
+	@JsonManagedReference
 	@ManyToOne
 	private Hotel hotel;
 	

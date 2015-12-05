@@ -34,7 +34,7 @@ public class Hotel {
     @ManyToOne
     private User manager;
     
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel", orphanRemoval = true)
     @MapKeyColumn(name="id")
     private Map<Long, Room> rooms = new HashMap<Long, Room>();

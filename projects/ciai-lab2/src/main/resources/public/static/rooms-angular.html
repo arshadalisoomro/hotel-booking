@@ -1,0 +1,18 @@
+<div>
+	<table class=table>
+		<tr>
+			<th>Hotel</th>
+			<th>Room Type</th>
+			<th>Occupancy</th>
+			<th>Price</th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="room in rooms_available">
+			<td>{{room.hotel.name}}</td>
+			<td>{{room.type.description}}</td>
+			<td>{{room.type.occupancy}}</td>
+			<td>{{room.price}} €/night</td>
+			<td><a ng-click='bookFunction(room.hotel.id)' class="btn btn-default">Book a room</a></td>
+		</tr>
+	</table>
+</div>

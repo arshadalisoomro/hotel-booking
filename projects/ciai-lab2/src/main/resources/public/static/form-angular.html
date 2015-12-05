@@ -1,0 +1,62 @@
+<div>
+		<div>
+			<div style="display: inline-block">
+				<label for="start"><i class='glyphicon glyphicon-calendar'></i>
+					Check-in:</label> <input type="text" class="form-control" id="start"></input>
+			</div>
+			<p></p>
+			<div style="display: inline-block">
+				<label for="end"> <i class='glyphicon glyphicon-calendar'></i>
+					Check-out:
+				</label> <input type="text" class="form-control" id="end" />
+			</div>
+			<div>
+				<p></p>
+				<p></p>
+				<label>Number of rooms</label> <input type="number"
+					class="form-control" />
+			</div>
+		</div>
+		<br>
+		<p>
+			<a class="btn btn-primary" href="#/getavailablerooms">Search!</a>
+		</p>
+</div>
+
+<script type="text/javascript">
+		var startDate, endDate, updateStartDate = function() {
+			startPicker.setStartRange(startDate);
+			endPicker.setStartRange(startDate);
+			endPicker.setMinDate(startDate);
+		}, updateEndDate = function() {
+			startPicker.setEndRange(endDate);
+			startPicker.setMaxDate(endDate);
+			endPicker.setEndRange(endDate);
+		}, startPicker = new Pikaday({
+			field : document.getElementById('start'),
+			minDate : new Date(),
+			maxDate : new Date(2020, 12, 31),
+			onSelect : function() {
+				startDate = this.getDate();
+				updateStartDate();
+			}
+		}), endPicker = new Pikaday({
+			field : document.getElementById('end'),
+			minDate : new Date(),
+			maxDate : new Date(2020, 12, 31),
+			onSelect : function() {
+				endDate = this.getDate();
+				updateEndDate();
+			}
+		}), _startDate = startPicker.getDate(), _endDate = endPicker.getDate();
+
+		if (_startDate) {
+			startDate = _startDate;
+			updateStartDate();
+		}
+
+		if (_endDate) {
+			endDate = _endDate;
+			updateEndDate();
+		}
+</script>
