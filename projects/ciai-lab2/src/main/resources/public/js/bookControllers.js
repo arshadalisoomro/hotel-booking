@@ -1,9 +1,8 @@
 var bookControllers = angular.module('bookControllers', []);
 
-bookControllers.controller('roomsCtrl', ['$scope', '$http',
-function ($scope, $http, sharedService)
+bookControllers.controller('roomsCtrl', ['$scope', '$http','myService',
+function ($scope, $http, myService)
   {
-	
 	$http.get('http://localhost:8080/bookings/roomTypes.json').
 	success(function(data)
 	{		
@@ -17,21 +16,35 @@ function ($scope, $http, sharedService)
 		var roomType = $( "select option:selected" ).attr('value');
 		if(checkin != '' && checkout != '' && rooms!='' && roomType != '')
 		{
-			$.ajax({
-				type: "GET",
-				url: "http://localhost:8080/bookings/search.json",
-				dataType: "json",
-				data: {
-					checkin: checkin,
+			
+			$http({
+			    url: 'http://localhost:8080/bookings/search.json', 
+			    method: "GET",
+			    params: {checkin: checkin,
 					checkout: checkout,
 					rooms: rooms,
 					roomType: roomType
-				},
-				success: function (response){
-	                //dataService.dataObj = response;
-					sharedService.prepForBroadcast(response);
-	            }
-			});
+					}
+			 }).success(function (response){
+				 	alert(response);
+					myService.set(response);
+				});
+			
+//			$.ajax({
+//				type: "GET",
+//				url: "http://localhost:8080/bookings/search.json",
+//				dataType: "json",
+//				data: {
+//					checkin: checkin,
+//					checkout: checkout,
+//					rooms: rooms,
+//					roomType: roomType
+//				},
+//				success: function (response){
+//					myService.set(response);
+//					//alert(myService.get());
+//				}
+//			});
 		}
 		else{
 			alert("All fields need to be filled!");
@@ -69,12 +82,12 @@ bookControllers.controller('welcomeCtrl', ['$scope', '$http',
  }
 ]);
 
-bookControllers.controller('testCtrl', ['$scope', '$http',
-                                         function ($scope, $http, sharedService)
+bookControllers.controller('testCtrl', ['$scope', '$http','myService',
+                                         function ($scope, $http, myService)
                                            {
-	$scope.$on('handleBroadcast', function() {
-        $scope.message = sharedService.message;
-    });  
-	alert($scope.message);
+	alert(myService.get());
+	$scope.rooms_available = myService.get();
+	
+	//alert($scope.rooms_available);
    }
   ]);

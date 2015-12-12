@@ -17,19 +17,20 @@ app.config(['$routeProvider',
     })
 }]);
 
-app.factory('mySharedService', function($scope) {
-    var sharedService = {};
-    
-    sharedService.message = [];
+app.factory('myService', function() {
+	 var savedData = [];
+	 
+	 function set(data) {
+	   savedData = data;
+	 }
+	 
+	 function get() {
+	  return savedData;
+	 }
 
-    sharedService.prepForBroadcast = function(msg) {
-        this.message = msg;
-        this.broadcastItem();
-    };
+	 return {
+	  set: set,
+	  get: get
+	 }
 
-    sharedService.broadcastItem = function() {
-        $scope.$broadcast('handleBroadcast');
-    };
-
-    return sharedService;
-});
+	});
