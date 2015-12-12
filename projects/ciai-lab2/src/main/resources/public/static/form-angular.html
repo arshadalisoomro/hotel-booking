@@ -14,12 +14,18 @@
 				<p></p>
 				<p></p>
 				<label>Number of rooms</label> <input type="number"
-					class="form-control" />
+					class="form-control" id="rooms"/>
+			</div>
+			<p></p>
+			<div>
+			<select name="singleSelect" id="singleSelect">
+		      <option ng-repeat="rt in roomTypes" value="{{rt.id}}">{{rt.description}}</option>
+		    </select>
 			</div>
 		</div>
 		<br>
 		<p>
-			<a class="btn btn-primary" href="#/getavailablerooms">Search!</a>
+			<a class="btn btn-primary" href="#/getavailablerooms" id="search">Search!</a>
 		</p>
 </div>
 

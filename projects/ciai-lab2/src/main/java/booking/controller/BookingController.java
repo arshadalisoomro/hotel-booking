@@ -78,6 +78,11 @@ public class BookingController {
 		return "bookings/index";
 	}
 	
+	@RequestMapping(value="/roomTypes", method=RequestMethod.GET, produces={"text/plain","application/json"})
+	public @ResponseBody Iterable<RoomType> getRoomTypes(){
+		return roomTypes.findAll();
+	}
+	
 	@RequestMapping(value="/new/{hotel_id}", method=RequestMethod.GET, produces={"text/plain","application/json"})
 	public @ResponseBody Booking bookRoomJSON(@PathVariable("hotel_id") long hotel_id){
 
@@ -234,13 +239,12 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET, produces={"text/plain","application/json"})
-	public @ResponseBody Iterable<Room> searchRoomsJSON()
+	public @ResponseBody Iterable<Room> searchRoomsJSON(Date checkin, Date checkout, String rooms, long roomType)
 	{		
-		int numberRooms = 2;
-		long roomType = 1;
+		int numberRooms = Integer.parseInt(rooms);
 		Booking booking = new Booking();
-		booking.setBegin_date(new Date(1448713320000L));
-		booking.setEnd_date(new Date(1449145320000L));
+		booking.setBegin_date(checkin);
+		booking.setEnd_date(checkout);
 		
 		RoomType rt = roomTypes.findOne(roomType);
 		List<Room> rooms_available = new ArrayList<Room>();
@@ -249,10 +253,10 @@ public class BookingController {
 
 		while(ithotels.hasNext()){
 			Hotel hotel = ithotels.next();
-			Map<Long, Room> rooms = hotel.getRooms();
+			Map<Long, Room> rooms_map = hotel.getRooms();
 			int counter = 0;
 			Room currentRoom = null;
-			for(Entry<Long, Room> room : rooms.entrySet()){
+			for(Entry<Long, Room> room : rooms_map.entrySet()){
 				Room r = room.getValue();
 				Map<Date, Long> room_bookings = r.getDays_reserved();
 				boolean found = false;
@@ -275,7 +279,6 @@ public class BookingController {
 			if(counter >= numberRooms)
 				rooms_available.add(currentRoom);
 		}
-		
 		return rooms_available;
 	}
 
