@@ -1,4 +1,4 @@
-<div>
+<div id="main">
 		<div>
 			<div style="display: inline-block">
 				<label for="start"><i class='glyphicon glyphicon-calendar'></i>
@@ -25,9 +25,11 @@
 		</div>
 		<br>
 		<p>
-			<a class="btn btn-primary" href="#/getavailablerooms" id="search">Search!</a>
+			<a class="btn btn-primary" href="" id="search">Search!</a>
 		</p>
 </div>
+
+<div ng-bind-html="htmlString"></div>
 
 <script type="text/javascript">
 		var startDate, endDate, updateStartDate = function() {

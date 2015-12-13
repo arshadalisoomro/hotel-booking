@@ -1,14 +1,13 @@
 var bookControllers = angular.module('bookControllers', []);
 
-bookControllers.controller('roomsCtrl', ['$scope', '$http','myService',
-function ($scope, $http, myService)
+bookControllers.controller('roomsCtrl', ['$scope', '$http','$compile',
+function ($scope, $http, $compile)
   {
 	$http.get('http://localhost:8080/bookings/roomTypes.json').
 	success(function(data)
 	{		
 		$scope.roomTypes = data;
 	});
-	
 	$('#search').click(function(){
 		var checkin = $('#start').val();
 		var checkout = $('#end').val();
@@ -16,35 +15,44 @@ function ($scope, $http, myService)
 		var roomType = $( "select option:selected" ).attr('value');
 		if(checkin != '' && checkout != '' && rooms!='' && roomType != '')
 		{
-			
-			$http({
-			    url: 'http://localhost:8080/bookings/search.json', 
-			    method: "GET",
-			    params: {checkin: checkin,
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/bookings/search.json",
+				dataType: "json",
+				data: {
+					checkin: checkin,
 					checkout: checkout,
 					rooms: rooms,
 					roomType: roomType
-					}
-			 }).success(function (response){
-				 	alert(response);
-					myService.set(response);
-				});
-			
-//			$.ajax({
-//				type: "GET",
-//				url: "http://localhost:8080/bookings/search.json",
-//				dataType: "json",
-//				data: {
-//					checkin: checkin,
-//					checkout: checkout,
-//					rooms: rooms,
-//					roomType: roomType
-//				},
-//				success: function (response){
-//					myService.set(response);
-//					//alert(myService.get());
-//				}
-//			});
+				},
+				success: function (response){
+					alert(response);
+					//$scope1 = $scope.$new(); 
+					$scope.rooms_available = response;
+					alert($scope.rooms_available);
+					
+					var html = "<table class=table>"+
+							"<tr>"+
+							"<th>Hotel</th>"+
+							"<th>Room Type</th>"+
+							"<th>Occupancy</th>"+
+							"<th>Price</th>"+
+							"<th></th>"+
+						"</tr>"+
+						"<tr ng-repeat='room in rooms_available'>"+
+							"<td>{{room.hotel.name}}</td>"+
+							"<td>{{room.type.description}}</td>"+
+							"<td>{{room.type.occupancy}}</td>"+
+							"<td>{{room.price}} €/night</td>"+
+							"<td><a ng-click='bookFunction(room.hotel.id)' class='btn btn-default'>Book a room</a></td>"+
+						"</tr>"+
+					"</table>";
+					
+					var linkingFunction = $compile(html);
+					var elem = linkingFunction($scope);
+					$('#main').append(elem);
+				}
+			});
 		}
 		else{
 			alert("All fields need to be filled!");
@@ -57,7 +65,6 @@ function ($scope, $http, myService)
 		$http.get('http://localhost:8080/bookings/new/' + hotelId + '.json').
 		success(function(data)
 		{
-			console.log(data);
 			$scope.booking = data;
 		});
 	}
@@ -81,13 +88,3 @@ bookControllers.controller('welcomeCtrl', ['$scope', '$http',
 	  };
  }
 ]);
-
-bookControllers.controller('testCtrl', ['$scope', '$http','myService',
-                                         function ($scope, $http, myService)
-                                           {
-	alert(myService.get());
-	$scope.rooms_available = myService.get();
-	
-	//alert($scope.rooms_available);
-   }
-  ]);
