@@ -178,7 +178,7 @@ public class BookingController {
 		{
 			String a = ((SimpleGrantedAuthority) principal.getAuthorities().iterator().next()).getAuthority();
 
-			if (a.equals(("ROLE_USER")))
+			if (a.equals("ROLE_USER") || a.equals("ROLE_COMMENT_MODERATOR") || a.equals("ROLE_ADMIN"))
 				return "redirect:/users/me";
 		}
 
