@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import booking.model.Booking;
 import booking.model.Hotel;
 import booking.model.Room;
+import booking.repository.BookingRepository;
 import booking.repository.HotelRepository;
 import booking.repository.RoomRepository;
 import booking.repository.RoomTypeRepository;
@@ -34,6 +36,9 @@ public class RoomController {
     
     @Autowired
     RoomRepository rooms;
+    
+    @Autowired
+    BookingRepository bookings;
     
     // GET  /hotels/{id}/rooms/new - the form to fill the data for a new room
     @RequestMapping(value="{id}/rooms/new", method=RequestMethod.GET)
@@ -91,8 +96,15 @@ public class RoomController {
     
     @RequestMapping(value="{id}/rooms/{id_room}/remove", method=RequestMethod.GET)
     @AllowedForManageHotel
-    public String removeRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model){    	
+    public String removeRoom(@PathVariable("id") long id, @PathVariable("id_room") long id_room, Model model)
+    {    	
     	Hotel hotel = hotels.findOne(id);
+    	
+    	for(Booking b : rooms.findOne(id_room).getBookings())
+    	{
+    		bookings.delete(b);
+    	}
+    	
     	rooms.delete(id_room);
     	model.addAttribute("hotel", hotel);
 		return "redirect:/hotels/{id}/rooms";	
