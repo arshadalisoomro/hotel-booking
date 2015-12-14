@@ -16,10 +16,12 @@
 		        	<p><label>Username</label><input class="form-control" placeholder="Username" type="text" th:field="*{username}" /></p>
 		        	<p><label>E-mail</label><input class="form-control" placeholder="Email" type="email" th:field="*{email}" /></p>
 		        	<p><label>Password</label><input class="form-control" placeholder="Password" type="text" th:field="*{password}" /></p>	
+		        	<span sec:authorize="hasAnyRole('ADMIN')">
 		        	<label>Role</label>
 					<select class="form-control" th:field="*{authority}">
 						<option th:each="a : ${authorities}" th:text="${a.role}" th:value="${a.id}"></option>
-					</select>					        			        
+					</select>	
+					</span>				        			        
 	        	</div>
 	        	<br>
 	    	    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-default" type="reset" value="Reset" /></p>
