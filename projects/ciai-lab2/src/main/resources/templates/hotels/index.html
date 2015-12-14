@@ -25,7 +25,7 @@
 				th:href="@{|/hotels/${hotel.id}|}"></a>
 		</div>
 		
-		<p sec:authorize="hasAnyRole('ADMIN', 'HOTEL_MANAGER')">
+		<p sec:authorize="hasAnyRole('HOTEL_MANAGER')">
 			<a class="btn btn-primary" href="/hotels/new">Add a Hotel</a>
 		</p>
 	</div>
