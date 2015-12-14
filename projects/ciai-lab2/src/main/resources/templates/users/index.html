@@ -24,7 +24,6 @@
 					<th>Username</th>
 					<th>E-mail</th>
 					<th>Role</th>
-					<th>Password</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -35,7 +34,6 @@
 						th:text="${user.username}"></span></a></td>
 				<td><span th:text="${user.email}"></span></td>
 				<td><span th:text="${user.authority.role}"></span></td>
-				<td><span th:text="${user.password}"></span></td>
 				<td><a th:href="@{|/users/${user.id}/edit|}"><i
 						class="glyphicon glyphicon-pencil"></i></a></td>
 				<td><a th:href="@{|/users/${user.id}/remove|}"><i

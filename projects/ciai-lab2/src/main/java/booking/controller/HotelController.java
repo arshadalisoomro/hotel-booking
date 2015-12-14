@@ -36,6 +36,7 @@ import booking.model.Image;
 import booking.model.Room;
 import booking.model.RoomType;
 import booking.model.User;
+import booking.repository.BookingRepository;
 import booking.repository.CategoryRepository;
 import booking.repository.CommentRepository;
 import booking.repository.HotelRepository;
@@ -86,6 +87,9 @@ public class HotelController {
 	
 	@Autowired
 	CommentRepository comments;
+	
+	@Autowired
+	BookingRepository bookings;
 
 	// GET  /hotels 			- the list of hotels
 	@RequestMapping(method=RequestMethod.GET)
@@ -177,7 +181,16 @@ public class HotelController {
 	// GET  /hotels/{id}/remove 	- removes the hotel with identifier {id}
 	@RequestMapping(value="{id}/remove", method=RequestMethod.GET)
 	@AllowedForManageHotel
-	public String remove(@PathVariable("id") long id, Model model) {
+	public String remove(@PathVariable("id") long id, Model model)
+	{		
+		for(Room r : hotels.findOne(id).getRooms().values())
+		{
+			for(Booking b : r.getBookings())
+			{
+				bookings.delete(b);
+			}
+		}
+		
 		hotels.delete(hotels.findOne(id));
 		return "redirect:/hotels";
 	} 

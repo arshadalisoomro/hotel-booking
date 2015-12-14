@@ -22,7 +22,9 @@
 					th:text="${user.username}"></span></small>
 			</h1>
 			<h4>
-				<span class="text-lowercase" th:text="${user.authority.role}"></span>
+				<span th:if="${user.authority.role} == 'ROLE_COMMENT_MODERATOR'">Comment Moderator</span>
+				<span th:if="${user.authority.role} == 'ROLE_ADMIN'">Web Admin</span>
+				<span th:if="${user.authority.role} == 'ROLE_HOTEL_MANAGER'">Hotel Manager</span>
 			</h4>
 		</div>
 

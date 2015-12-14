@@ -159,6 +159,6 @@ public class UserController {
 	{
 		users.save(user);
 		model.addAttribute("user", user);
-		return "redirect:/users/";
+		return "redirect:/admin";
 	}	
 }
